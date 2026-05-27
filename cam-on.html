@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cảm ơn bạn! — Bác sĩ Chúc</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy:        #07111F;
+      --navy-mid:    #0B1A2E;
+      --navy-light:  #112240;
+      --gold:        #C9A84C;
+      --gold-glow:   rgba(201,168,76,0.12);
+      --gold-border: rgba(201,168,76,0.18);
+      --teal:        #2DD4BF;
+      --red:         #FF6B6B;
+      --off-white:   #F5F4EF;
+      --text-muted:  rgba(245,244,239,0.62);
+      --text-mid:    rgba(245,244,239,0.82);
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--navy);
+      color: var(--off-white);
+      line-height: 1.6;
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+    .container { max-width: 720px; margin: 0 auto; padding: 0 24px; }
+
+    /* BG */
+    .bg-shapes { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+    .bg-shapes .s1 { position: absolute; width: 500px; height: 500px; border-radius: 50%; background: radial-gradient(circle, rgba(201,168,76,0.07) 0%, transparent 70%); top: -100px; right: -100px; animation: fA 14s ease-in-out infinite; }
+    .bg-shapes .s2 { position: absolute; width: 350px; height: 350px; border-radius: 50%; background: radial-gradient(circle, rgba(45,212,191,0.06) 0%, transparent 70%); bottom: -60px; left: -60px; animation: fB 18s ease-in-out infinite; }
+    @keyframes fA { 0%,100%{transform:translate(0,0)} 50%{transform:translate(-20px,30px)} }
+    @keyframes fB { 0%,100%{transform:translate(0,0)} 50%{transform:translate(20px,-25px)} }
+
+    main { position: relative; z-index: 1; padding: 60px 0 80px; }
+
+    /* BADGE */
+    .success-badge { display: flex; align-items: center; justify-content: center; width: 76px; height: 76px; border-radius: 50%; background: rgba(45,212,191,0.1); border: 2px solid rgba(45,212,191,0.3); margin: 0 auto 24px; box-shadow: 0 0 40px rgba(45,212,191,0.15); }
+    .success-badge svg { width: 36px; height: 36px; stroke: var(--teal); fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+
+    /* HERO TEXT */
+    .thank-hero { text-align: center; margin-bottom: 40px; }
+    .eyebrow { display: inline-block; font-size: 12px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--teal); margin-bottom: 18px; padding: 5px 14px; border: 1px solid rgba(45,212,191,0.25); border-radius: 100px; background: rgba(45,212,191,0.07); }
+    .thank-hero h1 { font-size: clamp(26px, 5vw, 46px); font-weight: 800; line-height: 1.15; letter-spacing: -0.02em; margin-bottom: 14px; background: linear-gradient(135deg, var(--off-white) 0%, rgba(201,168,76,0.85) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+    .thank-hero p { font-size: 16px; color: var(--text-mid); max-width: 500px; margin: 0 auto 14px; line-height: 1.7; }
+    .spam-note { display: inline-flex; align-items: center; gap: 8px; padding: 9px 16px; background: rgba(201,168,76,0.07); border: 1px solid var(--gold-border); border-radius: 100px; font-size: 13px; color: var(--gold); font-weight: 500; }
+
+    /* DOWNLOAD */
+    .download-box { background: var(--navy-light); border: 1px solid var(--gold-border); border-radius: 14px; padding: 24px 28px; margin-bottom: 32px; display: flex; align-items: center; gap: 20px; }
+    .dl-icon { flex-shrink: 0; width: 50px; height: 50px; background: rgba(201,168,76,0.1); border: 1px solid var(--gold-border); border-radius: 12px; display: flex; align-items: center; justify-content: center; }
+    .dl-icon svg { width: 24px; height: 24px; stroke: var(--gold); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+    .dl-text { flex: 1; }
+    .dl-text h3 { font-size: 16px; font-weight: 700; margin-bottom: 3px; }
+    .dl-text p { font-size: 13px; color: var(--text-muted); }
+    .btn-download { display: inline-flex; align-items: center; gap: 7px; padding: 11px 20px; background: linear-gradient(135deg, var(--gold) 0%, #B8942A 100%); color: #07111F; font-size: 14px; font-weight: 700; border-radius: 9px; text-decoration: none; white-space: nowrap; transition: transform .2s, filter .2s; box-shadow: 0 4px 18px rgba(201,168,76,0.25); }
+    .btn-download:hover { transform: translateY(-2px); filter: brightness(1.08); }
+    .btn-download svg { width: 15px; height: 15px; stroke: #07111F; fill: none; stroke-width: 2.2; }
+
+    /* BRIDGE */
+    .bridge { border-left: 3px solid var(--gold); border-radius: 0 10px 10px 0; padding: 20px 24px; margin-bottom: 32px; background: rgba(245,244,239,0.03); }
+    .bridge p { font-size: 16px; color: var(--text-mid); line-height: 1.75; margin-bottom: 10px; }
+    .bridge p:last-child { margin-bottom: 0; }
+    .bridge strong { color: var(--off-white); font-weight: 600; }
+
+    /* ═══ TRIPWIRE ═══ */
+    #tripwire { background: var(--navy-mid); border: 1px solid var(--gold-border); border-radius: 20px; padding: 36px 32px; margin-bottom: 40px; position: relative; overflow: hidden; }
+    #tripwire::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--gold), rgba(201,168,76,0.2)); }
+    .tw-badge { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: #07111F; background: var(--gold); padding: 4px 12px; border-radius: 100px; margin-bottom: 18px; }
+    #tripwire h2 { font-size: clamp(20px, 4vw, 32px); font-weight: 800; line-height: 1.2; letter-spacing: -0.01em; margin-bottom: 12px; }
+    #tripwire > p { font-size: 16px; color: var(--text-mid); line-height: 1.7; margin-bottom: 22px; }
+    .tw-bullets { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px; }
+    .tw-bullets li { display: flex; align-items: flex-start; gap: 10px; font-size: 15px; color: var(--text-mid); }
+    .tw-bullets li .dot { flex-shrink: 0; width: 6px; height: 6px; border-radius: 50%; background: var(--gold); margin-top: 8px; }
+
+    /* PRICE */
+    .price-row { display: flex; align-items: center; gap: 14px; margin-bottom: 8px; flex-wrap: wrap; }
+    .price-old { font-size: 16px; color: var(--text-muted); text-decoration: line-through; }
+    .price-new { font-size: 32px; font-weight: 800; color: var(--gold); }
+    .price-tag { font-size: 12px; font-weight: 700; color: #fff; background: var(--red); padding: 4px 12px; border-radius: 100px; }
+    .save-note { font-size: 14px; color: var(--teal); font-weight: 500; margin-bottom: 6px; }
+    .once-note { font-size: 12px; color: var(--text-muted); margin-bottom: 22px; font-style: italic; }
+
+    .btn-cta { display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; padding: 18px; background: linear-gradient(135deg, var(--gold) 0%, #B8942A 100%); color: #07111F; font-family: 'Inter', sans-serif; font-size: 16px; font-weight: 800; border: none; border-radius: 12px; cursor: pointer; letter-spacing: 0.02em; transition: transform .2s, filter .2s, box-shadow .2s; box-shadow: 0 6px 28px rgba(201,168,76,0.3); }
+    .btn-cta:hover { transform: translateY(-3px); filter: brightness(1.08); box-shadow: 0 12px 36px rgba(201,168,76,0.4); }
+    .btn-cta svg { width: 18px; height: 18px; stroke: #07111F; fill: none; stroke-width: 2.2; }
+    .skip-link { display: block; text-align: center; margin-top: 14px; font-size: 13px; color: var(--text-muted); cursor: pointer; transition: color .2s; text-decoration: underline; text-underline-offset: 3px; }
+    .skip-link:hover { color: var(--text-mid); }
+
+    /* ═══ FOMO SECTION ═══ */
+    #fomo { display: none; background: var(--navy-mid); border: 1px solid rgba(255,107,107,0.3); border-radius: 20px; padding: 36px 32px; margin-bottom: 40px; position: relative; overflow: hidden; text-align: center; }
+    #fomo::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--red), rgba(255,107,107,0.2)); }
+    .fomo-icon { font-size: 52px; margin-bottom: 16px; display: block; }
+    #fomo h2 { font-size: clamp(20px, 4vw, 30px); font-weight: 800; margin-bottom: 14px; color: var(--off-white); }
+    #fomo p { font-size: 16px; color: var(--text-mid); line-height: 1.7; margin-bottom: 16px; max-width: 500px; margin-left: auto; margin-right: auto; }
+    .fomo-lost { background: rgba(255,107,107,0.08); border: 1px solid rgba(255,107,107,0.2); border-radius: 12px; padding: 18px 24px; margin: 20px 0; }
+    .fomo-lost .amount { font-size: 36px; font-weight: 800; color: var(--red); display: block; }
+    .fomo-lost .label { font-size: 13px; color: var(--text-muted); }
+    .fomo-countdown { margin: 20px 0; }
+    .fomo-countdown p { font-size: 13px; color: var(--text-muted); margin-bottom: 8px; }
+    #countdown { font-size: 42px; font-weight: 800; color: var(--red); font-variant-numeric: tabular-nums; letter-spacing: 0.05em; }
+    .btn-comeback { display: inline-flex; align-items: center; gap: 8px; padding: 14px 32px; background: transparent; border: 1px solid var(--gold-border); color: var(--gold); font-family: 'Inter', sans-serif; font-size: 15px; font-weight: 600; border-radius: 10px; cursor: pointer; transition: all .2s; margin-top: 8px; }
+    .btn-comeback:hover { background: var(--gold-glow); }
+    .fomo-final { font-size: 13px; color: var(--text-muted); margin-top: 14px; }
+
+    /* ═══ MODAL THANH TOÁN ═══ */
+    .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(7,17,31,0.92); z-index: 1000; align-items: center; justify-content: center; padding: 20px; backdrop-filter: blur(6px); }
+    .modal-overlay.active { display: flex; }
+    .modal { background: var(--navy-mid); border: 1px solid var(--gold-border); border-radius: 20px; width: 100%; max-width: 520px; max-height: 90vh; overflow-y: auto; position: relative; }
+    .modal-header { padding: 24px 28px 20px; border-bottom: 1px solid rgba(245,244,239,0.07); display: flex; align-items: center; justify-content: space-between; }
+    .modal-header h3 { font-size: 20px; font-weight: 800; }
+    .modal-close { width: 36px; height: 36px; background: rgba(245,244,239,0.07); border: none; border-radius: 8px; cursor: pointer; display: flex; align-items: center; justify-content: center; color: var(--text-mid); font-size: 20px; transition: background .2s; }
+    .modal-close:hover { background: rgba(245,244,239,0.12); }
+    .modal-body { padding: 24px 28px; }
+
+    /* TABS */
+    .tabs { display: flex; gap: 8px; margin-bottom: 24px; background: rgba(245,244,239,0.04); border-radius: 10px; padding: 4px; }
+    .tab-btn { flex: 1; padding: 10px; font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 600; border: none; border-radius: 8px; cursor: pointer; transition: all .2s; background: transparent; color: var(--text-muted); }
+    .tab-btn.active { background: var(--navy-light); color: var(--off-white); box-shadow: 0 2px 8px rgba(0,0,0,0.2); }
+    .tab-pane { display: none; }
+    .tab-pane.active { display: block; }
+
+    /* CHUYỂN KHOẢN */
+    .ck-amount { text-align: center; margin-bottom: 20px; }
+    .ck-amount .label { font-size: 13px; color: var(--text-muted); margin-bottom: 4px; }
+    .ck-amount .amount { font-size: 36px; font-weight: 800; color: var(--gold); }
+    .ck-amount .vnd { font-size: 16px; font-weight: 600; color: var(--text-mid); }
+    .qr-wrap { text-align: center; margin-bottom: 20px; }
+    .qr-wrap img { width: 200px; height: 200px; border-radius: 12px; border: 3px solid var(--gold-border); background: #fff; }
+    .bank-info { background: var(--navy-light); border-radius: 12px; padding: 16px 20px; margin-bottom: 20px; }
+    .bank-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid rgba(245,244,239,0.06); }
+    .bank-row:last-child { border-bottom: none; }
+    .bank-row .key { font-size: 13px; color: var(--text-muted); }
+    .bank-row .val { font-size: 14px; font-weight: 600; color: var(--off-white); display: flex; align-items: center; gap: 8px; }
+    .copy-btn { background: rgba(201,168,76,0.1); border: 1px solid var(--gold-border); color: var(--gold); font-size: 11px; font-weight: 600; padding: 3px 8px; border-radius: 5px; cursor: pointer; transition: background .2s; }
+    .copy-btn:hover { background: rgba(201,168,76,0.2); }
+    .ck-note { font-size: 13px; color: var(--text-muted); text-align: center; margin-bottom: 20px; line-height: 1.6; }
+    .ck-note strong { color: var(--gold); }
+
+    /* CONFIRM FORM */
+    .confirm-form { border-top: 1px solid rgba(245,244,239,0.07); padding-top: 20px; }
+    .confirm-form p { font-size: 14px; color: var(--text-mid); margin-bottom: 14px; }
+    .form-group { margin-bottom: 14px; }
+    .form-group label { display: block; font-size: 13px; font-weight: 500; color: var(--text-mid); margin-bottom: 6px; }
+    .form-group input { width: 100%; background: rgba(245,244,239,0.05); border: 1px solid rgba(245,244,239,0.12); border-radius: 8px; padding: 11px 14px; font-family: 'Inter', sans-serif; font-size: 15px; color: var(--off-white); outline: none; transition: border-color .2s; }
+    .form-group input:focus { border-color: var(--gold); }
+    .form-group input::placeholder { color: rgba(245,244,239,0.25); }
+    .btn-confirm { width: 100%; padding: 16px; background: linear-gradient(135deg, var(--teal) 0%, #1aab96 100%); color: #07111F; font-family: 'Inter', sans-serif; font-size: 15px; font-weight: 700; border: none; border-radius: 10px; cursor: pointer; transition: transform .2s, filter .2s; box-shadow: 0 4px 20px rgba(45,212,191,0.25); margin-top: 6px; }
+    .btn-confirm:hover { transform: translateY(-2px); filter: brightness(1.08); }
+    .btn-confirm:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+
+    /* THẺ TÍN DỤNG */
+    .card-coming { text-align: center; padding: 32px 0; }
+    .card-coming .icon { font-size: 48px; margin-bottom: 14px; }
+    .card-coming h4 { font-size: 18px; font-weight: 700; margin-bottom: 10px; }
+    .card-coming p { font-size: 14px; color: var(--text-muted); line-height: 1.65; max-width: 320px; margin: 0 auto; }
+
+    /* ═══ PAYMENT SUCCESS ═══ */
+    #payment-success { display: none; background: var(--navy-mid); border: 1px solid rgba(45,212,191,0.25); border-radius: 20px; padding: 40px 32px; margin-bottom: 40px; text-align: center; }
+    .ps-icon { width: 72px; height: 72px; border-radius: 50%; background: rgba(45,212,191,0.1); border: 2px solid rgba(45,212,191,0.3); display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; }
+    .ps-icon svg { width: 34px; height: 34px; stroke: var(--teal); fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+    #payment-success h2 { font-size: 26px; font-weight: 800; margin-bottom: 12px; }
+    #payment-success p { font-size: 16px; color: var(--text-mid); line-height: 1.7; margin-bottom: 28px; max-width: 440px; margin-left: auto; margin-right: auto; }
+    .btn-zalo { display: inline-flex; align-items: center; gap: 10px; padding: 16px 36px; background: #0068FF; color: #fff; font-family: 'Inter', sans-serif; font-size: 16px; font-weight: 700; border: none; border-radius: 12px; cursor: pointer; text-decoration: none; transition: transform .2s, filter .2s; box-shadow: 0 6px 24px rgba(0,104,255,0.3); }
+    .btn-zalo:hover { transform: translateY(-2px); filter: brightness(1.1); }
+    .zalo-note { font-size: 13px; color: var(--text-muted); margin-top: 14px; }
+
+    footer { border-top: 1px solid rgba(245,244,239,0.06); padding: 28px 24px; text-align: center; position: relative; z-index: 1; }
+    footer p { font-size: 12px; color: var(--text-muted); line-height: 1.7; }
+
+    @media(max-width:580px){
+      .download-box{flex-direction:column;align-items:flex-start;gap:14px}
+      .btn-download{width:100%;justify-content:center}
+      #tripwire,#fomo,#payment-success{padding:26px 20px}
+      .modal-body,.modal-header{padding:20px}
+    }
+  </style>
+</head>
+<body>
+<div class="bg-shapes"><div class="s1"></div><div class="s2"></div></div>
+
+<main>
+  <div class="container">
+
+    <!-- BADGE + HERO -->
+    <div class="success-badge" id="badge">
+      <svg viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg>
+    </div>
+    <div class="thank-hero" id="hero-text">
+      <div class="eyebrow">Đăng ký thành công</div>
+      <h1 id="hero-h1">Tài Liệu Đang Được<br>Gửi Đến Email Của Bạn!</h1>
+      <p>Kiểm tra hộp thư trong vài phút — kể cả thư mục Spam.</p>
+      <div class="spam-note">📬 Không thấy sau 5 phút → kiểm tra <strong>Spam / Promotions</strong></div>
+    </div>
+
+
+    <!-- BRIDGE -->
+    <div class="bridge" id="bridge">
+      <p>Bạn vừa lấy tài liệu về 5 chỉ số. Nhưng tôi muốn nói thêm một điều.</p>
+      <p>Hầu hết mọi người sẽ đọc tài liệu, thấy hay, rồi... <strong>không làm gì cả.</strong> Vì họ không biết bước tiếp theo là gì.</p>
+      <p>Tôi không muốn điều đó xảy ra với bạn.</p>
+    </div>
+
+    <!-- ═══ TRIPWIRE ═══ -->
+    <div id="tripwire">
+      <div class="tw-badge">Dành riêng cho bạn — hôm nay</div>
+      <h2>Tư Vấn Đánh Giá<br>Sức Khoẻ Sinh Học 1-1</h2>
+      <p>30 phút video call trực tiếp với Bác sĩ Chúc — chỉ dành cho những ai vừa tải tài liệu này.</p>
+      <ul class="tw-bullets">
+        <li><span class="dot"></span>Xem xét 5 chỉ số của bạn — hoặc lên kế hoạch xét nghiệm nếu chưa có</li>
+        <li><span class="dot"></span>Xác định 1–2 can thiệp ưu tiên cao nhất phù hợp tình trạng cụ thể của bạn</li>
+        <li><span class="dot"></span>Xây dựng lộ trình 90 ngày rõ ràng — không chung chung, không mơ hồ</li>
+      </ul>
+      <div class="price-row">
+        <span class="price-old">1.000.000 VND</span>
+        <span class="price-new">500.000</span>
+        <span class="price-new vnd" style="font-size:18px;margin-left:-8px">VND</span>
+        <span class="price-tag">Giảm 50%</span>
+      </div>
+      <p class="save-note">✓ Tiết kiệm 500.000đ so với giá thông thường</p>
+      <p class="once-note">⚡ Offer này chỉ hiển thị một lần — rời trang sẽ không còn mức giá này.</p>
+      <button class="btn-cta" onclick="openPayment()">
+        <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        Đặt Lịch Tư Vấn Ngay →
+      </button>
+      <span class="skip-link" onclick="showFOMO()">Không cần, tôi tự làm được</span>
+    </div>
+
+    <!-- ═══ FOMO ═══ -->
+    <div id="fomo">
+      <span class="fomo-icon">😔</span>
+      <h2>Bạn Vừa Bỏ Lỡ Cơ Hội Tiết Kiệm 500.000đ</h2>
+      <p>Offer giảm 50% này <strong style="color:var(--off-white)">chỉ hiển thị một lần duy nhất</strong> — ngay sau khi bạn tải tài liệu. Một khi rời đi, giá sẽ trở lại 1.000.000đ.</p>
+      <div class="fomo-lost">
+        <span class="amount">500.000đ</span>
+        <span class="label">số tiền bạn vừa bỏ lỡ</span>
+      </div>
+      <p>Nhiều người đã phát hiện vấn đề sức khoẻ nghiêm trọng qua buổi tư vấn này — và hành động kịp thời thay đổi hoàn toàn sức khoẻ của họ.</p>
+      <div class="fomo-countdown">
+        <p>Offer còn hiệu lực trong:</p>
+        <div id="countdown">10:00</div>
+      </div>
+      <button class="btn-comeback" id="comeback-btn" onclick="showTripwire()">
+        ← Tôi đổi ý, cho tôi đặt lịch
+      </button>
+      <p class="fomo-final" id="fomo-final" style="display:none">⏰ Offer đã hết hạn. Vui lòng liên hệ trực tiếp để đặt lịch giá thông thường.</p>
+    </div>
+
+    <!-- ═══ PAYMENT SUCCESS ═══ -->
+    <div id="payment-success">
+      <div class="ps-icon">
+        <svg viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg>
+      </div>
+      <h2>Đặt Lịch Thành Công! 🎉</h2>
+      <p>Email xác nhận đã được gửi đến <strong id="confirm-email" style="color:var(--gold)"></strong>. Bác sĩ Chúc sẽ liên hệ xác nhận lịch trong vòng <strong style="color:var(--off-white)">24 giờ</strong>.</p>
+      <!-- Thay href bằng link Zalo của Sếp: zalo.me/SỐĐIỆNTHOẠI -->
+      <a class="btn-zalo" href="https://zalo.me/0947578088" target="_blank">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2 22l4.832-1.438A9.96 9.96 0 0 0 12 22c5.523 0 10-4.477 10-10S17.523 2 12 2z"/></svg>
+        Nhắn Zalo với Bác sĩ Chúc
+      </a>
+      <p class="zalo-note">Nhắn Zalo để xác nhận lịch hẹn và nhận hướng dẫn chuẩn bị buổi tư vấn</p>
+    </div>
+
+  </div><!-- /container -->
+</main>
+
+<!-- ═══ MODAL THANH TOÁN ═══ -->
+<div class="modal-overlay" id="modal-overlay" onclick="closePaymentOutside(event)">
+  <div class="modal">
+    <div class="modal-header">
+      <h3>Thanh toán đặt lịch</h3>
+      <button class="modal-close" onclick="closePayment()">✕</button>
+    </div>
+    <div class="modal-body">
+
+      <!-- TABS -->
+      <div class="tabs">
+        <button class="tab-btn active" onclick="switchTab('ck', this)">📲 Chuyển khoản</button>
+        <button class="tab-btn" onclick="switchTab('card', this)">💳 Thẻ tín dụng</button>
+      </div>
+
+      <!-- TAB: CHUYỂN KHOẢN -->
+      <div class="tab-pane active" id="tab-ck">
+        <div class="ck-amount">
+          <div class="label">Số tiền thanh toán</div>
+          <div><span class="amount">500.000</span> <span class="vnd" style="font-size:20px;font-weight:700;color:var(--gold)">VND</span></div>
+        </div>
+
+        <!-- QR tự động từ VietQR — Sếp thay BANK_ID, ACCOUNT, NAME -->
+        <div class="qr-wrap">
+          <img
+            src="https://img.vietqr.io/image/VPB-1919896899-compact2.png?amount=500000&addInfo=TV%20BS%20CHUC&accountName=Nguyen%20Xuan%20Chuc"
+            alt="QR Chuyển khoản"
+            onerror="this.src='https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=VietQR-placeholder'"
+          >
+        </div>
+
+        <div class="bank-info">
+          <!-- Sếp thay thông tin ngân hàng vào đây -->
+          <div class="bank-row">
+            <span class="key">Ngân hàng</span>
+            <span class="val">VPBank</span>
+          </div>
+          <div class="bank-row">
+            <span class="key">Số tài khoản</span>
+            <span class="val">
+              <span id="stk">1919896899</span>
+              <button class="copy-btn" onclick="copyText('stk')">Copy</button>
+            </span>
+          </div>
+          <div class="bank-row">
+            <span class="key">Tên CTK</span>
+            <span class="val">Nguyễn Xuân Chúc</span>
+          </div>
+          <div class="bank-row">
+            <span class="key">Số tiền</span>
+            <span class="val" style="color:var(--gold)">500.000 VND</span>
+          </div>
+          <div class="bank-row">
+            <span class="key">Nội dung CK</span>
+            <span class="val">
+              <span id="ndck">TV BS CHUC</span>
+              <button class="copy-btn" onclick="copyText('ndck')">Copy</button>
+            </span>
+          </div>
+        </div>
+
+        <p class="ck-note">Sau khi chuyển khoản, điền email bên dưới để nhận <strong>xác nhận lịch hẹn</strong></p>
+
+        <div class="confirm-form">
+          <p>Bạn đã chuyển khoản xong?</p>
+          <div class="form-group">
+            <label>Email của bạn</label>
+            <input type="email" id="confirm-email-input" placeholder="email@gmail.com">
+          </div>
+          <div class="form-group">
+            <label>Tên của bạn</label>
+            <input type="text" id="confirm-name-input" placeholder="Nguyễn Văn A">
+          </div>
+          <button class="btn-confirm" id="confirm-btn" onclick="confirmPayment()">
+            ✓ Tôi đã chuyển khoản xong — Gửi xác nhận
+          </button>
+        </div>
+      </div>
+
+      <!-- TAB: THẺ TÍN DỤNG -->
+      <div class="tab-pane" id="tab-card">
+        <div class="card-coming">
+          <div class="icon">💳</div>
+          <h4>Thanh toán thẻ đang tích hợp</h4>
+          <p>Cổng PayOS đang được kết nối.<br>Vui lòng dùng <strong style="color:var(--gold)">chuyển khoản</strong> trong thời gian này — nhanh và an toàn tương đương.</p>
+        </div>
+      </div>
+
+    </div><!-- /modal-body -->
+  </div>
+</div>
+
+<footer>
+  <div class="container">
+    <p>© 2026 Bác sĩ Chúc · Y học Trường thọ<br>Nội dung mang tính giáo dục, không thay thế tư vấn y khoa cá nhân.</p>
+  </div>
+</footer>
+
+<script>
+  // ── CONFIG — Sếp điền URL Apps Script mới nhất ──
+  const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw0IxyglHkgZhN4ZTf3QB88jSHN4b_-wSyzT3Xof-2mEiB5Vx9453yBDXu4k65FAS5v/exec";
+
+  // ── Entrance animations ──
+  gsap.set(["#badge","#hero-text","#bridge","#tripwire"], { opacity: 0, y: 28 });
+  const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+  tl.to("#badge",    { opacity:1, y:0, duration:0.6 })
+    .to("#hero-text",{ opacity:1, y:0, duration:0.7 },"-=0.3")
+    .to("#bridge",   { opacity:1, y:0, duration:0.6 },"-=0.3")
+    .to("#tripwire", { opacity:1, y:0, duration:0.7 },"-=0.2");
+
+  // ── Personalise với tên từ URL ──
+  const params = new URLSearchParams(window.location.search);
+  const guestName = params.get("name") || "";
+  if (guestName && guestName !== "(chưa điền)" && guestName.trim().length >= 3) {
+    document.getElementById("hero-h1").innerHTML = `${guestName}, tài liệu đang<br>được gửi đến email!`;
+  }
+
+  // ── FOMO: hiện + chặn back ──
+  let countdownInterval;
+
+  function showFOMO() {
+    document.getElementById("tripwire").style.display = "none";
+    document.getElementById("fomo").style.display     = "block";
+    // Chặn nút back trình duyệt
+    history.pushState(null, "", location.href);
+    window.addEventListener("popstate", blockBack);
+    gsap.fromTo("#fomo", { opacity:0, y:24 }, { opacity:1, y:0, duration:0.6, ease:"power2.out" });
+    startCountdown();
+  }
+
+  function blockBack() { history.pushState(null, "", location.href); }
+
+  function showTripwire() {
+    clearInterval(countdownInterval);
+    window.removeEventListener("popstate", blockBack);
+    document.getElementById("fomo").style.display     = "none";
+    document.getElementById("tripwire").style.display = "block";
+    gsap.fromTo("#tripwire", { opacity:0, y:24 }, { opacity:1, y:0, duration:0.5, ease:"power2.out" });
+  }
+
+  function startCountdown() {
+    let secs = 600;
+    const el = document.getElementById("countdown");
+    countdownInterval = setInterval(() => {
+      secs--;
+      if (secs <= 0) {
+        clearInterval(countdownInterval);
+        el.textContent = "00:00";
+        document.getElementById("comeback-btn").style.display = "none";
+        document.getElementById("fomo-final").style.display   = "block";
+        return;
+      }
+      const m = String(Math.floor(secs/60)).padStart(2,"0");
+      const s = String(secs % 60).padStart(2,"0");
+      el.textContent = `${m}:${s}`;
+    }, 1000);
+  }
+
+  // ── PAYMENT MODAL ──
+  function openPayment() { document.getElementById("modal-overlay").classList.add("active"); }
+  function closePayment(){ document.getElementById("modal-overlay").classList.remove("active"); }
+  function closePaymentOutside(e) { if (e.target === document.getElementById("modal-overlay")) closePayment(); }
+
+  function switchTab(tab, btn) {
+    document.querySelectorAll(".tab-pane").forEach(p => p.classList.remove("active"));
+    document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+    document.getElementById("tab-" + tab).classList.add("active");
+    btn.classList.add("active");
+  }
+
+  function copyText(id) {
+    const text = document.getElementById(id).textContent;
+    navigator.clipboard.writeText(text).then(() => {
+      const btn = event.target;
+      btn.textContent = "✓";
+      setTimeout(() => btn.textContent = "Copy", 1500);
+    });
+  }
+
+  // ── XÁC NHẬN CHUYỂN KHOẢN → gửi email + hiện Zalo ──
+  async function confirmPayment() {
+    const email = document.getElementById("confirm-email-input").value.trim();
+    const name  = document.getElementById("confirm-name-input").value.trim();
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      alert("Vui lòng nhập email hợp lệ.");
+      return;
+    }
+    const btn = document.getElementById("confirm-btn");
+    btn.textContent = "Đang gửi xác nhận...";
+    btn.disabled = true;
+
+    const payload = new URLSearchParams({
+      action:    "payment_confirm",
+      name:      name || "(chưa điền)",
+      email:     email,
+      amount:    "500000",
+      service:   "Tu van danh gia suc khoe sinh hoc",
+      timestamp: new Date().toLocaleString("vi-VN", { timeZone: "Asia/Ho_Chi_Minh" }),
+      source:    "cam-on-page"
+    });
+
+    try {
+      const url = new URL(APPS_SCRIPT_URL);
+      for (const [k,v] of payload.entries()) url.searchParams.set(k, v);
+      await new Promise(resolve => {
+        const img = new Image();
+        img.onload = img.onerror = resolve;
+        img.src = url.toString();
+        setTimeout(resolve, 4000);
+      });
+    } catch(e) {}
+
+    // Hiện success dù fetch thành công hay không (no-cors)
+    closePayment();
+    document.getElementById("tripwire").style.display        = "none";
+    document.getElementById("fomo").style.display            = "none";
+    document.getElementById("bridge").style.display          = "none";
+    document.getElementById("payment-success").style.display = "block";
+    document.getElementById("confirm-email").textContent     = email;
+    gsap.fromTo("#payment-success", { opacity:0, y:24 }, { opacity:1, y:0, duration:0.7, ease:"power3.out" });
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+</script>
+</body>
+</html>

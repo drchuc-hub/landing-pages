@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cảm ơn bạn! — Bác sĩ Chúc</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy:        #07111F;
+      --navy-mid:    #0B1A2E;
+      --navy-light:  #112240;
+      --green:       #1a7a4a;
+      --green-mid:   #22a865;
+      --green-glow:  rgba(34,168,101,0.12);
+      --green-border:rgba(34,168,101,0.22);
+      --gold:        #C9A84C;
+      --red:         #FF6B6B;
+      --off-white:   #F5F4EF;
+      --text-muted:  rgba(245,244,239,0.58);
+      --text-mid:    rgba(245,244,239,0.80);
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--navy); color: var(--off-white);
+      line-height: 1.6; overflow-x: hidden; min-height: 100vh;
+    }
+    .container { max-width: 680px; margin: 0 auto; padding: 0 24px; }
+    .bg-shapes { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+    .bg-shapes .s1 { position:absolute; width:500px; height:500px; border-radius:50%;
+      background:radial-gradient(circle,rgba(26,122,74,.08) 0%,transparent 70%);
+      top:-100px; right:-100px; animation:fA 14s ease-in-out infinite; }
+    .bg-shapes .s2 { position:absolute; width:350px; height:350px; border-radius:50%;
+      background:radial-gradient(circle,rgba(201,168,76,.06) 0%,transparent 70%);
+      bottom:-60px; left:-60px; animation:fB 18s ease-in-out infinite; }
+    @keyframes fA { 0%,100%{transform:translate(0,0)} 50%{transform:translate(-20px,30px)} }
+    @keyframes fB { 0%,100%{transform:translate(0,0)} 50%{transform:translate(20px,-25px)} }
+    main { position: relative; z-index: 1; padding: 56px 0 80px; }
+
+    /* SUCCESS */
+    .success-badge {
+      display:flex; align-items:center; justify-content:center;
+      width:76px; height:76px; border-radius:50%;
+      background:rgba(34,168,101,0.1); border:2px solid rgba(34,168,101,0.3);
+      margin:0 auto 24px; box-shadow:0 0 40px rgba(34,168,101,.2);
+    }
+    .success-badge svg { width:36px; height:36px; stroke:var(--green-mid); fill:none; stroke-width:2.5; stroke-linecap:round; stroke-linejoin:round; }
+    .eyebrow {
+      display:inline-block; font-size:12px; font-weight:600; letter-spacing:.22em;
+      text-transform:uppercase; color:var(--green-mid); margin-bottom:18px;
+      padding:5px 14px; border:1px solid rgba(34,168,101,.25); border-radius:100px;
+      background:rgba(34,168,101,.07);
+    }
+    .thank-hero { text-align:center; margin-bottom:40px; }
+    .thank-hero h1 { font-size:clamp(26px,5vw,38px); font-weight:800; line-height:1.2; letter-spacing:-.02em; margin-bottom:12px; }
+    .thank-hero h1 span { color:var(--green-mid); }
+    .thank-hero p { font-size:16px; color:var(--text-mid); max-width:480px; margin:0 auto; line-height:1.7; }
+
+    /* DOWNLOAD */
+    .download-card {
+      background:linear-gradient(135deg, var(--navy-light) 0%, rgba(26,122,74,.08) 100%);
+      border:1.5px solid var(--green-border); border-radius:16px; padding:28px 32px;
+      text-align:center; margin-bottom:40px;
+    }
+    .download-card .book-icon { font-size:48px; margin-bottom:12px; }
+    .download-card h3 { font-size:18px; font-weight:700; margin-bottom:8px; }
+    .download-card p { font-size:14px; color:var(--text-muted); margin-bottom:20px; }
+    .btn-download {
+      display:inline-flex; align-items:center; gap:10px;
+      background:linear-gradient(135deg, var(--green-mid) 0%, var(--green) 100%);
+      color:#fff; text-decoration:none; padding:15px 32px;
+      border-radius:12px; font-weight:700; font-size:15px;
+      box-shadow:0 8px 24px rgba(26,122,74,.4);
+      transition:opacity .2s, transform .2s;
+    }
+    .btn-download:hover { opacity:.9; transform:translateY(-2px); }
+    .fallback-link { font-size:12px; color:var(--text-muted); margin-top:12px; word-break:break-all; }
+    .fallback-link a { color:var(--green-mid); }
+
+    /* DIVIDER */
+    .divider { height:1px; background:linear-gradient(90deg,transparent,rgba(255,255,255,.1),transparent); margin:40px 0; }
+
+    /* TRIPWIRE */
+    #tripwire { }
+    .tripwire-label {
+      display:inline-block; font-size:11px; font-weight:700; letter-spacing:.18em;
+      text-transform:uppercase; color:var(--gold); margin-bottom:16px;
+      padding:4px 12px; border:1px solid rgba(201,168,76,.22);
+      border-radius:100px; background:rgba(201,168,76,.07);
+    }
+    .tripwire-card {
+      background:linear-gradient(135deg, var(--navy-light) 0%, rgba(201,168,76,.06) 100%);
+      border:1.5px solid rgba(201,168,76,.25); border-radius:20px; padding:32px;
+    }
+    .tripwire-card h2 { font-size:22px; font-weight:800; line-height:1.3; margin-bottom:12px; }
+    .tripwire-card h2 span { color:var(--green-mid); }
+    .tripwire-card .tw-desc { font-size:15px; color:var(--text-mid); line-height:1.7; margin-bottom:24px; }
+    .benefit-list { list-style:none; display:flex; flex-direction:column; gap:10px; margin-bottom:24px; }
+    .benefit-list li { display:flex; gap:10px; font-size:14.5px; color:var(--text-mid); }
+    .benefit-list li .bi { color:var(--green-mid); flex-shrink:0; }
+
+    /* PRICE */
+    .price-box { display:flex; align-items:center; gap:14px; margin-bottom:24px; flex-wrap:wrap; }
+    .price-old { font-size:18px; color:var(--text-muted); text-decoration:line-through; }
+    .price-new { font-size:32px; font-weight:800; color:var(--gold); }
+    .price-badge {
+      background:rgba(255,107,107,.15); border:1px solid rgba(255,107,107,.3);
+      color:#ff8080; font-size:12px; font-weight:700; padding:4px 10px; border-radius:6px;
+    }
+    .price-note { font-size:12px; color:var(--text-muted); }
+
+    .btn-cta {
+      width:100%; padding:16px 24px;
+      background:linear-gradient(135deg, var(--green-mid) 0%, var(--green) 100%);
+      color:#fff; font-family:inherit; font-size:16px; font-weight:700;
+      border:none; border-radius:12px; cursor:pointer;
+      box-shadow:0 8px 24px rgba(26,122,74,.4);
+      transition:opacity .2s, transform .2s; margin-bottom:12px;
+    }
+    .btn-cta:hover { opacity:.92; transform:translateY(-1px); }
+
+    .btn-skip {
+      width:100%; padding:12px; background:transparent;
+      color:var(--text-muted); font-family:inherit; font-size:13px;
+      border:1px solid rgba(255,255,255,.1); border-radius:10px; cursor:pointer;
+      transition:color .2s;
+    }
+    .btn-skip:hover { color:var(--off-white); }
+
+    /* FOMO */
+    #fomo { display:none; }
+    .fomo-card {
+      background:linear-gradient(135deg, rgba(255,107,107,.08) 0%, rgba(255,107,107,.03) 100%);
+      border:1.5px solid rgba(255,107,107,.25); border-radius:20px; padding:32px;
+      text-align:center;
+    }
+    .fomo-icon { font-size:56px; margin-bottom:16px; }
+    .fomo-card h2 { font-size:22px; font-weight:800; margin-bottom:12px; line-height:1.3; }
+    .fomo-card h2 span { color:var(--red); }
+    .fomo-card p { font-size:15px; color:var(--text-mid); line-height:1.7; margin-bottom:20px; }
+    .countdown-box {
+      background:rgba(255,107,107,.1); border:1px solid rgba(255,107,107,.25);
+      border-radius:10px; padding:16px; margin:20px 0;
+    }
+    .countdown-label { font-size:12px; color:var(--text-muted); margin-bottom:6px; text-transform:uppercase; letter-spacing:.1em; }
+    .countdown-time { font-size:32px; font-weight:800; color:var(--red); }
+    .fomo-lost-list { list-style:none; display:flex; flex-direction:column; gap:8px; margin-bottom:20px; text-align:left; }
+    .fomo-lost-list li { display:flex; gap:10px; font-size:14px; color:var(--text-mid); }
+    .btn-reconsider {
+      width:100%; padding:15px; background:linear-gradient(135deg,var(--green-mid) 0%,var(--green) 100%);
+      color:#fff; font-family:inherit; font-size:15px; font-weight:700;
+      border:none; border-radius:12px; cursor:pointer;
+      box-shadow:0 6px 20px rgba(26,122,74,.4);
+      transition:opacity .2s, transform .2s;
+    }
+    .btn-reconsider:hover { opacity:.9; transform:translateY(-1px); }
+
+    /* PAYMENT MODAL */
+    .modal-overlay {
+      display:none; position:fixed; inset:0;
+      background:rgba(7,17,31,.85); backdrop-filter:blur(8px);
+      z-index:1000; align-items:center; justify-content:center; padding:20px;
+    }
+    .modal-overlay.open { display:flex; }
+    .modal {
+      background:var(--navy-light); border:1px solid rgba(34,168,101,.25);
+      border-radius:20px; padding:32px; width:100%; max-width:460px;
+      max-height:90vh; overflow-y:auto; position:relative;
+    }
+    .modal-close {
+      position:absolute; top:16px; right:16px;
+      background:rgba(255,255,255,.08); border:none; color:var(--text-muted);
+      width:32px; height:32px; border-radius:50%; cursor:pointer;
+      font-size:16px; display:flex; align-items:center; justify-content:center;
+    }
+    .modal-close:hover { background:rgba(255,255,255,.14); color:var(--off-white); }
+    .modal h3 { font-size:20px; font-weight:800; margin-bottom:6px; }
+    .modal .modal-price { font-size:14px; color:var(--text-muted); margin-bottom:24px; }
+    .modal .modal-price strong { color:var(--gold); font-size:20px; }
+
+    .tab-row { display:flex; gap:8px; margin-bottom:24px; }
+    .tab-btn {
+      flex:1; padding:10px; background:rgba(255,255,255,.05);
+      border:1.5px solid rgba(255,255,255,.1); border-radius:8px;
+      color:var(--text-muted); font-family:inherit; font-size:13.5px;
+      font-weight:600; cursor:pointer; transition:.2s;
+    }
+    .tab-btn.active { border-color:var(--green-mid); background:rgba(34,168,101,.1); color:var(--green-mid); }
+    .tab-panel { display:none; }
+    .tab-panel.active { display:block; }
+
+    .bank-info { background:rgba(34,168,101,.07); border:1px solid rgba(34,168,101,.18); border-radius:12px; padding:18px; margin-bottom:16px; }
+    .bank-row { display:flex; justify-content:space-between; align-items:center; padding:8px 0; border-bottom:1px solid rgba(255,255,255,.05); }
+    .bank-row:last-child { border-bottom:none; }
+    .bank-key { font-size:12px; color:var(--text-muted); }
+    .bank-val { font-size:14px; font-weight:600; }
+    .bank-val.hl { color:var(--green-mid); }
+    .qr-wrap { text-align:center; margin:16px 0; }
+    .qr-wrap img { width:200px; border-radius:12px; border:4px solid white; box-shadow:0 4px 20px rgba(0,0,0,.3); }
+
+    .confirm-note { font-size:13px; color:var(--text-muted); margin-bottom:16px; line-height:1.6; }
+    .inp-email-confirm {
+      width:100%; padding:12px 14px; background:rgba(255,255,255,.05);
+      border:1.5px solid rgba(255,255,255,.1); border-radius:8px;
+      color:var(--off-white); font-family:inherit; font-size:14px; outline:none;
+      margin-bottom:8px; transition:border-color .2s;
+    }
+    .inp-email-confirm:focus { border-color:var(--green-mid); }
+    .inp-name-confirm {
+      width:100%; padding:12px 14px; background:rgba(255,255,255,.05);
+      border:1.5px solid rgba(255,255,255,.1); border-radius:8px;
+      color:var(--off-white); font-family:inherit; font-size:14px; outline:none;
+      margin-bottom:8px; transition:border-color .2s;
+    }
+    .inp-name-confirm:focus { border-color:var(--green-mid); }
+    .btn-confirm {
+      width:100%; padding:14px; margin-top:4px;
+      background:linear-gradient(135deg,var(--green-mid) 0%,var(--green) 100%);
+      color:#fff; font-family:inherit; font-size:15px; font-weight:700;
+      border:none; border-radius:10px; cursor:pointer;
+      box-shadow:0 6px 20px rgba(26,122,74,.4);
+      transition:opacity .2s, transform .2s;
+    }
+    .btn-confirm:hover { opacity:.9; transform:translateY(-1px); }
+    .btn-confirm:disabled { opacity:.6; cursor:not-allowed; transform:none; }
+
+    .zalo-row { margin-top:16px; text-align:center; }
+    .btn-zalo {
+      display:inline-flex; align-items:center; gap:8px;
+      background:rgba(0,104,255,.12); border:1px solid rgba(0,104,255,.25);
+      color:#60a5fa; text-decoration:none; padding:10px 20px;
+      border-radius:8px; font-size:13.5px; font-weight:600;
+      transition:background .2s;
+    }
+    .btn-zalo:hover { background:rgba(0,104,255,.2); }
+
+    /* PAYMENT SUCCESS */
+    #payment-success { display:none; text-align:center; padding:20px 0; }
+    #payment-success .ps-icon { font-size:64px; margin-bottom:16px; }
+    #payment-success h2 { font-size:22px; font-weight:800; color:var(--green-mid); margin-bottom:10px; }
+    #payment-success p { font-size:15px; color:var(--text-mid); line-height:1.7; margin-bottom:20px; }
+
+    /* SPINNER */
+    .spinner { display:inline-block; width:16px; height:16px; border:2.5px solid rgba(255,255,255,.3); border-top-color:#fff; border-radius:50%; animation:spin .7s linear infinite; }
+    @keyframes spin { to { transform:rotate(360deg); } }
+  </style>
+</head>
+<body>
+
+<div class="bg-shapes"><div class="s1"></div><div class="s2"></div></div>
+
+<main>
+  <div class="container">
+
+    <!-- THANK YOU HERO -->
+    <div class="success-badge">
+      <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+    </div>
+    <div class="thank-hero">
+      <div class="eyebrow">Đăng ký thành công</div>
+      <h1>Cảm ơn <span id="guest-name-display"></span>!</h1>
+      <p>Cẩm nang <strong>Dinh Dưỡng Cho Người Tiểu Đường</strong> đang được gửi tới email của bạn — kiểm tra hộp thư trong vài phút.</p>
+    </div>
+
+    <!-- DOWNLOAD -->
+    <div class="download-card">
+      <div class="book-icon">📗</div>
+      <h3>Cẩm Nang Dinh Dưỡng Cho Người Tiểu Đường</h3>
+      <p>8 chương · Thực đơn 7 ngày thuần Việt · Checklist kiểm soát đường huyết</p>
+      <a href="https://drive.google.com/uc?export=download&id=1w9auTkx4j6NnZ1Z0Ygp7h8VUmbWJtdU-" class="btn-download" target="_blank" rel="noopener">
+        📥 Tải Cẩm Nang PDF Ngay
+      </a>
+      <div class="fallback-link">
+        Nếu nút không hoạt động, copy link: <a href="https://drive.google.com/uc?export=download&id=1w9auTkx4j6NnZ1Z0Ygp7h8VUmbWJtdU-" target="_blank">https://drive.google.com/uc?export=download&id=1w9auTkx4j6NnZ1Z0Ygp7h8VUmbWJtdU-</a>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- TRIPWIRE -->
+    <div id="tripwire">
+      <div style="text-align:center; margin-bottom:20px;">
+        <div class="tripwire-label">🎯 Dành riêng cho bạn hôm nay</div>
+      </div>
+      <div class="tripwire-card">
+        <h2>Muốn Có Kế Hoạch Dinh Dưỡng <span>Cá Nhân Hóa</span> Riêng Cho Bạn?</h2>
+        <p class="tw-desc">
+          Cẩm nang này là nền tảng — nhưng mỗi người có thể trạng, loại thuốc, và mục tiêu khác nhau.
+          Buổi tư vấn 1-1 với Bác sĩ Chúc sẽ giúp bạn có kế hoạch ăn uống <strong>đúng với cơ thể mình</strong>.
+        </p>
+        <ul class="benefit-list">
+          <li><span class="bi">✅</span> Phân tích chỉ số đường huyết &amp; HbA1c hiện tại của bạn</li>
+          <li><span class="bi">✅</span> Điều chỉnh thực đơn theo thuốc đang dùng (tránh hạ đường huyết)</li>
+          <li><span class="bi">✅</span> Thực đơn cá nhân hóa theo khẩu vị và lịch sinh hoạt</li>
+          <li><span class="bi">✅</span> Mục tiêu kiểm soát đường huyết trong 30–90 ngày</li>
+          <li><span class="bi">✅</span> Tư vấn trực tiếp 1-1 qua video call 45 phút</li>
+        </ul>
+
+        <div class="price-box">
+          <span class="price-old">1.000.000đ</span>
+          <span class="price-new">500.000đ</span>
+          <span class="price-badge">Giảm 50%</span>
+        </div>
+        <div class="price-note" style="margin-bottom:20px;">⏰ Ưu đãi chỉ dành cho người vừa nhận cẩm nang hôm nay</div>
+
+        <button class="btn-cta" onclick="openPayment()">🩺 Đặt Lịch Tư Vấn 1-1 — 500.000đ</button>
+        <button class="btn-skip" onclick="showFOMO()">Không, tôi tự làm theo cẩm nang thôi</button>
+      </div>
+    </div>
+
+    <!-- FOMO -->
+    <div id="fomo">
+      <div class="fomo-card">
+        <div class="fomo-icon">😔</div>
+        <h2>Bạn vừa bỏ lỡ <span>cơ hội hiếm có</span>...</h2>
+        <p>Ưu đãi tư vấn 50% này chỉ dành riêng cho người vừa nhận cẩm nang.
+        Nếu bạn đổi ý, giá bình thường sẽ là <strong>1.000.000đ</strong>.</p>
+        <ul class="fomo-lost-list">
+          <li><span>❌</span> Không có kế hoạch cá nhân hóa theo thuốc đang dùng</li>
+          <li><span>❌</span> Không biết mình đang áp dụng cẩm nang đúng hay sai</li>
+          <li><span>❌</span> Đường huyết vẫn có thể lên xuống không kiểm soát được</li>
+        </ul>
+        <div class="countdown-box">
+          <div class="countdown-label">Ưu đãi hết hạn sau</div>
+          <div class="countdown-time" id="countdown">10:00</div>
+        </div>
+        <button class="btn-reconsider" onclick="showTripwire()">↩ Tôi đổi ý — cho tôi giữ ưu đãi này</button>
+      </div>
+    </div>
+
+    <!-- PAYMENT SUCCESS -->
+    <div id="payment-success">
+      <div class="ps-icon">🎉</div>
+      <h2>Đặt lịch thành công!</h2>
+      <p>Email xác nhận đã được gửi tới <strong id="confirm-email"></strong>.<br>
+      Bác sĩ Chúc sẽ liên hệ với bạn qua Zalo trong vòng <strong>24 giờ</strong> để xác nhận lịch hẹn.</p>
+      <a href="https://zalo.me/0947578088" class="btn-download" target="_blank" style="display:inline-flex; margin-top:8px;">
+        💬 Nhắn tin Zalo ngay
+      </a>
+    </div>
+
+  </div>
+</main>
+
+<!-- PAYMENT MODAL -->
+<div class="modal-overlay" id="payment-modal">
+  <div class="modal">
+    <button class="modal-close" onclick="closePayment()">✕</button>
+    <h3>Đặt Lịch Tư Vấn 1-1</h3>
+    <div class="modal-price">Tổng thanh toán: <strong>500.000đ</strong></div>
+
+    <div class="tab-row">
+      <button class="tab-btn active" onclick="switchTab('ck')">🏦 Chuyển khoản</button>
+      <button class="tab-btn" onclick="switchTab('card')">💳 Thẻ tín dụng</button>
+    </div>
+
+    <!-- Chuyển khoản -->
+    <div class="tab-panel active" id="tab-ck">
+      <div class="bank-info">
+        <div class="bank-row"><span class="bank-key">Ngân hàng</span><span class="bank-val">VPBank</span></div>
+        <div class="bank-row"><span class="bank-key">Số tài khoản</span><span class="bank-val hl">1919896899</span></div>
+        <div class="bank-row"><span class="bank-key">Chủ tài khoản</span><span class="bank-val">NGUYỄN XUÂN CHÚC</span></div>
+        <div class="bank-row"><span class="bank-key">Số tiền</span><span class="bank-val hl">500.000đ</span></div>
+        <div class="bank-row"><span class="bank-key">Nội dung CK</span><span class="bank-val hl">TV BS CHUC</span></div>
+      </div>
+      <div class="qr-wrap">
+        <img src="https://img.vietqr.io/image/VPB-1919896899-compact2.png?amount=500000&addInfo=TV%20BS%20CHUC&accountName=Nguyen%20Xuan%20Chuc" alt="QR VPBank">
+      </div>
+      <p class="confirm-note">Sau khi chuyển khoản, điền thông tin bên dưới để xác nhận và nhận email lịch hẹn:</p>
+      <input class="inp-name-confirm" id="confirm-name-input" placeholder="Họ và tên của bạn" type="text">
+      <input class="inp-email-confirm" id="confirm-email-input" placeholder="Email nhận xác nhận" type="email">
+      <button class="btn-confirm" id="confirm-btn" onclick="confirmPayment()">✅ Tôi đã chuyển khoản xong</button>
+      <div class="zalo-row">
+        <a href="https://zalo.me/0947578088" class="btn-zalo" target="_blank">💬 Nhắn Zalo xác nhận ngay</a>
+      </div>
+    </div>
+
+    <!-- Thẻ tín dụng -->
+    <div class="tab-panel" id="tab-card">
+      <div style="text-align:center; padding:32px 0;">
+        <div style="font-size:40px; margin-bottom:12px;">💳</div>
+        <p style="color:var(--text-mid); font-size:14px; line-height:1.7;">
+          Thanh toán thẻ tín dụng đang cập nhật.<br>
+          Vui lòng sử dụng <strong>chuyển khoản</strong> hoặc nhắn Zalo để được hỗ trợ.
+        </p>
+        <div class="zalo-row" style="margin-top:16px;">
+          <a href="https://zalo.me/0947578088" class="btn-zalo" target="_blank">💬 Nhắn Zalo hỗ trợ</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxfFF6eu_D7bFG0KFRSMqUoNdiO44i2HKRe-nB9ZuSjepsFioHOSYPGXTv8Lb9DRQ2k-w/exec";
+
+  // ── Hiển thị tên khách ──────────────────────────────────
+  const params   = new URLSearchParams(window.location.search);
+  const guestRaw = params.get("name") || "";
+  const guestName = guestRaw.trim();
+  const nameEl   = document.getElementById("guest-name-display");
+  if (guestName.length >= 3) {
+    nameEl.textContent = guestName + ", ";
+  }
+
+  // ── GSAP entrance ───────────────────────────────────────
+  gsap.from(".success-badge", { scale: 0, opacity: 0, duration: 0.6, ease: "back.out(1.4)" });
+  gsap.from(".thank-hero",    { y: 24, opacity: 0, duration: 0.6, delay: 0.2, ease: "power3.out" });
+  gsap.from(".download-card", { y: 28, opacity: 0, duration: 0.6, delay: 0.35, ease: "power3.out" });
+  gsap.from("#tripwire",      { y: 28, opacity: 0, duration: 0.6, delay: 0.5,  ease: "power3.out" });
+
+  // ── Tab switch ──────────────────────────────────────────
+  function switchTab(tab) {
+    document.querySelectorAll(".tab-btn").forEach((b,i) => b.classList.toggle("active", (i===0&&tab==="ck")||(i===1&&tab==="card")));
+    document.getElementById("tab-ck").classList.toggle("active", tab==="ck");
+    document.getElementById("tab-card").classList.toggle("active", tab==="card");
+  }
+
+  // ── Payment modal ────────────────────────────────────────
+  function openPayment() { document.getElementById("payment-modal").classList.add("open"); }
+  function closePayment() { document.getElementById("payment-modal").classList.remove("open"); }
+  document.getElementById("payment-modal").addEventListener("click", function(e) {
+    if (e.target === this) closePayment();
+  });
+
+  // ── FOMO ────────────────────────────────────────────────
+  let countdownInterval;
+  function showFOMO() {
+    document.getElementById("tripwire").style.display = "none";
+    document.getElementById("fomo").style.display = "block";
+    history.pushState(null, "", location.href);
+    window.addEventListener("popstate", blockBack);
+    startCountdown();
+    gsap.fromTo("#fomo", { opacity:0, y:24 }, { opacity:1, y:0, duration:0.6, ease:"power3.out" });
+  }
+  function blockBack() { history.pushState(null, "", location.href); }
+  function showTripwire() {
+    document.getElementById("fomo").style.display = "none";
+    document.getElementById("tripwire").style.display = "block";
+    clearInterval(countdownInterval);
+    gsap.fromTo("#tripwire", { opacity:0, y:24 }, { opacity:1, y:0, duration:0.6, ease:"power3.out" });
+  }
+  function startCountdown() {
+    let total = 10 * 60;
+    const el = document.getElementById("countdown");
+    countdownInterval = setInterval(() => {
+      if (total <= 0) { clearInterval(countdownInterval); el.textContent = "00:00"; return; }
+      total--;
+      const m = String(Math.floor(total/60)).padStart(2,"0");
+      const s = String(total%60).padStart(2,"0");
+      el.textContent = m + ":" + s;
+    }, 1000);
+  }
+
+  // ── Payment confirm ──────────────────────────────────────
+  async function confirmPayment() {
+    const email = document.getElementById("confirm-email-input").value.trim();
+    const name  = document.getElementById("confirm-name-input").value.trim();
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      alert("Vui lòng nhập email hợp lệ."); return;
+    }
+    const btn = document.getElementById("confirm-btn");
+    btn.innerHTML = '<span class="spinner"></span> Đang gửi xác nhận...';
+    btn.disabled = true;
+
+    const payload = new URLSearchParams({
+      action:    "payment_confirm",
+      name:      name || "(chưa điền)",
+      email:     email,
+      amount:    "500000",
+      service:   "Tu van dinh duong tieu duong 1-1",
+      timestamp: new Date().toLocaleString("vi-VN", { timeZone: "Asia/Ho_Chi_Minh" }),
+      source:    "cam-on-tieuduong"
+    });
+
+    try {
+      const url = new URL(APPS_SCRIPT_URL);
+      for (const [k,v] of payload.entries()) url.searchParams.set(k, v);
+      await new Promise(resolve => {
+        const img = new Image();
+        img.onload = img.onerror = resolve;
+        img.src = url.toString();
+        setTimeout(resolve, 4000);
+      });
+    } catch(e) {}
+
+    closePayment();
+    document.getElementById("tripwire").style.display = "none";
+    document.getElementById("fomo").style.display     = "none";
+    document.getElementById("payment-success").style.display = "block";
+    document.getElementById("confirm-email").textContent = email;
+    gsap.fromTo("#payment-success", { opacity:0, y:24 }, { opacity:1, y:0, duration:0.7, ease:"power3.out" });
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+</script>
+</body>
+</html>
