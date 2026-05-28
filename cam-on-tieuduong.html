@@ -237,15 +237,69 @@
     }
     .btn-zalo:hover { background:rgba(0,104,255,.2); }
 
-    /* PAYMENT SUCCESS */
-    #payment-success { display:none; text-align:center; padding:20px 0; }
-    #payment-success .ps-icon { font-size:64px; margin-bottom:16px; }
-    #payment-success h2 { font-size:22px; font-weight:800; color:var(--green-mid); margin-bottom:10px; }
-    #payment-success p { font-size:15px; color:var(--text-mid); line-height:1.7; margin-bottom:20px; }
-
     /* SPINNER */
     .spinner { display:inline-block; width:16px; height:16px; border:2.5px solid rgba(255,255,255,.3); border-top-color:#fff; border-radius:50%; animation:spin .7s linear infinite; }
     @keyframes spin { to { transform:rotate(360deg); } }
+
+    /* PAYMENT SUCCESS CARD */
+    #payment-success {
+      display:none;
+      background:linear-gradient(135deg, var(--navy-light) 0%, rgba(34,168,101,.08) 100%);
+      border:1.5px solid var(--green-border); border-radius:16px;
+      padding:36px 32px; text-align:center; margin-bottom:40px;
+    }
+    #payment-success .ps-icon { font-size:56px; margin-bottom:14px; }
+    #payment-success h2 { font-size:22px; font-weight:800; color:var(--green-mid); margin-bottom:10px; }
+    #payment-success p { font-size:15px; color:var(--text-mid); line-height:1.7; margin-bottom:20px; }
+    #payment-success .ps-detail {
+      background:rgba(34,168,101,0.07); border:1px solid rgba(34,168,101,0.18);
+      border-radius:10px; padding:14px 18px; margin-bottom:20px; text-align:left;
+      font-size:14px; color:var(--text-mid); line-height:1.8;
+    }
+    .btn-zalo-main {
+      display:inline-flex; align-items:center; gap:10px;
+      background:#0068FF; color:#fff; text-decoration:none;
+      padding:14px 30px; border-radius:10px; font-weight:700; font-size:15px;
+      box-shadow:0 6px 20px rgba(0,104,255,.3); transition:opacity .2s, transform .2s;
+    }
+    .btn-zalo-main:hover { opacity:.9; transform:translateY(-2px); }
+
+    /* MOBILE RESPONSIVE */
+    @media (max-width: 600px) {
+      main { padding: 36px 0 56px; }
+      .container { padding: 0 16px; }
+      .thank-hero p { font-size: 15px; }
+      .download-card { padding: 24px 18px; }
+      .download-card h3 { font-size: 17px; }
+      .download-card p { font-size: 14px; }
+      .tripwire-card { padding: 24px 18px; }
+      .tripwire-card h2 { font-size: 19px; }
+      .tripwire-card .tw-desc { font-size: 14px; }
+      .benefit-list li { font-size: 14px; }
+      .price-old { font-size: 16px; }
+      .price-new { font-size: 28px; }
+      .price-note { font-size: 13px; }
+      .btn-cta { font-size: 15px; padding: 15px 20px; }
+      .btn-skip { font-size: 13px; }
+      .modal { padding: 24px 16px; border-radius: 16px; }
+      .modal h3 { font-size: 18px; }
+      .modal .modal-price { font-size: 13px; }
+      .bank-key { font-size: 12px; }
+      .bank-val { font-size: 13px; }
+      .confirm-note { font-size: 13px; }
+      .inp-email-confirm, .inp-name-confirm { font-size: 16px; } /* prevents iOS zoom */
+      .btn-confirm { font-size: 15px; }
+      #payment-success { padding: 28px 18px; }
+      #payment-success h2 { font-size: 20px; }
+      #payment-success p { font-size: 14px; }
+      .btn-zalo-main { font-size: 14px; padding: 13px 24px; }
+      .fomo-card { padding: 24px 18px; }
+      .fomo-card h2 { font-size: 19px; }
+      .fomo-card p { font-size: 14px; }
+      .countdown-time { font-size: 28px; }
+      .fomo-lost-list li { font-size: 13px; }
+      .tab-btn { font-size: 13px; padding: 10px 6px; }
+    }
   </style>
 </head>
 <body>
@@ -272,6 +326,7 @@
       <p>Kiểm tra hộp thư của bạn — email có tiêu đề <strong>"Tài liệu của bạn: Cẩm Nang Dinh Dưỡng Cho Người Tiểu Đường"</strong> từ Bác sĩ Chúc.</p>
       <p style="font-size:13px;color:#aaa;margin-top:12px;">Không thấy? Kiểm tra thư mục <strong>Spam / Junk</strong> hoặc chờ thêm 1–2 phút.</p>
     </div>
+
     <div class="divider"></div>
 
     <!-- TRIPWIRE -->
@@ -329,9 +384,13 @@
     <div id="payment-success">
       <div class="ps-icon">🎉</div>
       <h2>Đặt lịch thành công!</h2>
-      <p>Email xác nhận đã được gửi tới <strong id="confirm-email"></strong>.<br>
-      Bác sĩ Chúc sẽ liên hệ với bạn qua Zalo trong vòng <strong>24 giờ</strong> để xác nhận lịch hẹn.</p>
-      <a href="https://zalo.me/0947578088" class="btn-download" target="_blank" style="display:inline-flex; margin-top:8px;">
+      <p>Cảm ơn bạn đã tin tưởng Bác sĩ Chúc!</p>
+      <div class="ps-detail">
+        📧 Email xác nhận đã được gửi tới <strong id="confirm-email" style="color:var(--off-white);"></strong><br>
+        🕐 Bác sĩ Chúc sẽ liên hệ qua <strong style="color:#60a5fa;">Zalo</strong> trong vòng <strong>24 giờ</strong> để xác nhận lịch hẹn.<br>
+        💡 Bạn có thể chủ động nhắn Zalo ngay để đặt giờ sớm hơn.
+      </div>
+      <a href="https://zalo.me/0947578088" class="btn-zalo-main" target="_blank" rel="noopener">
         💬 Nhắn tin Zalo ngay
       </a>
     </div>
@@ -465,7 +524,7 @@
       name:      name || "(chưa điền)",
       email:     email,
       amount:    "500000",
-      service:   "Tu van dinh duong tieu duong 1-1",
+      service:   "Tư vấn dinh dưỡng tiểu đường 1-1",
       timestamp: new Date().toLocaleString("vi-VN", { timeZone: "Asia/Ho_Chi_Minh" }),
       source:    "cam-on-tieuduong"
     });
@@ -482,8 +541,10 @@
     } catch(e) {}
 
     closePayment();
-    document.getElementById("tripwire").style.display = "none";
-    document.getElementById("fomo").style.display     = "none";
+    document.getElementById("tripwire").style.display   = "none";
+    document.getElementById("fomo").style.display       = "none";
+    document.querySelector(".download-card").style.display = "none";
+    document.querySelector(".divider").style.display    = "none";
     document.getElementById("payment-success").style.display = "block";
     document.getElementById("confirm-email").textContent = email;
     gsap.fromTo("#payment-success", { opacity:0, y:24 }, { opacity:1, y:0, duration:0.7, ease:"power3.out" });
