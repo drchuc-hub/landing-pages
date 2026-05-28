@@ -287,7 +287,7 @@
       .bank-key { font-size: 12px; }
       .bank-val { font-size: 13px; }
       .confirm-note { font-size: 13px; }
-      .inp-email-confirm, .inp-name-confirm { font-size: 16px; } /* prevents iOS zoom */
+      .inp-email-confirm, .inp-name-confirm { font-size: 16px; }
       .btn-confirm { font-size: 15px; }
       #payment-success { padding: 28px 18px; }
       #payment-success h2 { font-size: 20px; }
@@ -417,15 +417,23 @@
         <div class="bank-row"><span class="bank-key">Số tài khoản</span><span class="bank-val hl">1919896899</span></div>
         <div class="bank-row"><span class="bank-key">Chủ tài khoản</span><span class="bank-val">NGUYỄN XUÂN CHÚC</span></div>
         <div class="bank-row"><span class="bank-key">Số tiền</span><span class="bank-val hl">500.000đ</span></div>
-        <div class="bank-row"><span class="bank-key">Nội dung CK</span><span class="bank-val hl">TV BS CHUC</span></div>
+        <div class="bank-row"><span class="bank-key">Nội dung CK</span><span class="bank-val hl" id="noidung-ck">TV BS CHUC</span></div>
       </div>
       <div class="qr-wrap">
-        <img src="https://img.vietqr.io/image/VPB-1919896899-compact2.png?amount=500000&addInfo=TV%20BS%20CHUC&accountName=Nguyen%20Xuan%20Chuc" alt="QR VPBank">
+        <img id="qr-img" src="https://img.vietqr.io/image/VPB-1919896899-compact2.png?amount=500000&addInfo=TV%20BS%20CHUC&accountName=Nguyen%20Xuan%20Chuc" alt="QR VPBank">
       </div>
-      <p class="confirm-note">Sau khi chuyển khoản, điền thông tin bên dưới để xác nhận và nhận email lịch hẹn:</p>
-      <input class="inp-name-confirm" id="confirm-name-input" placeholder="Họ và tên của bạn" type="text">
-      <input class="inp-email-confirm" id="confirm-email-input" placeholder="Email nhận xác nhận" type="email">
-      <button class="btn-confirm" id="confirm-btn" onclick="confirmPayment()">✅ Tôi đã chuyển khoản xong</button>
+      <div id="modal-form-area">
+        <p class="confirm-note">Điền thông tin bên dưới, sau đó bấm nút để hệ thống tự động xác nhận thanh toán:</p>
+        <input class="inp-name-confirm" id="confirm-name-input" placeholder="Họ và tên của bạn" type="text">
+        <input class="inp-email-confirm" id="confirm-email-input" placeholder="Email nhận xác nhận" type="email">
+        <button class="btn-confirm" id="confirm-btn" onclick="confirmPayment()">✅ Xác nhận đã chuyển khoản</button>
+      </div>
+      <div id="modal-waiting-area" style="display:none; text-align:center; padding:16px 0;">
+        <div style="font-size:40px; margin-bottom:10px;">⏳</div>
+        <p style="font-weight:700; font-size:15px; margin-bottom:6px;">Đang chờ xác nhận tự động…</p>
+        <p style="font-size:13px; color:var(--text-muted); line-height:1.6;">Hệ thống đang kiểm tra giao dịch.<br>Trang sẽ tự cập nhật khi nhận được tiền.</p>
+        <div style="margin-top:16px;"><span class="spinner" style="width:22px;height:22px;border-width:3px;"></span></div>
+      </div>
       <div class="zalo-row">
         <a href="https://zalo.me/0947578088" class="btn-zalo" target="_blank">💬 Nhắn Zalo xác nhận ngay</a>
       </div>
@@ -448,9 +456,9 @@
 </div>
 
 <script>
-  const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxfFF6eu_D7bFG0KFRSMqUoNdiO44i2HKRe-nB9ZuSjepsFioHOSYPGXTv8Lb9DRQ2k-w/exec";
+  const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzuHNt_0O-FxTs6krH2fhOjmGhCgiN8StC7_6Axc4mEetHQAVyc6cNLJXupEGazizujLg/exec";
+  const ORDER_ID = 'TVBS' + Math.random().toString(36).substr(2, 6).toUpperCase();
 
-  // ── Hiển thị tên khách ──────────────────────────────────
   const params   = new URLSearchParams(window.location.search);
   const guestRaw = params.get("name") || "";
   const guestName = guestRaw.trim();
@@ -459,27 +467,29 @@
     nameEl.textContent = guestName + ", ";
   }
 
-  // ── GSAP entrance ───────────────────────────────────────
   gsap.from(".success-badge", { scale: 0, opacity: 0, duration: 0.6, ease: "back.out(1.4)" });
   gsap.from(".thank-hero",    { y: 24, opacity: 0, duration: 0.6, delay: 0.2, ease: "power3.out" });
   gsap.from(".download-card", { y: 28, opacity: 0, duration: 0.6, delay: 0.35, ease: "power3.out" });
   gsap.from("#tripwire",      { y: 28, opacity: 0, duration: 0.6, delay: 0.5,  ease: "power3.out" });
 
-  // ── Tab switch ──────────────────────────────────────────
   function switchTab(tab) {
     document.querySelectorAll(".tab-btn").forEach((b,i) => b.classList.toggle("active", (i===0&&tab==="ck")||(i===1&&tab==="card")));
     document.getElementById("tab-ck").classList.toggle("active", tab==="ck");
     document.getElementById("tab-card").classList.toggle("active", tab==="card");
   }
 
-  // ── Payment modal ────────────────────────────────────────
-  function openPayment() { document.getElementById("payment-modal").classList.add("open"); }
+  function openPayment() {
+    const qrSrc = "https://img.vietqr.io/image/VPB-1919896899-compact2.png?amount=500000&addInfo="
+      + encodeURIComponent(ORDER_ID) + "&accountName=Nguyen%20Xuan%20Chuc";
+    document.getElementById("qr-img").src = qrSrc;
+    document.getElementById("noidung-ck").textContent = ORDER_ID;
+    document.getElementById("payment-modal").classList.add("open");
+  }
   function closePayment() { document.getElementById("payment-modal").classList.remove("open"); }
   document.getElementById("payment-modal").addEventListener("click", function(e) {
     if (e.target === this) closePayment();
   });
 
-  // ── FOMO ────────────────────────────────────────────────
   let countdownInterval;
   function showFOMO() {
     document.getElementById("tripwire").style.display = "none";
@@ -508,45 +518,50 @@
     }, 1000);
   }
 
-  // ── Payment confirm ──────────────────────────────────────
+  let pollTimer = null;
+
   async function confirmPayment() {
     const email = document.getElementById("confirm-email-input").value.trim();
     const name  = document.getElementById("confirm-name-input").value.trim();
     if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       alert("Vui lòng nhập email hợp lệ."); return;
     }
-    const btn = document.getElementById("confirm-btn");
-    btn.innerHTML = '<span class="spinner"></span> Đang gửi xác nhận...';
-    btn.disabled = true;
 
-    const payload = new URLSearchParams({
-      action:    "payment_confirm",
-      name:      name || "(chưa điền)",
-      email:     email,
-      amount:    "500000",
-      service:   "Tư vấn dinh dưỡng tiểu đường 1-1",
-      timestamp: new Date().toLocaleString("vi-VN", { timeZone: "Asia/Ho_Chi_Minh" }),
-      source:    "cam-on-tieuduong"
-    });
+    const url = new URL(APPS_SCRIPT_URL);
+    url.searchParams.set("action",   "create_order");
+    url.searchParams.set("order_id", ORDER_ID);
+    url.searchParams.set("name",     name || "(chưa điền)");
+    url.searchParams.set("email",    email);
+    try { await fetch(url.toString()); } catch(e) {}
 
+    document.getElementById("modal-form-area").style.display   = "none";
+    document.getElementById("modal-waiting-area").style.display = "block";
+    document.getElementById("confirm-email").textContent = email;
+    pollTimer = setInterval(() => checkPayment(email), 3000);
+  }
+
+  async function checkPayment(email) {
     try {
       const url = new URL(APPS_SCRIPT_URL);
-      for (const [k,v] of payload.entries()) url.searchParams.set(k, v);
-      await new Promise(resolve => {
-        const img = new Image();
-        img.onload = img.onerror = resolve;
-        img.src = url.toString();
-        setTimeout(resolve, 4000);
-      });
+      url.searchParams.set("action",   "check_payment");
+      url.searchParams.set("order_id", ORDER_ID);
+      const res  = await fetch(url.toString());
+      const data = await res.json();
+      if (data.paid) {
+        clearInterval(pollTimer);
+        showPaymentSuccess(email || document.getElementById("confirm-email").textContent);
+      }
     } catch(e) {}
+  }
 
+  function showPaymentSuccess(email) {
     closePayment();
-    document.getElementById("tripwire").style.display   = "none";
-    document.getElementById("fomo").style.display       = "none";
-    document.querySelector(".download-card").style.display = "none";
-    document.querySelector(".divider").style.display    = "none";
+    document.getElementById("tripwire").style.display        = "none";
+    document.getElementById("fomo").style.display            = "none";
+    document.querySelector(".download-card").style.display   = "none";
+    document.querySelector(".divider").style.display         = "none";
     document.getElementById("payment-success").style.display = "block";
-    document.getElementById("confirm-email").textContent = email;
+    document.getElementById("confirm-email").textContent     = email;
     gsap.fromTo("#payment-success", { opacity:0, y:24 }, { opacity:1, y:0, duration:0.7, ease:"power3.out" });
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
