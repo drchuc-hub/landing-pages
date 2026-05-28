@@ -2,5 +2,9 @@ name = "landing-pages"
 compatibility_date = "2024-01-01"
 main = "_worker.js"
 
+routes = [
+  { pattern = "drchuc.com/api/sepay-webhook", zone_name = "drchuc.com" }
+]
+
 [assets]
 directory = "."
