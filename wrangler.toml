@@ -3,7 +3,10 @@ compatibility_date = "2024-01-01"
 main = "_worker.js"
 
 routes = [
-  { pattern = "drchuc.com/api/sepay-webhook", zone_name = "drchuc.com" }
+  { pattern = "drchuc.com/api/sepay-webhook", zone_name = "drchuc.com" },
+  { pattern = "drchuc.com/ebook-*", zone_name = "drchuc.com" },
+  { pattern = "drchuc.com/cam-on*", zone_name = "drchuc.com" },
+  { pattern = "drchuc.com/kiem-tra-*", zone_name = "drchuc.com" }
 ]
 
 [assets]
