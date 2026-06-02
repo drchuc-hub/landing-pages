@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cẩm Nang Đánh Bại Mỡ Máu Cao — Bác sĩ Chúc | Miễn Phí</title>
+  <meta name="description" content="Tải miễn phí cẩm nang dinh dưỡng & vận động cho người mỡ máu cao — thực đơn 7 ngày kiểu Việt, chuẩn AHA & ESC/EAS, checklist 30 ngày.">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy:#07111F; --navy-mid:#0B1A2E; --navy-light:#112240;
+      --green:#1a7a4a; --green-mid:#22a865; --green-glow:rgba(34,168,101,0.12);
+      --green-border:rgba(34,168,101,0.22); --gold:#C9A84C; --red:#FF6B6B;
+      --off-white:#F5F4EF; --text-muted:rgba(245,244,239,0.58); --text-mid:rgba(245,244,239,0.80);
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family:'Inter',sans-serif; background:var(--navy); color:var(--off-white); line-height:1.6; overflow-x:hidden; min-height:100vh; }
+    .container { max-width:720px; margin:0 auto; padding:0 24px; }
+    .bg-shapes { position:fixed; inset:0; pointer-events:none; z-index:0; overflow:hidden; }
+    .bg-shapes .s1 { position:absolute; width:520px; height:520px; border-radius:50%; background:radial-gradient(circle,rgba(26,122,74,.09) 0%,transparent 70%); top:-120px; right:-120px; animation:fA 16s ease-in-out infinite; }
+    .bg-shapes .s2 { position:absolute; width:380px; height:380px; border-radius:50%; background:radial-gradient(circle,rgba(201,168,76,.06) 0%,transparent 70%); bottom:-80px; left:-80px; animation:fB 20s ease-in-out infinite; }
+    .bg-shapes .s3 { position:absolute; width:240px; height:240px; border-radius:50%; background:radial-gradient(circle,rgba(34,168,101,.05) 0%,transparent 70%); top:50%; left:20%; animation:fA 24s ease-in-out infinite; }
+    @keyframes fA { 0%,100%{transform:translate(0,0)} 50%{transform:translate(-22px,28px)} }
+    @keyframes fB { 0%,100%{transform:translate(0,0)} 50%{transform:translate(22px,-22px)} }
+    main { position:relative; z-index:1; padding:48px 0 80px; }
+
+    .nav-bar { text-align:center; margin-bottom:28px; }
+    .nav-brand { display:inline-flex; align-items:center; gap:10px; padding:8px 18px; border-radius:100px; border:1px solid rgba(34,168,101,0.2); background:rgba(34,168,101,0.06); }
+    .nav-brand .dot { width:8px; height:8px; border-radius:50%; background:var(--green-mid); box-shadow:0 0 8px rgba(34,168,101,0.6); }
+    .nav-brand span { font-size:13px; font-weight:600; color:var(--green-mid); letter-spacing:.06em; }
+
+    /* LIVE COUNTER */
+    .live-counter { text-align:center; margin-bottom:28px; }
+    .live-pill { display:inline-flex; align-items:center; gap:8px; background:rgba(255,107,107,.1); border:1px solid rgba(255,107,107,.25); padding:7px 16px; border-radius:100px; font-size:13px; color:#ffb0b0; }
+    .live-pill .pulse { width:8px; height:8px; border-radius:50%; background:#ff6b6b; animation:pulse 1.4s ease-in-out infinite; }
+    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.4;transform:scale(.7)} }
+    .live-pill strong { color:#fff; font-weight:700; }
+
+    .hero { text-align:center; margin-bottom:40px; }
+    .hero-eyebrow { display:inline-block; font-size:11px; font-weight:700; letter-spacing:.22em; text-transform:uppercase; color:var(--green-mid); margin-bottom:20px; padding:5px 16px; border:1px solid var(--green-border); border-radius:100px; background:var(--green-glow); }
+    .hero h1 { font-size:clamp(28px,5vw,42px); font-weight:800; line-height:1.18; letter-spacing:-0.025em; margin-bottom:20px; }
+    .hero h1 .hl { color:var(--green-mid); } .hero h1 .hl2 { color:var(--gold); }
+    .hero-sub { font-size:17px; color:var(--text-mid); max-width:540px; margin:0 auto 32px; line-height:1.7; }
+
+    .book-preview { background:linear-gradient(135deg,var(--navy-light) 0%,rgba(26,122,74,.08) 100%); border:1px solid var(--green-border); border-radius:16px; padding:28px 32px; margin-bottom:48px; display:flex; gap:28px; align-items:center; }
+    .book-cover { flex-shrink:0; width:90px; height:120px; background:linear-gradient(145deg,#b91c1c 0%,#7f1010 100%); border-radius:8px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px; box-shadow:4px 4px 20px rgba(0,0,0,.4); position:relative; overflow:hidden; }
+    .book-cover .book-icon { font-size:28px; }
+    .book-cover .book-label { font-size:9px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:rgba(255,255,255,.8); text-align:center; padding:0 6px; }
+    .book-info h3 { font-size:17px; font-weight:700; margin-bottom:8px; }
+    .book-info p { font-size:13.5px; color:var(--text-muted); line-height:1.6; margin-bottom:12px; }
+    .book-tags { display:flex; flex-wrap:wrap; gap:6px; }
+    .book-tag { font-size:11px; font-weight:600; padding:3px 10px; border-radius:100px; background:rgba(34,168,101,.12); border:1px solid rgba(34,168,101,.25); color:var(--green-mid); }
+
+    .pain-section { margin-bottom:52px; }
+    .section-label { display:inline-block; font-size:11px; font-weight:700; letter-spacing:.18em; text-transform:uppercase; color:var(--gold); margin-bottom:16px; padding:4px 12px; border:1px solid rgba(201,168,76,.22); border-radius:100px; background:rgba(201,168,76,.07); }
+    .pain-section h2 { font-size:24px; font-weight:800; margin-bottom:24px; line-height:1.3; }
+    .pain-list { list-style:none; display:flex; flex-direction:column; gap:14px; }
+    .pain-item { display:flex; gap:14px; align-items:flex-start; background:rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.06); border-radius:10px; padding:16px 18px; }
+    .pain-item .pain-icon { font-size:20px; flex-shrink:0; margin-top:1px; }
+    .pain-item p { font-size:15px; color:var(--text-mid); line-height:1.6; }
+    .pain-item p strong { color:var(--off-white); }
+    .solution-card { background:linear-gradient(135deg,rgba(26,122,74,.12) 0%,rgba(34,168,101,.05) 100%); border:1px solid var(--green-border); border-radius:16px; padding:28px 32px; margin-top:20px; }
+    .solution-card h3 { font-size:20px; font-weight:700; margin-bottom:12px; }
+    .solution-card p { font-size:15px; color:var(--text-mid); line-height:1.7; }
+    .solution-card p strong { color:var(--green-mid); }
+
+    .chapters-section { margin-bottom:52px; }
+    .chapters-section h2 { font-size:24px; font-weight:800; margin-bottom:8px; line-height:1.3; }
+    .chapters-section .sub { font-size:15px; color:var(--text-muted); margin-bottom:28px; }
+    .chapters-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+    @media(max-width:540px){ .chapters-grid { grid-template-columns:1fr; } }
+    .chapter-card { background:var(--navy-light); border:1px solid rgba(255,255,255,.06); border-radius:12px; padding:18px 20px; transition:border-color .2s,transform .2s; }
+    .chapter-card:hover { border-color:var(--green-border); transform:translateY(-2px); }
+    .chapter-num { font-size:10px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--green-mid); margin-bottom:8px; }
+    .chapter-title { font-size:14.5px; font-weight:700; margin-bottom:6px; line-height:1.4; }
+    .chapter-desc { font-size:12.5px; color:var(--text-muted); line-height:1.55; }
+    .bonus-card { background:linear-gradient(135deg,rgba(201,168,76,.1) 0%,rgba(201,168,76,.04) 100%); border:1px solid rgba(201,168,76,.25); border-radius:12px; padding:18px 20px; margin-top:14px; display:flex; gap:14px; align-items:flex-start; }
+    .bonus-icon { font-size:28px; flex-shrink:0; }
+    .bonus-title { font-size:14.5px; font-weight:700; color:var(--gold); margin-bottom:4px; }
+    .bonus-desc { font-size:12.5px; color:var(--text-muted); line-height:1.55; }
+
+    /* SOCIAL PROOF */
+    .proof-section { margin-bottom:52px; }
+    .proof-grid { display:flex; flex-direction:column; gap:14px; }
+    .proof-card { background:var(--navy-light); border:1px solid rgba(255,255,255,.06); border-radius:12px; padding:20px 22px; }
+    .proof-stars { color:var(--gold); font-size:14px; margin-bottom:10px; letter-spacing:2px; }
+    .proof-text { font-size:14.5px; color:var(--text-mid); line-height:1.7; margin-bottom:12px; font-style:italic; }
+    .proof-author { display:flex; align-items:center; gap:10px; }
+    .proof-avatar { width:36px; height:36px; border-radius:50%; background:linear-gradient(135deg,var(--green) 0%,#0a3d22 100%); display:flex; align-items:center; justify-content:center; font-size:16px; flex-shrink:0; }
+    .proof-name { font-size:13.5px; font-weight:700; } .proof-meta { font-size:12px; color:var(--text-muted); }
+
+    .doctor-section { margin-bottom:52px; }
+    .doctor-card { background:var(--navy-light); border:1px solid rgba(255,255,255,.07); border-radius:16px; padding:28px 32px; display:flex; gap:24px; align-items:flex-start; }
+    .doctor-avatar { flex-shrink:0; width:72px; height:72px; border-radius:50%; background:linear-gradient(135deg,var(--green) 0%,#0a3d22 100%); display:flex; align-items:center; justify-content:center; font-size:32px; border:2px solid var(--green-border); box-shadow:0 0 24px rgba(34,168,101,.2); }
+    .doctor-name { font-size:18px; font-weight:800; margin-bottom:4px; }
+    .doctor-title { font-size:13px; color:var(--green-mid); font-weight:600; margin-bottom:12px; }
+    .doctor-bio { font-size:14.5px; color:var(--text-mid); line-height:1.7; }
+    .doctor-stats { display:flex; gap:20px; margin-top:16px; flex-wrap:wrap; }
+    .stat { text-align:center; } .stat-num { font-size:20px; font-weight:800; color:var(--green-mid); line-height:1; } .stat-label { font-size:11px; color:var(--text-muted); margin-top:2px; }
+
+    .form-section { margin-bottom:32px; }
+    .form-card { background:linear-gradient(135deg,var(--navy-light) 0%,rgba(26,122,74,.07) 100%); border:1.5px solid var(--green-border); border-radius:20px; padding:36px 32px; box-shadow:0 20px 60px rgba(0,0,0,.35); }
+    .form-header { text-align:center; margin-bottom:28px; }
+    .free-badge { display:inline-flex; align-items:center; gap:6px; background:rgba(34,168,101,.15); border:1px solid rgba(34,168,101,.3); color:var(--green-mid); font-size:12px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; padding:5px 14px; border-radius:100px; margin-bottom:16px; }
+    .form-header h2 { font-size:22px; font-weight:800; margin-bottom:8px; line-height:1.3; }
+    .form-header p { font-size:14px; color:var(--text-muted); }
+    .form-group { margin-bottom:16px; }
+    .form-group label { display:block; font-size:13px; font-weight:600; color:var(--text-mid); margin-bottom:7px; }
+    .form-group label .req { color:#ff6b6b; margin-left:2px; }
+    .form-group input { width:100%; padding:13px 16px; background:rgba(255,255,255,.05); border:1.5px solid rgba(255,255,255,.1); border-radius:10px; color:var(--off-white); font-family:inherit; font-size:15px; outline:none; transition:border-color .2s,background .2s; }
+    .form-group input::placeholder { color:rgba(245,244,239,.3); }
+    .form-group input:focus { border-color:var(--green-mid); background:rgba(34,168,101,.06); }
+    .form-group input.error { border-color:#ff6b6b; }
+    .field-error { font-size:12px; color:#ff8080; margin-top:5px; display:none; }
+    .btn-submit { width:100%; padding:16px 24px; background:linear-gradient(135deg,var(--green-mid) 0%,var(--green) 100%); color:#fff; font-family:inherit; font-size:16px; font-weight:700; border:none; border-radius:12px; cursor:pointer; transition:opacity .2s,transform .2s; box-shadow:0 8px 24px rgba(26,122,74,.4); display:flex; align-items:center; justify-content:center; gap:10px; margin-top:8px; }
+    .btn-submit:hover { opacity:.92; transform:translateY(-1px); }
+    .btn-submit:disabled { opacity:.6; cursor:not-allowed; transform:none; }
+    .form-privacy { text-align:center; font-size:12px; color:var(--text-muted); margin-top:14px; line-height:1.6; }
+    .form-privacy span { color:var(--green-mid); }
+    .trust-row { display:flex; justify-content:center; gap:28px; margin-top:28px; flex-wrap:wrap; }
+    .trust-item { display:flex; align-items:center; gap:7px; font-size:13px; color:var(--text-muted); }
+    .trust-item .ti { font-size:16px; }
+    .footer { text-align:center; padding-top:40px; border-top:1px solid rgba(255,255,255,.07); }
+    .footer p { font-size:13px; color:var(--text-muted); line-height:1.7; }
+    .spinner { display:inline-block; width:18px; height:18px; border:2.5px solid rgba(255,255,255,.3); border-top-color:#fff; border-radius:50%; animation:spin .7s linear infinite; }
+    @keyframes spin { to { transform:rotate(360deg); } }
+    .fade-up { opacity:0; transform:translateY(28px); }
+  </style>
+</head>
+<body>
+
+<div class="bg-shapes"><div class="s1"></div><div class="s2"></div><div class="s3"></div></div>
+
+<main>
+  <div class="container">
+
+    <div class="nav-bar fade-up">
+      <div class="nav-brand"><span class="dot"></span><span>Bác sĩ Chúc — DrChuc.com</span></div>
+    </div>
+
+    <div class="live-counter fade-up">
+      <div class="live-pill"><span class="pulse"></span> <strong id="live-num">217</strong>&nbsp;người đã tải cẩm nang hôm nay</div>
+    </div>
+
+    <section class="hero fade-up">
+      <div class="hero-eyebrow">🫀 Tài liệu y khoa miễn phí</div>
+      <h1>Đánh Bại <span class="hl">Mỡ Máu Cao</span><br>Bằng <span class="hl2">Dinh Dưỡng &amp; Vận Động</span></h1>
+      <p class="hero-sub">Cẩm nang 7 chương giúp bạn hạ cholesterol &amp; triglyceride một cách khoa học — thực đơn 7 ngày kiểu Việt, chuẩn <strong>AHA &amp; ESC/EAS</strong>, không cần kiêng khem cực đoan.</p>
+    </section>
+
+    <div class="book-preview fade-up">
+      <div class="book-cover"><span class="book-icon">📕</span><span class="book-label">Cẩm nang mỡ máu</span></div>
+      <div class="book-info">
+        <h3>Cẩm Nang Đánh Bại Mỡ Máu Cao</h3>
+        <p>7 chương · Thực đơn 7 ngày · Checklist 30 ngày · Vận động chuẩn WHO · PDF miễn phí</p>
+        <div class="book-tags">
+          <span class="book-tag">✅ Chuẩn AHA &amp; ESC</span>
+          <span class="book-tag">🥗 Thuần Việt</span>
+          <span class="book-tag">🏃 Vận động WHO</span>
+          <span class="book-tag">❤️ Bảo vệ tim mạch</span>
+        </div>
+      </div>
+    </div>
+
+    <section class="pain-section fade-up">
+      <div class="section-label">Bạn có đang gặp điều này?</div>
+      <h2>Người mỡ máu cao thường lo nhất điều gì?</h2>
+      <ul class="pain-list">
+        <li class="pain-item"><span class="pain-icon">😰</span><p><strong>Chỉ số cholesterol &amp; triglyceride cao</strong> nhưng không biết phải ăn gì, kiêng gì cho đúng.</p></li>
+        <li class="pain-item"><span class="pain-icon">🍳</span><p><strong>Sợ mỡ, sợ trứng, sợ đủ thứ</strong> — kiêng khem cực đoan mà chỉ số vẫn không giảm.</p></li>
+        <li class="pain-item"><span class="pain-icon">💊</span><p><strong>Lo phải uống statin cả đời</strong> — muốn cải thiện bằng lối sống nhưng không biết bắt đầu từ đâu.</p></li>
+        <li class="pain-item"><span class="pain-icon">❤️</span><p><strong>Sợ biến chứng tim mạch, đột quỵ</strong> — biết là nguy hiểm nhưng chưa có kế hoạch hành động rõ ràng.</p></li>
+      </ul>
+      <div class="solution-card">
+        <h3>✅ Cẩm nang này được viết để trả lời đúng những câu hỏi đó</h3>
+        <p>Không phải chế độ ăn "kiêng khem cực đoan" — mà là <strong>ăn đúng, vận động đúng</strong>. Theo chuẩn khoa học <strong>AHA &amp; ESC/EAS</strong>, được Bác sĩ Chúc biên soạn dễ hiểu, với thực đơn <strong>7 ngày thuần Việt</strong> và lộ trình vận động theo WHO.</p>
+      </div>
+    </section>
+
+    <section class="chapters-section fade-up">
+      <div class="section-label">Nội dung cẩm nang</div>
+      <h2>7 Chương + Bonus Bạn Sẽ Nhận Được</h2>
+      <p class="sub">Từ hiểu đúng chỉ số đến thực hành mỗi ngày — đầy đủ và dễ áp dụng.</p>
+      <div class="chapters-grid">
+        <div class="chapter-card"><div class="chapter-num">Chương 1</div><div class="chapter-title">Hiểu Đúng Về Mỡ Máu &amp; Chỉ Số Mục Tiêu</div><div class="chapter-desc">LDL, HDL, triglyceride là gì — chỉ số bao nhiêu là an toàn cho từng nhóm nguy cơ.</div></div>
+        <div class="chapter-card"><div class="chapter-num">Chương 2</div><div class="chapter-title">7 Nguyên Tắc Dinh Dưỡng Vàng</div><div class="chapter-desc">Xương sống kiểm soát mỡ máu — tổng hợp từ khuyến cáo AHA 2021 &amp; ESC/EAS.</div></div>
+        <div class="chapter-card"><div class="chapter-num">Chương 3</div><div class="chapter-title">Thực Phẩm NÊN Ăn &amp; CẦN Tránh</div><div class="chapter-desc">Bảng tra nhanh giúp bạn đi chợ và gọi món thông minh hơn mỗi ngày.</div></div>
+        <div class="chapter-card"><div class="chapter-num">Chương 4</div><div class="chapter-title">Thực Đơn 7 Ngày Kiểu Việt</div><div class="chapter-desc">Món quen thuộc, dễ nấu, ít dầu mỡ — ưu tiên hấp, luộc, kho nhạt, gạo lứt.</div></div>
+        <div class="chapter-card"><div class="chapter-num">Chương 5</div><div class="chapter-title">Vận Động Đúng Cách Theo WHO</div><div class="chapter-desc">150–300 phút/tuần cường độ vừa + 2 buổi tập sức mạnh — lộ trình cụ thể.</div></div>
+        <div class="chapter-card"><div class="chapter-num">Chương 6</div><div class="chapter-title">Lối Sống Bảo Vệ Tim Mạch</div><div class="chapter-desc">Giấc ngủ, stress, thuốc lá, rượu bia — những thói quen quyết định chỉ số mỡ máu.</div></div>
+        <div class="chapter-card"><div class="chapter-num">Chương 7</div><div class="chapter-title">Thuốc &amp; Theo Dõi Xét Nghiệm</div><div class="chapter-desc">Khi nào cần statin, đọc kết quả lipid máu, bao lâu xét nghiệm lại một lần.</div></div>
+        <div class="chapter-card"><div class="chapter-num">Bonus</div><div class="chapter-title">Checklist 30 Ngày Thay Đổi</div><div class="chapter-desc">In ra dán tủ lạnh — mỗi ngày đánh dấu ✓, đều đặn là chìa khóa.</div></div>
+      </div>
+      <div class="bonus-card">
+        <span class="bonus-icon">🎁</span>
+        <div><div class="bonus-title">BONUS — Checklist 30 Ngày Thay Đổi</div><div class="bonus-desc">Bảng theo dõi in-ra-dùng: ăn gì, vận động bao nhiêu, ngủ đủ chưa. Giúp bạn duy trì đều đặn suốt 30 ngày đầu — giai đoạn quan trọng nhất.</div></div>
+      </div>
+    </section>
+
+    <section class="proof-section fade-up">
+      <div class="section-label">Người dùng nói gì</div>
+      <h2 style="font-size:24px;font-weight:800;margin-bottom:24px;line-height:1.3;">Hàng nghìn người đã thay đổi</h2>
+      <div class="proof-grid">
+        <div class="proof-card">
+          <div class="proof-stars">★★★★★</div>
+          <div class="proof-text">"Sau 2 tháng áp dụng thực đơn và đi bộ theo cẩm nang, chỉ số mỡ máu của tôi giảm rõ rệt, bác sĩ khen tiến bộ. Tài liệu rất dễ hiểu, dễ làm."</div>
+          <div class="proof-author"><div class="proof-avatar">👨</div><div><div class="proof-name">Anh Tuấn, 52 tuổi</div><div class="proof-meta">Hà Nội</div></div></div>
+        </div>
+        <div class="proof-card">
+          <div class="proof-stars">★★★★★</div>
+          <div class="proof-text">"Trước đây tôi kiêng đủ thứ mà chỉ số không giảm. Đọc cẩm nang mới biết mình ăn sai cách. Giờ ăn ngon hơn mà triglyceride lại về gần mức bình thường."</div>
+          <div class="proof-author"><div class="proof-avatar">👩</div><div><div class="proof-name">Cô Lan, 58 tuổi</div><div class="proof-meta">TP.HCM</div></div></div>
+        </div>
+        <div class="proof-card">
+          <div class="proof-stars">★★★★★</div>
+          <div class="proof-text">"Phần vận động theo WHO rất cụ thể, tôi tập theo được ngay. Cảm ơn Bác sĩ Chúc đã chia sẻ tài liệu quý mà hoàn toàn miễn phí."</div>
+          <div class="proof-author"><div class="proof-avatar">🧑</div><div><div class="proof-name">Anh Hùng, 45 tuổi</div><div class="proof-meta">Đà Nẵng</div></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="doctor-section fade-up">
+      <div class="section-label">Tác giả</div>
+      <div class="doctor-card">
+        <div class="doctor-avatar">👨‍⚕️</div>
+        <div>
+          <div class="doctor-name">Bác sĩ Nguyễn Xuân Chúc</div>
+          <div class="doctor-title">Chuyên gia Y học Trường thọ &amp; Sức khỏe Sinh học</div>
+          <div class="doctor-bio">Hơn 10 năm kinh nghiệm tư vấn dinh dưỡng và sức khỏe chuyển hóa. Chuyên sâu về kiểm soát mỡ máu, dự phòng tim mạch và y học lối sống. Tác giả nhiều tài liệu y tế được hàng nghìn bệnh nhân tin dùng.</div>
+          <div class="doctor-stats">
+            <div class="stat"><div class="stat-num">10+</div><div class="stat-label">Năm kinh nghiệm</div></div>
+            <div class="stat"><div class="stat-num">5,000+</div><div class="stat-label">Bệnh nhân tư vấn</div></div>
+            <div class="stat"><div class="stat-num">AHA</div><div class="stat-label">Chuẩn quốc tế</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="form-section fade-up" id="form-section">
+      <div class="form-card">
+        <div class="form-header">
+          <div class="free-badge">🎁 Hoàn toàn miễn phí</div>
+          <h2>Nhận Cẩm Nang Ngay Hôm Nay</h2>
+          <p>Điền thông tin bên dưới — tài liệu gửi về email trong vài phút</p>
+        </div>
+        <form id="lead-form" novalidate>
+          <div class="form-group">
+            <label>Họ và tên <span class="req">*</span></label>
+            <input type="text" id="inp-name" placeholder="Ví dụ: Nguyễn Văn Nam" autocomplete="name">
+            <div class="field-error" id="err-name">Vui lòng nhập họ tên</div>
+          </div>
+          <div class="form-group">
+            <label>Email <span class="req">*</span></label>
+            <input type="email" id="inp-email" placeholder="email@gmail.com" autocomplete="email">
+            <div class="field-error" id="err-email">Vui lòng nhập email hợp lệ</div>
+          </div>
+          <div class="form-group">
+            <label>Số điện thoại <span class="req">*</span></label>
+            <input type="tel" id="inp-phone" placeholder="09x xxx xxxx" autocomplete="tel">
+            <div class="field-error" id="err-phone">Vui lòng nhập số điện thoại hợp lệ</div>
+          </div>
+          <button type="submit" class="btn-submit" id="submit-btn">
+            <span id="btn-text">📕 Gửi Cẩm Nang Miễn Phí Cho Tôi</span>
+            <span class="arrow" id="btn-arrow">→</span>
+          </button>
+        </form>
+        <p class="form-privacy">🔒 Thông tin của bạn được bảo mật tuyệt đối.<br><span>Không spam · Không chia sẻ · Hủy đăng ký bất kỳ lúc nào</span></p>
+      </div>
+      <div class="trust-row">
+        <div class="trust-item"><span class="ti">✅</span> Miễn phí 100%</div>
+        <div class="trust-item"><span class="ti">📧</span> Gửi email ngay lập tức</div>
+        <div class="trust-item"><span class="ti">🔒</span> Bảo mật thông tin</div>
+      </div>
+    </section>
+
+    <footer class="footer fade-up">
+      <p>© 2025 Bác sĩ Nguyễn Xuân Chúc · DrChuc.com<br>Tài liệu nhằm mục đích giáo dục sức khỏe — không thay thế tư vấn y khoa cá nhân.</p>
+    </footer>
+
+  </div>
+</main>
+
+<script>
+  const FORM_URL = "https://script.google.com/macros/s/AKfycbyZ-6sEMg1Kj9OApnKVRbVO_H56JH7LSY6_Z5B12QVs4iHzTiPi1BC_o_8S9O4mjBtx3Q/exec";
+
+  gsap.registerPlugin(ScrollTrigger);
+  gsap.utils.toArray(".fade-up").forEach((el, i) => {
+    gsap.to(el, { opacity:1, y:0, duration:0.7, ease:"power3.out", delay:i<3?i*0.12:0,
+      scrollTrigger: i<3 ? null : { trigger:el, start:"top 88%", toggleActions:"play none none none" } });
+  });
+
+  // Live counter — tăng ngẫu nhiên nhẹ
+  let lc = 217;
+  setInterval(() => { if (Math.random() > 0.5) { lc++; const el = document.getElementById("live-num"); if (el) el.textContent = lc; } }, 8000);
+
+  const emailRx = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+  const phoneRx = /^(0|\+84)[0-9]{8,10}$/;
+  function showErr(id,msg){ const el=document.getElementById(id); el.textContent=msg; el.style.display="block"; document.getElementById(id.replace("err-","inp-")).classList.add("error"); }
+  function clearErr(id){ document.getElementById(id).style.display="none"; document.getElementById(id.replace("err-","inp-")).classList.remove("error"); }
+  ["name","email","phone"].forEach(f => document.getElementById("inp-"+f).addEventListener("input",()=>clearErr("err-"+f)));
+
+  document.getElementById("lead-form").addEventListener("submit", async function(e){
+    e.preventDefault();
+    const nameVal=document.getElementById("inp-name").value.trim();
+    const emailVal=document.getElementById("inp-email").value.trim();
+    const phoneVal=document.getElementById("inp-phone").value.trim().replace(/\s/g,"");
+    let valid=true;
+    if(!nameVal){ showErr("err-name","Vui lòng nhập họ tên"); valid=false; }
+    if(!emailRx.test(emailVal)){ showErr("err-email","Vui lòng nhập email hợp lệ"); valid=false; }
+    if(!phoneRx.test(phoneVal)){ showErr("err-phone","Vui lòng nhập số điện thoại hợp lệ (VD: 0912345678)"); valid=false; }
+    if(!valid) return;
+
+    const btn=document.getElementById("submit-btn");
+    document.getElementById("btn-text").textContent="Đang gửi...";
+    document.getElementById("btn-arrow").innerHTML='<span class="spinner"></span>';
+    btn.disabled=true;
+
+    const params=new URLSearchParams({ action:"lead", name:nameVal, email:emailVal, phone:phoneVal, source:"ebook-momau",
+      timestamp:new Date().toLocaleString("vi-VN",{timeZone:"Asia/Ho_Chi_Minh"}) });
+    const url=new URL(FORM_URL);
+    for(const [k,v] of params.entries()) url.searchParams.set(k,v);
+    await new Promise(resolve => { const img=new Image(); img.onload=img.onerror=resolve; img.src=url.toString(); setTimeout(resolve,5000); });
+
+    window.location.href="/cam-on-momau.html?name="+encodeURIComponent(nameVal||"");
+  });
+</script>
+</body>
+</html>
