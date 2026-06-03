@@ -356,11 +356,14 @@
     const email=document.getElementById("confirm-email-input").value.trim();
     const name=document.getElementById("confirm-name-input").value.trim();
     if(!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){ alert("Vui lòng nhập email hợp lệ."); return; }
+    const bumped = document.getElementById("ob-check").checked;
     const url=new URL(APPS_SCRIPT_URL);
     url.searchParams.set("action","create_order");
     url.searchParams.set("order_id",ORDER_ID);
     url.searchParams.set("name",name||"(chưa điền)");
     url.searchParams.set("email",email);
+    url.searchParams.set("amount", String(currentTotal()));
+    url.searchParams.set("bump", bumped ? "1" : "0");
     try { await fetch(url.toString()); } catch(e){}
     document.getElementById("modal-form-area").style.display="none";
     document.getElementById("modal-waiting-area").style.display="block";
