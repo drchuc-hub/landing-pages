@@ -412,33 +412,37 @@
 
     <!-- Chuyển khoản -->
     <div class="tab-panel active" id="tab-ck">
-      <div class="bank-info">
-        <div class="bank-row"><span class="bank-key">Ngân hàng</span><span class="bank-val">VPBank</span></div>
-        <div class="bank-row"><span class="bank-key">Số tài khoản</span><span class="bank-val hl">1919896899</span></div>
-        <div class="bank-row"><span class="bank-key">Chủ tài khoản</span><span class="bank-val">NGUYỄN XUÂN CHÚC</span></div>
-        <div class="bank-row"><span class="bank-key">Số tiền</span><span class="bank-val hl">500.000đ</span></div>
-        <div class="bank-row"><span class="bank-key">Nội dung CK</span><span class="bank-val hl" id="noidung-ck">TV BS CHUC</span></div>
-      </div>
-      <div class="qr-wrap">
-        <img id="qr-img" src="https://img.vietqr.io/image/VPB-1919896899-compact2.png?amount=500000&addInfo=TV%20BS%20CHUC&accountName=Nguyen%20Xuan%20Chuc" alt="QR VPBank">
-      </div>
-      <div id="modal-form-area">
-        <p class="confirm-note">Điền thông tin bên dưới, sau đó bấm nút để hệ thống tự động xác nhận thanh toán:</p>
+      <!-- BƯỚC 1: Nhập thông tin & tạo đơn TRƯỚC (tránh webhook tới trước đơn) -->
+      <div id="ck-step1">
+        <p class="confirm-note">Nhập thông tin để nhận biên nhận qua email &amp; được xác nhận tự động. Sau đó bấm nút để lấy mã QR thanh toán:</p>
         <input class="inp-name-confirm" id="confirm-name-input" placeholder="Họ và tên của bạn" type="text">
         <input class="inp-email-confirm" id="confirm-email-input" placeholder="Email nhận xác nhận" type="email">
-        <button class="btn-confirm" id="confirm-btn" onclick="confirmPayment()">✅ Xác nhận đã chuyển khoản</button>
+        <button class="btn-confirm" id="goqr-btn" onclick="goToQR()">Lấy mã QR thanh toán →</button>
       </div>
-      <div id="modal-waiting-area" style="display:none; text-align:center; padding:16px 0;">
-        <div style="font-size:40px; margin-bottom:10px;">⏳</div>
-        <p style="font-weight:700; font-size:15px; margin-bottom:6px;">Đang chờ xác nhận tự động…</p>
-        <p style="font-size:13px; color:var(--text-muted); line-height:1.6;">Hệ thống đang kiểm tra giao dịch.<br>Trang sẽ tự cập nhật khi nhận được tiền.</p>
-        <div style="margin-top:16px;"><span class="spinner" style="width:22px;height:22px;border-width:3px;"></span></div>
-        <div id="waiting-fallback" style="display:none; margin-top:20px; background:rgba(201,168,76,0.1); border:1px solid rgba(201,168,76,0.35); border-radius:12px; padding:14px 16px;">
-          <p style="font-size:13px; color:#C9A84C; margin-bottom:10px; line-height:1.6;">⚠️ Hơn 2 phút chưa nhận được xác nhận tự động.<br>Vui lòng nhắn Zalo để BS Chúc xác nhận thủ công.</p>
-          <a href="https://zalo.me/0947578088" target="_blank" rel="noopener"
-             style="display:inline-block; background:#0068FF; color:#fff; border-radius:10px; padding:10px 20px; font-size:13px; font-weight:600; text-decoration:none;">
-            💬 Nhắn Zalo ngay
-          </a>
+
+      <!-- BƯỚC 2: Hiện QR + chờ xác nhận tự động -->
+      <div id="ck-step2" style="display:none;">
+        <div class="bank-info">
+          <div class="bank-row"><span class="bank-key">Ngân hàng</span><span class="bank-val">VPBank</span></div>
+          <div class="bank-row"><span class="bank-key">Số tài khoản</span><span class="bank-val hl">1919896899</span></div>
+          <div class="bank-row"><span class="bank-key">Chủ tài khoản</span><span class="bank-val">NGUYỄN XUÂN CHÚC</span></div>
+          <div class="bank-row"><span class="bank-key">Số tiền</span><span class="bank-val hl">500.000đ</span></div>
+          <div class="bank-row"><span class="bank-key">Nội dung CK</span><span class="bank-val hl" id="noidung-ck">TV BS CHUC</span></div>
+        </div>
+        <div class="qr-wrap">
+          <img id="qr-img" src="" alt="QR VPBank">
+        </div>
+        <div id="modal-waiting-area" style="text-align:center; padding:8px 0 0;">
+          <p style="font-weight:700; font-size:15px; margin-bottom:6px;">⏳ Đang chờ xác nhận tự động…</p>
+          <p style="font-size:13px; color:var(--text-muted); line-height:1.6;">Quét mã QR &amp; chuyển khoản đúng nội dung. Trang sẽ tự cập nhật khi nhận được tiền.</p>
+          <div style="margin-top:12px;"><span class="spinner" style="width:22px;height:22px;border-width:3px;"></span></div>
+          <div id="waiting-fallback" style="display:none; margin-top:20px; background:rgba(201,168,76,0.1); border:1px solid rgba(201,168,76,0.35); border-radius:12px; padding:14px 16px;">
+            <p style="font-size:13px; color:#C9A84C; margin-bottom:10px; line-height:1.6;">⚠️ Hơn 2 phút chưa nhận được xác nhận tự động.<br>Vui lòng nhắn Zalo để BS Chúc xác nhận thủ công.</p>
+            <a href="https://zalo.me/0947578088" target="_blank" rel="noopener"
+               style="display:inline-block; background:#0068FF; color:#fff; border-radius:10px; padding:10px 20px; font-size:13px; font-weight:600; text-decoration:none;">
+              💬 Nhắn Zalo ngay
+            </a>
+          </div>
         </div>
       </div>
       <div class="zalo-row">
@@ -490,9 +494,10 @@
 
   // ── Payment modal ────────────────────────────────────────
   function openPayment() {
-    const qrSrc = "https://img.vietqr.io/image/VPB-1919896899-compact2.png?amount=500000&addInfo="
-      + encodeURIComponent(ORDER_ID) + "&accountName=Nguyen%20Xuan%20Chuc";
-    document.getElementById("qr-img").src = qrSrc;
+    // Reset về bước 1 (nhập thông tin) mỗi lần mở
+    document.getElementById("ck-step1").style.display = "block";
+    document.getElementById("ck-step2").style.display = "none";
+    document.getElementById("waiting-fallback").style.display = "none";
     document.getElementById("noidung-ck").textContent = ORDER_ID;
     document.getElementById("payment-modal").classList.add("open");
   }
@@ -538,14 +543,18 @@
   let pollTimer = null;
   let fallbackTimer = null;
 
-  async function confirmPayment() {
+  async function goToQR() {
     const email = document.getElementById("confirm-email-input").value.trim();
     const name  = document.getElementById("confirm-name-input").value.trim();
     if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      alert("Vui lòng nhập email hợp lệ."); return;
+      alert("Vui lòng nhập email hợp lệ để nhận biên nhận."); return;
     }
 
-    // Save pending order
+    // TẠO ĐƠN PENDING TRƯỚC khi khách chuyển tiền
+    // (đảm bảo webhook SePay tới sẽ luôn tìm thấy đơn → mark PAID + gửi email)
+    const btn = document.getElementById("goqr-btn");
+    btn.disabled = true; btn.textContent = "Đang tạo mã QR…";
+
     const url = new URL(APPS_SCRIPT_URL);
     url.searchParams.set("action",   "create_order");
     url.searchParams.set("order_id", ORDER_ID);
@@ -553,16 +562,17 @@
     url.searchParams.set("email",    email);
     try { await fetch(url.toString()); } catch(e) {}
 
-    // Switch modal UI to waiting state
-    document.getElementById("modal-form-area").style.display   = "none";
-    document.getElementById("modal-waiting-area").style.display = "block";
-
-    // Store email for success card
+    // Render QR
+    const qrSrc = "https://img.vietqr.io/image/VPB-1919896899-compact2.png?amount=500000&addInfo="
+      + encodeURIComponent(ORDER_ID) + "&accountName=Nguyen%20Xuan%20Chuc";
+    document.getElementById("qr-img").src = qrSrc;
+    document.getElementById("noidung-ck").textContent = ORDER_ID;
     document.getElementById("confirm-email").textContent = email;
 
-    // Start polling every 3s
+    // Sang bước 2 (hiện QR) + bắt đầu poll xác nhận tự động
+    document.getElementById("ck-step1").style.display = "none";
+    document.getElementById("ck-step2").style.display = "block";
     pollTimer = setInterval(() => checkPayment(email), 3000);
-    // Show fallback contact after 2 minutes
     fallbackTimer = setTimeout(() => {
       document.getElementById("waiting-fallback").style.display = "block";
     }, 120000);
