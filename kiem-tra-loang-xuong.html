@@ -260,7 +260,7 @@
       '<p class="lxq-lead">Bác sĩ sẽ đọc bài của bạn và gửi lời khuyên cá nhân hoá qua email.</p>'+
       field('lxqTen','Họ và tên','text','VD: Nguyễn Văn A','Vui lòng nhập họ tên.')+
       field('lxqEmail','Email','email','ten@email.com','Email chưa đúng định dạng (thiếu @ hoặc đuôi).')+
-      field('lxqSdt','Số điện thoại / Zalo <span style="color:#9ca3af;font-weight:400">(không bắt buộc)</span>','tel','VD: 0912345678','SĐT phải là 10 số, bắt đầu bằng 0.')+
+      field('lxqSdt','Số điện thoại / Zalo <span style="color:#9ca3af;font-weight:400">(không bắt buộc)</span>','tel','VD: 0912345678','SĐT phải 10–11 số, bắt đầu bằng 0.')+
       '<div class="lxq-nav">'+
         '<button class="lxq-btn ghost" id="lxqBack">←</button>'+
         '<button class="lxq-btn primary" id="lxqSubmit">Xem kết quả của tôi →</button></div>'+
@@ -317,7 +317,7 @@
         ok=false;
       } else good('lxqEmailF');
     }
-    if(sdt && !/^0\d{9}$/.test(sdt.replace(/\s/g,''))){ bad('lxqSdtF'); ok=false; } else good('lxqSdtF');
+    if(sdt && !/^0\d{9,10}$/.test(sdt.replace(/\s/g,''))){ bad('lxqSdtF'); ok=false; } else good('lxqSdtF');
     if(!ok) return;
 
     A[T.ten]=ten; A[T.email]=email; A[T.sdt]=sdt;
