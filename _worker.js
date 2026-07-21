@@ -50,7 +50,16 @@ export default {
       });
     }
 
-    /* ── Tất cả request còn lại → static assets ─────────────────────── */
-    return env.ASSETS.fetch(request);
+    /* ── Còn lại → thử static assets; không có asset → trả về WordPress ──
+       Lưới an toàn: URL lọt vào route worker mà không có file tĩnh tương ứng
+       sẽ được chuyển về origin (WordPress) thay vì văng exception 1101
+       (sự cố /cam-on-tai-lieu-mat-co/ ngày 21/07/2026). */
+    try {
+      const assetResp = await env.ASSETS.fetch(request);
+      if (assetResp.status !== 404) return assetResp;
+    } catch (e) {
+      // ASSETS lỗi hoặc thiếu binding → rơi xuống origin
+    }
+    return fetch(request);
   },
 };

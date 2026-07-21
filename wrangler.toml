@@ -2,11 +2,26 @@ name = "landing-pages"
 compatibility_date = "2024-01-01"
 main = "_worker.js"
 
+# LƯU Ý: chỉ đăng ký route HẸP theo đúng trang tĩnh có thật trong repo.
+# KHÔNG dùng wildcard rộng kiểu "cam-on*" — sẽ nuốt trang WordPress trùng prefix
+# (sự cố 1101 với trang WP /cam-on-tai-lieu-mat-co/ ngày 21/07/2026).
+# Thêm trang tĩnh mới = thêm file .html + thêm route tương ứng ở đây rồi deploy.
 routes = [
   { pattern = "drchuc.com/api/sepay-webhook", zone_name = "drchuc.com" },
-  { pattern = "drchuc.com/ebook-*", zone_name = "drchuc.com" },
-  { pattern = "drchuc.com/cam-on*", zone_name = "drchuc.com" },
-  { pattern = "drchuc.com/kiem-tra-*", zone_name = "drchuc.com" }
+
+  { pattern = "drchuc.com/cam-on", zone_name = "drchuc.com" },
+  { pattern = "drchuc.com/cam-on/", zone_name = "drchuc.com" },
+  { pattern = "drchuc.com/cam-on-momau*", zone_name = "drchuc.com" },
+  { pattern = "drchuc.com/cam-on-tieuduong*", zone_name = "drchuc.com" },
+
+  { pattern = "drchuc.com/ebook-momau*", zone_name = "drchuc.com" },
+  { pattern = "drchuc.com/ebook-5-chi-so-lao-hoa*", zone_name = "drchuc.com" },
+  { pattern = "drchuc.com/ebook-camnan-tieuduong*", zone_name = "drchuc.com" },
+  { pattern = "drchuc.com/ebook-doc-camnang-momau*", zone_name = "drchuc.com" },
+  { pattern = "drchuc.com/ebook-doc-camnang-tieuduong*", zone_name = "drchuc.com" },
+
+  { pattern = "drchuc.com/kiem-tra-lao-hoa*", zone_name = "drchuc.com" },
+  { pattern = "drchuc.com/kiem-tra-loang-xuong*", zone_name = "drchuc.com" }
 ]
 
 [assets]
