@@ -21,7 +21,11 @@ routes = [
   { pattern = "drchuc.com/ebook-doc-camnang-tieuduong*", zone_name = "drchuc.com" },
 
   { pattern = "drchuc.com/kiem-tra-lao-hoa*", zone_name = "drchuc.com" },
-  { pattern = "drchuc.com/kiem-tra-loang-xuong*", zone_name = "drchuc.com" }
+  { pattern = "drchuc.com/kiem-tra-loang-xuong*", zone_name = "drchuc.com" },
+
+  # Sale page Tư Vấn 1-1 (route exact — tránh nuốt trang WP trùng prefix)
+  { pattern = "drchuc.com/tu-van-1-1", zone_name = "drchuc.com" },
+  { pattern = "drchuc.com/tu-van-1-1/", zone_name = "drchuc.com" }
 ]
 
 [assets]

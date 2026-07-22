@@ -1,5 +1,6 @@
 // Cloudflare Worker — drchuc.com
 // POST /api/sepay-webhook → phân luồng theo prefix nội dung CK:
+//   chứa "TVCP" → Apps Script C (funnel Tư Vấn 1-1 có phí)
 //   chứa "MMBS" → Apps Script B (funnel Mỡ Máu)
 //   còn lại (TVBS...) → Apps Script A (funnel Tiểu Đường)
 // Tất cả request khác → static HTML assets
@@ -8,6 +9,11 @@ const APPS_SCRIPT_A =
   'https://script.google.com/macros/s/AKfycbzuHNt_0O-FxTs6krH2fhOjmGhCgiN8StC7_6Axc4mEetHQAVyc6cNLJXupEGazizujLg/exec';
 const APPS_SCRIPT_B =
   'https://script.google.com/macros/s/AKfycbyZ-6sEMg1Kj9OApnKVRbVO_H56JH7LSY6_Z5B12QVs4iHzTiPi1BC_o_8S9O4mjBtx3Q/exec';
+// ⚠️ TODO: thay bằng URL Apps Script funnel "Tư Vấn 1-1" (đơn prefix TVCP).
+// Trùng với APPS_SCRIPT_URL trong tu-van-1-1.html. Để placeholder thì
+// auto-xác nhận tắt, khách dùng nút Zalo fallback (chuyển khoản vẫn chạy).
+const APPS_SCRIPT_C =
+  'PASTE_APPS_SCRIPT_TUVAN_URL_HERE';
 
 export default {
   async fetch(request, env) {
@@ -24,7 +30,20 @@ export default {
         const body = await request.text();
         // Chọn Apps Script đích theo prefix mã đơn trong nội dung CK
         const upper = body.toUpperCase();
-        const target = upper.includes('MMBS') ? APPS_SCRIPT_B : APPS_SCRIPT_A;
+        let target;
+        if (upper.includes('TVCP')) {
+          // Script C chưa deploy → ACK 200 để SePay không retry lỗi;
+          // đơn được xác nhận tay qua Zalo (fallback trên trang).
+          if (APPS_SCRIPT_C.indexOf('PASTE_') === 0) {
+            return new Response('OK PENDING_SCRIPT_C', {
+              status: 200,
+              headers: { 'Content-Type': 'text/plain' },
+            });
+          }
+          target = APPS_SCRIPT_C;                                 // Tư Vấn 1-1
+        }
+        else if (upper.includes('MMBS')) target = APPS_SCRIPT_B;  // Mỡ Máu
+        else target = APPS_SCRIPT_A;                              // Tiểu Đường
 
         const scriptUrl = target + '?action=sepay_webhook&payload=' + encodeURIComponent(body);
         const resp = await fetch(scriptUrl, { method: 'GET', redirect: 'follow' });
