@@ -3,11 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Bài kiểm tra nguy cơ Loãng xương & Mất cơ — Bác sĩ Chúc</title>
-<meta name="description" content="Bài tự kiểm tra 2 phút giúp bạn (hoặc bố mẹ) biết mức nguy cơ loãng xương & mất cơ, có nên đo mật độ xương chưa. Bác sĩ Chúc gửi nhận xét riêng qua email.">
+<title>Kiểm tra mỡ nội tạng (2 phút) — Bác sĩ Chúc</title>
+<meta name="description" content="Bài tự kiểm tra 1 phút giúp bạn biết mức nguy cơ mỡ nội tạng và chuyển hóa — dựa trên vòng eo, BMI, tỉ lệ eo/cao. Nhiều người gầy vẫn có mỡ nội tạng. Bác sĩ Chúc gửi nhận xét riêng qua email.">
 <meta name="robots" content="index,follow">
-<meta property="og:title" content="Bạn có đang âm thầm loãng xương & mất cơ? — Bài kiểm tra 2 phút">
-<meta property="og:description" content="Trả lời 11 câu để biết mức nguy cơ và nên bắt đầu làm gì. Bác sĩ Chúc gửi nhận xét riêng qua email.">
+<meta property="og:title" content="Gầy vẫn có mỡ nội tạng? — Bài kiểm tra 2 phút">
+<meta property="og:description" content="Trả lời 10 câu để biết mức nguy cơ mỡ nội tạng của bạn và nên làm gì. Bác sĩ Chúc gửi nhận xét riêng qua email.">
 <meta property="og:type" content="website">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -82,13 +82,6 @@
 @keyframes lxq-rot{to{transform:rotate(360deg)}}
 .lxq-author{display:flex;align-items:center;gap:10px;margin-top:20px;padding-top:16px;border-top:1px solid var(--line);font-size:13px;color:var(--muted);}
 .lxq-author b{color:var(--ink);}
-/* bộ chọn dấu T-score (chống quên dấu trừ) */
-.lxq-sign{display:flex;gap:10px;margin:0 0 12px;}
-.lxq-sign button{flex:1;border:1.5px solid var(--line);border-radius:12px;background:#fff;padding:12px 8px;
-  font-size:15px;font-weight:600;cursor:pointer;transition:.15s;font-family:inherit;color:var(--ink);}
-.lxq-sign button:hover{border-color:var(--teal);}
-.lxq-sign button.on{border-color:var(--teal);background:var(--teal-l);box-shadow:inset 0 0 0 1px var(--teal);}
-.lxq-sign button b{font-size:19px;}
 @media(max-width:480px){.lxq-body{padding:22px 16px}.lxq-h1{font-size:20px}.lxq-q{font-size:17.5px}}
 </style>
 
@@ -100,62 +93,49 @@
 <script>
 (function(){
   "use strict";
-  /* ========= CẤU HÌNH — SỬA 2 DÒNG NÀY ========= */
-  var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyqBN8bSJzrrPHg-8k2BKImV03byg_6Hgo7LntKjlkn9v7UTbGd7JH7k5OBWs5_jTEFMw/exec';   // URL .../exec của Apps Script
-  var SECRET     = 'xuong-drchuc-2026';        // trùng SECRET trong file .gs
-  var CTA_URL    = 'https://drchuc.com/sarcopenia-la-gi/';  // bài blog mất cơ (nút sau khi xong)
-  /* ============================================= */
+  /* ===== ★ SỬA 1 — CẤU HÌNH ===== */
+  var SCRIPT_URL = 'PASTE_WEB_APP_URL_HERE';   // URL .../exec của Apps Script (điền sau deploy)
+  var SECRET     = 'monoitang-drchuc-2026';    // trùng SECRET trong webform_monoitang.gs
+  var CTA_URL    = 'https://drchuc.com/cach-ha-duong-huyet';
+  /* ================================ */
 
-  // Tiêu đề câu hỏi = KHÓA gửi về Sheet (phải trùng file .gs)
+  // ★ SỬA 2 — T (tiêu đề câu hỏi = tên cột Sheet) + O (nhãn lựa chọn). TRÙNG y hệt file .gs.
   var T = {
     ten:'Họ và tên của bạn', email:'Email của bạn', sdt:'Số điện thoại / Zalo',
-    tuoi:'Bạn (hoặc người được kiểm tra) bao nhiêu tuổi?', gioi:'Giới tính?',
-    mankinh:'(Dành cho nữ) Bạn đã mãn kinh chưa?', cannang:'Cân nặng hiện tại của bạn (kg)?',
-    chieucao:'So với thời trẻ, chiều cao có bị thấp đi rõ (trên 3cm) hoặc lưng còng hơn không?',
-    gaytxuong:'Bạn đã từng gãy xương sau một cú ngã hoặc va chạm nhẹ chưa?',
-    bome:'Bố hoặc mẹ của bạn có từng bị gãy xương hông (háng) không?',
-    yeuto:'Bạn có các yếu tố nguy cơ nào sau đây?',
-    tapluyen:'Mỗi tuần bạn tập kháng lực (tạ, dây, squat, hít đất…) mấy buổi?',
-    sarcf:'Trong sinh hoạt hằng ngày, bạn thấy khó khăn với việc nào dưới đây?',
-    dexa:'Bạn đã từng đi đo mật độ xương (DEXA) chưa?',
-    tscore:'Chỉ số T-score (kết quả DEXA)'
+    gioi:'Giới tính?', tuoi:'Bạn bao nhiêu tuổi?',
+    chieucao:'Chiều cao của bạn (cm)?', cannang:'Cân nặng hiện tại của bạn (kg)?',
+    vongeo:'Vòng eo của bạn (cm)?',
+    dongot:'Bạn uống nước ngọt / trà sữa / nước tăng lực mấy lần mỗi tuần?',
+    ruoubia:'Bạn uống rượu bia thế nào?',
+    vandong:'Mỗi tuần bạn vận động (đi bộ nhanh, thể thao…) được bao nhiêu?',
+    giadinh:'Gia đình bạn có ai bị tiểu đường hoặc bệnh tim mạch sớm không?',
+    chandoan:'Bạn đã từng được bác sĩ chẩn đoán vấn đề nào sau đây?'
   };
   var O = {
-    mankinh_som:'Đã mãn kinh sớm, trước tuổi 45', mankinh_catbt:'Đã cắt buồng trứng / mãn kinh do điều trị',
-    cao_ro:'Có, thấp đi rõ rệt / lưng còng nhiều', cao_nhe:'Có, thấp đi / còng hơn một chút',
-    gay_1:'Có, 1 lần', gay_2:'Có, từ 2 lần trở lên', bome_co:'Có',
-    yt_thuoc:'Hút thuốc lá thường xuyên', yt_ruou:'Uống rượu/bia nhiều, thường xuyên',
-    yt_corti:'Dùng thuốc corticoid ("đề-xa", kháng viêm khớp/hen…) kéo dài trên 3 tháng',
-    yt_benh:'Có bệnh: viêm khớp dạng thấp, tiểu đường, cường giáp, bệnh tiêu hoá hấp thu kém',
-    yt_canxi:'Ít ra nắng / ít uống sữa, ít ăn thực phẩm giàu canxi',
-    tap_0:'0 buổi — hầu như không tập', tap_3:'3 buổi trở lên', sarc_none:'Không khó khăn việc nào ở trên'
+    ngot_0:'Hầu như không', ngot_12:'1–2 lần mỗi tuần', ngot_3:'3 lần mỗi tuần trở lên',
+    ruou_0:'Không uống / rất hiếm', ruou_vua:'Thỉnh thoảng (1–2 buổi mỗi tuần)', ruou_nhieu:'Thường xuyên (3 buổi mỗi tuần trở lên)',
+    vd_0:'Hầu như không vận động', vd_it:'Có, nhưng dưới 150 phút mỗi tuần', vd_du:'Từ 150 phút mỗi tuần trở lên',
+    gd_khong:'Không / không rõ', gd_xa:'Có — ông bà, cô dì chú bác', gd_gan:'Có — bố mẹ hoặc anh chị em ruột',
+    cd_ha:'Huyết áp cao', cd_gan:'Gan nhiễm mỡ', cd_momau:'Rối loạn mỡ máu (cholesterol / triglycerid cao)',
+    cd_dh:'Đường huyết cao / tiền tiểu đường', cd_none:'Chưa từng / chưa đi khám'
   };
 
   var A = {}; // đáp án
 
-  // Định nghĩa các bước. type: intro | single | multi | number | contact | result
+  // ★ SỬA 3 — Danh sách câu hỏi
   var steps = [
     {type:'intro'},
     {type:'single', key:T.gioi, q:'Giới tính của bạn?', opts:['Nam','Nữ']},
-    {type:'number', key:T.tuoi, q:'Bạn bao nhiêu tuổi?', hint:'Có thể kiểm tra hộ bố/mẹ — nhập tuổi người được kiểm tra.', unit:'tuổi', min:15, max:120},
-    {type:'single', key:T.mankinh, q:'Bạn đã mãn kinh chưa?', hint:'Câu này dành cho nữ.',
-      opts:['Chưa mãn kinh','Đã mãn kinh sau tuổi 45', O.mankinh_som, O.mankinh_catbt],
-      showIf:function(){return A[T.gioi]==='Nữ';}},
-    {type:'number', key:T.cannang, q:'Cân nặng hiện tại của bạn?', hint:'Nhập số kg, ví dụ 48.', unit:'kg', min:25, max:200},
-    {type:'single', key:T.chieucao, q:T.chieucao,
-      opts:['Không, vẫn như cũ', O.cao_nhe, O.cao_ro, 'Không để ý / không rõ']},
-    {type:'single', key:T.gaytxuong, q:T.gaytxuong, opts:['Chưa bao giờ', O.gay_1, O.gay_2]},
-    {type:'single', key:T.bome, q:T.bome, opts:['Không / không rõ', O.bome_co]},
-    {type:'multi', key:T.yeuto, q:'Bạn có yếu tố nào sau đây? (chọn tất cả đúng)',
-      opts:[O.yt_thuoc, O.yt_ruou, O.yt_corti, O.yt_benh, O.yt_canxi], none:'Không có yếu tố nào ở trên'},
-    {type:'single', key:T.tapluyen, q:T.tapluyen, opts:[O.tap_0, '1–2 buổi', O.tap_3]},
-    {type:'multi', key:T.sarcf, q:'Bạn thấy khó khăn với việc nào dưới đây? (chọn tất cả)',
-      opts:['Xách một vật nặng khoảng 5kg (túi gạo, làn đi chợ)','Đi bộ trong phòng / trong nhà',
-        'Đứng dậy khỏi ghế hoặc giường','Leo 10 bậc cầu thang','Tôi đã bị ngã ít nhất 1 lần trong 12 tháng qua'],
-      none:O.sarc_none},
-    {type:'single', key:T.dexa, q:T.dexa,
-      opts:['Chưa bao giờ','Có, trên 2 năm trước','Có, trong vòng 2 năm gần đây']},
-    {type:'dexaresult', showIf:function(){return (A[T.dexa]||'').indexOf('Có')===0;}},
+    {type:'number', key:T.tuoi, q:'Bạn bao nhiêu tuổi?', hint:'Có thể kiểm tra hộ người thân — nhập tuổi người được kiểm tra.', unit:'tuổi', min:15, max:120},
+    {type:'number', key:T.chieucao, q:'Chiều cao của bạn?', hint:'Nhập theo cm. Ví dụ 1m70 thì nhập 170.', unit:'cm', min:120, max:220},
+    {type:'number', key:T.cannang, q:'Cân nặng hiện tại của bạn?', hint:'Nhập số kg, ví dụ 58.', unit:'kg', min:25, max:250},
+    {type:'number', key:T.vongeo, q:'Vòng eo của bạn?', hint:'Cách đo đúng: đứng thẳng, tìm điểm GIỮA bờ sườn cuối và mào chậu (thường ngang rốn), quấn thước sát nhưng không siết, thở ra tự nhiên rồi đọc số. Không hóp bụng. Ví dụ 92.', unit:'cm', min:40, max:200},
+    {type:'single', key:T.dongot, q:T.dongot, opts:[O.ngot_0, O.ngot_12, O.ngot_3]},
+    {type:'single', key:T.ruoubia, q:T.ruoubia, opts:[O.ruou_0, O.ruou_vua, O.ruou_nhieu]},
+    {type:'single', key:T.vandong, q:T.vandong, hint:'Vận động mức vừa: đi bộ nhanh, đạp xe, bơi, thể dục… 150 phút ≈ 30 phút × 5 ngày.', opts:[O.vd_0, O.vd_it, O.vd_du]},
+    {type:'single', key:T.giadinh, q:T.giadinh, hint:'Tim mạch sớm: nhồi máu cơ tim / đột quỵ trước 55 tuổi (nam) hoặc 65 tuổi (nữ).', opts:[O.gd_khong, O.gd_xa, O.gd_gan]},
+    {type:'multi', key:T.chandoan, q:T.chandoan+' (chọn tất cả đúng)',
+      opts:[O.cd_ha, O.cd_gan, O.cd_momau, O.cd_dh], none:O.cd_none},
     {type:'contact'},
     {type:'result'}
   ];
@@ -171,23 +151,23 @@
   function esc(s){ return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];}); }
 
   function render(){
-    while(!visible(idx)) idx += (idx>0?1:1); // bỏ bước ẩn
+    while(!visible(idx)) idx += (idx>0?1:1);
     var s = steps[idx];
     var tot = totalQ();
     prog.style.width = (s.type==='intro'?4 : s.type==='result'?100 : Math.round(qIndex()/tot*100)) + '%';
     if(s.type==='intro')     return renderIntro();
-    if(s.type==='dexaresult')return renderDexaResult();
     if(s.type==='contact')   return renderContact();
-    if(s.type==='result')    return; // xử lý riêng khi submit
+    if(s.type==='result')    return;
     renderQuestion(s);
   }
 
   function renderIntro(){
     body.innerHTML =
-      '<p class="lxq-eyebrow">Bài tự kiểm tra · 2 phút</p>'+
-      '<h2 class="lxq-h1">Xương của bạn (hay của bố mẹ) đang thầm lặng yếu đi đến đâu?</h2>'+
-      '<p class="lxq-lead">Loãng xương &amp; mất cơ không đau — đến khi gãy mới biết. '+
-      'Trả lời nhanh 11 câu để biết mình đang ở mức nguy cơ nào và nên bắt đầu làm gì.</p>'+
+      '<p class="lxq-eyebrow">Bài tự kiểm tra · 1 phút</p>'+
+      '<h2 class="lxq-h1">Bụng của bạn đang chứa bao nhiêu mỡ nội tạng?</h2>'+
+      '<p class="lxq-lead">Cái cân có thể nói bạn ổn — nhưng mỡ nội tạng không hiện trên cân. '+
+      'Nhiều người GẦY vẫn có mỡ bao quanh gan, tụy, ruột. Trả lời nhanh vài câu để biết mức nguy cơ '+
+      'chuyển hóa của bạn và nên làm gì tiếp.</p>'+
       '<div class="lxq-nav"><button class="lxq-btn primary" id="lxqStart">Bắt đầu kiểm tra →</button></div>'+
       trustHTML();
     document.getElementById('lxqStart').onclick=function(){ idx++; render(); };
@@ -198,7 +178,7 @@
     var h = '<p class="lxq-eyebrow">Câu '+qIndex()+' / '+totalQ()+'</p>';
     if(s.type==='number'){
       h += '<p class="lxq-q">'+esc(s.q)+'</p>'+(s.hint?'<p class="lxq-hint">'+esc(s.hint)+'</p>':'')+
-        '<div class="lxq-field" id="lxqF"><input type="number" inputmode="numeric" id="lxqNum" '+
+        '<div class="lxq-field" id="lxqF"><input type="number" inputmode="decimal" id="lxqNum" '+
         'min="'+s.min+'" max="'+s.max+'" placeholder="Nhập '+esc(s.unit)+'" value="'+(chosen?esc(chosen):'')+'">'+
         '<div class="lxq-err">Vui lòng nhập số hợp lệ ('+s.min+'–'+s.max+' '+esc(s.unit)+').</div></div>';
     } else {
@@ -222,7 +202,6 @@
     document.getElementById('lxqBack').onclick=goBack;
     document.getElementById('lxqNext').onclick=function(){ nextFromQuestion(s); };
 
-    // tương tác chọn
     var opts=body.querySelectorAll('.lxq-opt');
     for(var k=0;k<opts.length;k++){
       opts[k].querySelector('input').onchange=function(e){
@@ -234,11 +213,10 @@
           else { cur = cur.filter(function(x){return x!==noneVal;});
                  if(e.target.checked) cur.push(val); else cur=cur.filter(function(x){return x!==val;}); }
           A[s.key]=cur;
-          // refresh trạng thái "on" + bỏ tick none nếu chọn cái khác
           syncMulti(s);
         } else {
           A[s.key]=val; syncSingle();
-          setTimeout(function(){ nextFromQuestion(s); },180); // radio: tự sang câu sau
+          setTimeout(function(){ nextFromQuestion(s); },180);
         }
       };
     }
@@ -255,12 +233,9 @@
       if(isNaN(n)||n<s.min||n>s.max){ document.getElementById('lxqF').classList.add('bad'); el.focus(); return; }
       A[s.key]=String(n);
     } else if(s.type==='multi'){
-      // multi cho phép không chọn? yếu tố/sarcf: nên chọn ít nhất 1 (kể cả "không có")
-      if(!A[s.key]||A[s.key].length===0){ // nhắc chọn "không có" nếu bỏ trống
-        A[s.key]=[]; // vẫn cho qua — coi như không có yếu tố
-      }
+      if(!A[s.key]||A[s.key].length===0){ A[s.key]=[]; }
     } else {
-      if(!A[s.key]) return; // radio bắt buộc
+      if(!A[s.key]) return;
     }
     idx++; render();
   }
@@ -272,7 +247,7 @@
     body.innerHTML =
       '<p class="lxq-eyebrow">Bước cuối</p>'+
       '<h2 class="lxq-h1">Xem kết quả &amp; nhận nhận xét riêng từ Bác sĩ Chúc</h2>'+
-      '<p class="lxq-lead">Bác sĩ sẽ đọc bài của bạn và gửi lời khuyên cá nhân hoá qua email.</p>'+
+      '<p class="lxq-lead">Bác sĩ sẽ đọc bài của bạn (kèm BMI, tỉ lệ eo/cao) và gửi lời khuyên cá nhân hoá qua email.</p>'+
       field('lxqTen','Họ và tên','text','VD: Nguyễn Văn A','Vui lòng nhập họ tên.')+
       field('lxqEmail','Email','email','ten@email.com','Email chưa đúng định dạng (thiếu @ hoặc đuôi).')+
       field('lxqSdt','Số điện thoại / Zalo <span style="color:#9ca3af;font-weight:400">(không bắt buộc)</span>','tel','VD: 0912345678','SĐT phải 10–11 số, bắt đầu bằng 0.')+
@@ -282,43 +257,6 @@
       trustHTML();
     document.getElementById('lxqBack').onclick=goBack;
     document.getElementById('lxqSubmit').onclick=submit;
-  }
-  function renderDexaResult(){
-    // Bẫy quên dấu trừ: khách gõ "2.13" khi phiếu ghi −2.13 → máy chấm 🟢 ẢO.
-    // → tách DẤU (bắt buộc chọn) khỏi TRỊ SỐ (luôn nhập số dương).
-    var ts = A[T.tscore]||'', tsN = parseFloat(ts), sign = '', absV = '';
-    if(ts!=='' && !isNaN(tsN)){ sign = tsN<0 ? '-' : '+'; absV = String(Math.abs(tsN)); }
-    body.innerHTML =
-      '<p class="lxq-eyebrow">Câu '+qIndex()+' / '+totalQ()+'</p>'+
-      '<p class="lxq-q">Bạn đã đo DEXA — cho bác sĩ biết kết quả nhé</p>'+
-      '<p class="lxq-hint">Điền chỉ số T-score nếu bạn nhớ (thường ghi trong phiếu kết quả). '+
-      'Có con số thật, bác sĩ đánh giá chính xác hơn nhiều. Không bắt buộc — bỏ trống cũng được.</p>'+
-      '<div class="lxq-field" id="lxqTsSF"><label>Trên phiếu, T-score là số ÂM (có dấu −) hay DƯƠNG?</label>'+
-      '<div class="lxq-sign">'+
-        '<button type="button" id="lxqSigNeg"'+(sign==='-'?' class="on"':'')+'><b>−</b> Số âm (VD: −2.6)</button>'+
-        '<button type="button" id="lxqSigPos"'+(sign==='+'?' class="on"':'')+'><b>+</b> Số dương (VD: +0.5)</button></div>'+
-      '<div class="lxq-err">Bạn đã nhập chỉ số — hãy chọn dấu âm hay dương (đa số phiếu là số âm).</div></div>'+
-      '<div class="lxq-field" id="lxqTsF"><label for="lxqTs">Chỉ số T-score thấp nhất (nếu nhớ)</label>'+
-      '<input id="lxqTs" type="number" step="0.1" min="0" max="6" inputmode="decimal" placeholder="VD: 2.6" value="'+esc(absV)+'">'+
-      '<div class="lxq-err">Nhập số trong khoảng 0 đến 6 (VD: 2.6).</div></div>'+
-      '<div class="lxq-nav">'+
-        '<button class="lxq-btn ghost" id="lxqBack">←</button>'+
-        '<button class="lxq-btn primary" id="lxqNext">Tiếp theo →</button></div>';
-    var bNeg=document.getElementById('lxqSigNeg'), bPos=document.getElementById('lxqSigPos');
-    function pick(s){ sign=s; bNeg.classList.toggle('on',s==='-'); bPos.classList.toggle('on',s==='+');
-      document.getElementById('lxqTsSF').classList.remove('bad'); }
-    bNeg.onclick=function(){pick('-');}; bPos.onclick=function(){pick('+');};
-    document.getElementById('lxqBack').onclick=goBack;
-    document.getElementById('lxqNext').onclick=function(){
-      var el=document.getElementById('lxqTs'), v=el.value.trim();
-      if(v===''){ A[T.tscore]=''; idx++; render(); return; }   // bỏ trống = không nhớ, hợp lệ
-      var n=parseFloat(v);
-      if(isNaN(n)||Math.abs(n)>6){ document.getElementById('lxqTsF').classList.add('bad'); return; }
-      if(n<0){ pick('-'); n=Math.abs(n); el.value=String(n); } // khách tự gõ dấu trừ trong ô số → nhận luôn
-      if(!sign){ document.getElementById('lxqTsSF').classList.add('bad'); return; } // có trị số thì PHẢI chọn dấu
-      A[T.tscore]=String(sign==='-'?-n:n);
-      idx++; render();
-    };
   }
   function field(id,label,type,ph,err){
     return '<div class="lxq-field" id="'+id+'F"><label for="'+id+'">'+label+'</label>'+
@@ -358,18 +296,16 @@
 
     var payload={ key:SECRET, action:'submit', data:A };
     var done=false, finish=function(){ if(done)return; done=true; showResult(); };
-    // POST text/plain → không kích hoạt preflight CORS; no-cors → không đọc phản hồi (đã chấm điểm phía JS)
     try{
       fetch(SCRIPT_URL,{method:'POST',mode:'no-cors',body:JSON.stringify(payload)})
         .then(finish).catch(finish);
     }catch(e){ finish(); }
-    setTimeout(finish,4000); // an toàn: dù mạng chậm vẫn hiện kết quả
+    setTimeout(finish,4000);
   }
   function bad(id){ document.getElementById(id).classList.add('bad'); }
   function good(id){ document.getElementById(id).classList.remove('bad'); }
   function setErr(fid,html){ var e=document.querySelector('#'+fid+' .lxq-err'); if(e) e.innerHTML=html; }
 
-  // Dò lỗi đánh máy tên miền email (gmail.co, gmai.com, gmial.com, yahoo.con…)
   var GOOD_DOMAINS=['gmail.com','yahoo.com','yahoo.com.vn','hotmail.com','outlook.com',
     'outlook.com.vn','icloud.com','email.com','fpt.edu.vn'];
   function lev(a,b){ var m=a.length,n=b.length,d=[],i,j;
@@ -377,7 +313,6 @@
     for(i=1;i<=m;i++)for(j=1;j<=n;j++){ var c=a[i-1]===b[j-1]?0:1;
       d[i][j]=Math.min(d[i-1][j]+1,d[i][j-1]+1,d[i-1][j-1]+c); }
     return d[m][n]; }
-  // Đuôi tên miền (TLD) hợp lệ phổ biến — đuôi ngoài danh sách này coi là gõ nhầm
   var GOOD_TLDS={com:1,net:1,org:1,edu:1,gov:1,mil:1,int:1,info:1,biz:1,name:1,pro:1,
     io:1,co:1,me:1,ai:1,app:1,dev:1,tech:1,site:1,online:1,store:1,cloud:1,email:1,live:1,xyz:1,
     tv:1,cc:1,asia:1,vn:1,us:1,uk:1,jp:1,cn:1,kr:1,de:1,fr:1,au:1,ca:1,in:1,id:1,ph:1,th:1,
@@ -385,65 +320,68 @@
   function emailFix(email){
     var at=email.lastIndexOf('@'); if(at<1) return null;
     var local=email.slice(0,at), dom=email.slice(at+1).toLowerCase();
-    if(GOOD_DOMAINS.indexOf(dom)>=0) return null;      // đã đúng
-    // Gmail CHỈ có gmail.com — mọi gmail.* / gmai. khác đều gõ nhầm
+    if(GOOD_DOMAINS.indexOf(dom)>=0) return null;
     if(/^gmail\.[a-z.]+$/.test(dom) && dom!=='gmail.com') return local+'@gmail.com';
-    // Typo nhà cung cấp phổ biến (yahoo.con, hotmai.com…)
     var best=null,bd=99;
     for(var i=0;i<GOOD_DOMAINS.length;i++){ var d=lev(dom,GOOD_DOMAINS[i]); if(d<bd){bd=d;best=GOOD_DOMAINS[i];} }
     if(best && bd>0 && bd<=2) return local+'@'+best;
-    // Đuôi TLD không tồn tại (drchuc.con, abc.vom…) → gợi ý đổi đuôi thành .com
     var parts=dom.split('.'), tld=parts[parts.length-1];
     if(parts.length>=2 && !GOOD_TLDS[tld]){ parts[parts.length-1]='com'; return local+'@'+parts.join('.'); }
     return null;
   }
 
-  /* ===== CHẤM ĐIỂM (bản JS — khớp chamDiem_ trong .gs) ===== */
+  /* ===== ★ SỬA 4 — CHẤM ĐIỂM (bản JS). PHẢI khớp chamDiem_ trong webform_monoitang.gs ===== */
   function score(){
     function has(t,n){ var v=A[t]; if(!v)return false; if(v.join)return v.join(' | ').indexOf(n)!==-1; return String(v).indexOf(n)!==-1; }
     function val(t){ return A[t]!=null?String(A[t]):''; }
-    var tuoi=parseFloat(val(T.tuoi))||0, cn=parseFloat(val(T.cannang))||0, d=0, coDo=false;
-    var osta=null, soYT=0; // OSTA thô + đếm nhóm yếu tố ngoài OSTA (xét tổ hợp ép CAO)
-    // KHÔNG Math.floor: floor biến −0.2 thành −1 (thổi điểm oan) và đẩy −4.0 khỏi nhóm nặng
-    if(tuoi>0&&cn>0){ osta=(cn-tuoi)*0.2; if(osta<=-4){d+=4;coDo=true;} else if(osta<=-1)d+=2; }
-    var g=val(T.gaytxuong); if(g===O.gay_1){d+=2;coDo=true;soYT++;} if(g===O.gay_2){d+=3;coDo=true;soYT++;}
-    if(val(T.bome)===O.bome_co){d+=2;soYT++;}
-    var c=val(T.chieucao); if(c===O.cao_ro){d+=2;coDo=true;soYT++;} if(c===O.cao_nhe){d+=1;soYT++;}
-    if(has(T.yeuto,'corticoid')){d+=2;coDo=true;soYT++;}
-    if(has(T.yeuto,'Hút thuốc')){d+=1;soYT++;} if(has(T.yeuto,'rượu')){d+=1;soYT++;}
-    if(has(T.yeuto,'viêm khớp dạng thấp')){d+=1;soYT++;} if(has(T.yeuto,'Ít ra nắng')){d+=1;soYT++;}
-    var mk=val(T.mankinh); if(mk===O.mankinh_som||mk===O.mankinh_catbt){d+=2;soYT++;}
-    var tp=val(T.tapluyen); if(tp===O.tap_0)d+=1; if(tp===O.tap_3)d-=1;
-    var sc=A[T.sarcf]||[], cnt=0, opts=['Xách một vật nặng','Đi bộ trong phòng','Đứng dậy khỏi ghế','Leo 10 bậc','bị ngã ít nhất 1 lần'];
-    if(sc.indexOf(O.sarc_none)===-1){ for(var i=0;i<opts.length;i++){ for(var j=0;j<sc.length;j++){ if(sc[j].indexOf(opts[i])!==-1){cnt++;break;} } } }
-    var matCo=cnt>=2; if(matCo){d+=2;soYT++;}
-    // TỔ HỢP: OSTA nhóm trung bình (≤ −1) + ≥2 nhóm yếu tố khác → ép CAO (khớp chamDiem_ trong .gs)
-    if(osta!==null&&osta<=-1&&soYT>=2)coDo=true;
+    function num(t){ return parseFloat(val(t))||0; }
+
+    var gioi=val(T.gioi), tuoi=num(T.tuoi), cao=num(T.chieucao), cn=num(T.cannang), eo=num(T.vongeo);
+    var d=0, coDo=false;
+    var bmi=0, whtr=0;
+    if(cao>0&&cn>0) bmi=cn/Math.pow(cao/100,2);
+    if(cao>0&&eo>0) whtr=eo/cao;
+
+    // 1) Vòng eo — ngưỡng IDF châu Á
+    var nguong=(gioi==='Nữ')?80:90, can=(gioi==='Nữ')?75:85;
+    if(eo>=nguong){ d+=3; coDo=true; }
+    else if(eo>=can){ d+=1; }
+    // 2) Tỉ lệ eo/cao (WHtR)
+    if(whtr>=0.6) d+=3; else if(whtr>=0.5) d+=2;
+    // 3) BMI ngưỡng châu Á
+    if(bmi>=27.5) d+=3; else if(bmi>=25) d+=2; else if(bmi>=23) d+=1;
+    // 4) Tuổi
+    if(tuoi>=60) d+=3; else if(tuoi>=50) d+=2; else if(tuoi>=40) d+=1;
+    // 5) Đồ uống ngọt
+    var ng=val(T.dongot); if(ng===O.ngot_3) d+=2; else if(ng===O.ngot_12) d+=1;
+    // 6) Rượu bia
+    var rb=val(T.ruoubia); if(rb===O.ruou_nhieu) d+=2; else if(rb===O.ruou_vua) d+=1;
+    // 7) Vận động
+    var vd=val(T.vandong); if(vd===O.vd_0) d+=2; else if(vd===O.vd_it) d+=1;
+    // 8) Gia đình
+    var gd=val(T.giadinh); if(gd===O.gd_gan) d+=2; else if(gd===O.gd_xa) d+=1;
+    // 9) Đã được chẩn đoán
+    if(has(T.chandoan,'Huyết áp cao')) d+=2;
+    if(has(T.chandoan,'Gan nhiễm mỡ')){ d+=2; coDo=true; }
+    if(has(T.chandoan,'mỡ máu')) d+=2;
+    if(has(T.chandoan,'Đường huyết cao')){ d+=2; coDo=true; }
     if(d<0)d=0;
 
-    // T-score DEXA (chẩn đoán vàng) ghi đè kết quả sàng lọc
-    var tsRaw=val(T.tscore), ts=parseFloat(tsRaw);
-    var tang,mau,note;
-    if(tsRaw!==''&&!isNaN(ts)){
-      if(ts<=-2.5){ tang='ĐÃ CÓ LOÃNG XƯƠNG'; mau='#dc2626';
-        note='Kết quả DEXA của bạn (T-score '+ts+') cho thấy <b>đã loãng xương</b>. Đây là lúc cần một kế hoạch điều trị &amp; tập luyện bài bản cùng bác sĩ — đừng chờ đến khi gãy.'+(matCo?' Bạn cũng có dấu hiệu mất cơ, càng cần chú ý phòng té ngã.':'');
-        return {d:d,tang:tang,mau:mau,note:note};
-      }
-      if(ts<=-1.0){ tang='THIẾU XƯƠNG (tiền loãng xương)'; mau='#d97706';
-        note='DEXA của bạn (T-score '+ts+') ở mức <b>thiếu xương (osteopenia)</b> — chưa loãng xương nhưng đã dưới chuẩn. Can thiệp ngay bằng tập kháng lực + đủ đạm + canxi/vitamin D có thể chặn đứng diễn tiến.'+(matCo?' Kèm dấu hiệu mất cơ.':'');
-        return {d:d,tang:tang,mau:mau,note:note};
-      }
-      // ts > -1.0: mật độ xương bình thường → hạ nhẹ, vẫn xét yếu tố khác
-      note='Tin tốt: DEXA của bạn (T-score '+ts+') cho thấy <b>mật độ xương bình thường</b>. Hãy duy trì tập kháng lực, đủ đạm, canxi/vitamin D và đo lại định kỳ.'+(matCo?' Lưu ý dấu hiệu sức cơ đi xuống.':'');
-      return {d:d, tang:'MẬT ĐỘ XƯƠNG BÌNH THƯỜNG', mau:'#059669', note:note};
-    }
+    // "Gầy nhưng bụng chứa mỡ" (TOFI)
+    var tofi = (bmi>0 && bmi<23) && (eo>=nguong || whtr>=0.5);
 
-    if(coDo||d>=6){ tang='NGUY CƠ CAO'; mau='#dc2626';
-      note='Bạn có yếu tố nguy cơ đáng lưu ý. Nên <b>đo mật độ xương (DEXA)</b> sớm và trao đổi với bác sĩ'+(matCo?', đồng thời đánh giá tình trạng mất cơ / dễ té ngã.':'.')+' Đừng chờ đến khi đau hay gãy.';
-    } else if(d>=3){ tang='NGUY CƠ TRUNG BÌNH'; mau='#d97706';
-      note='Bạn có một vài yếu tố cần theo dõi. Nên <b>cân nhắc đo DEXA trong 6–12 tháng tới</b>, và bắt đầu ngay: tập kháng lực đều + ăn đủ đạm + canxi/vitamin D.'+(matCo?' Có dấu hiệu sức cơ đi xuống.':'');
+    var soDo = '<b>Chỉ số của bạn:</b> BMI '+(bmi>0?bmi.toFixed(1):'—')+
+      ' · vòng eo '+(eo>0?eo+' cm':'—')+' (ngưỡng '+(gioi==='Nữ'?'nữ 80':'nam 90')+' cm)'+
+      ' · tỉ lệ eo/cao '+(whtr>0?whtr.toFixed(2):'—')+' (an toàn dưới 0.50).<br>';
+    var tofiNote = tofi ? '⚠️ Cân nặng của bạn nhìn "gầy" (BMI dưới 23) nhưng số đo vòng bụng đã vượt mức an toàn — đúng kiểu <b>"gầy vẫn có mỡ nội tạng"</b> mà nhiều người bỏ sót. ' : '';
+
+    var tang,mau,note;
+    if(coDo||d>=10){ tang='NGUY CƠ CAO'; mau='#dc2626';
+      note=soDo+tofiNote+'Bạn có dấu hiệu đáng lưu ý về mỡ nội tạng / chuyển hóa. Nên <b>đi kiểm tra sớm</b>: huyết áp, đường huyết lúc đói hoặc HbA1c, mỡ máu; tùy trường hợp thêm men gan / siêu âm gan. Đừng chờ đến khi có triệu chứng.';
+    } else if(d>=5){ tang='NGUY CƠ TRUNG BÌNH'; mau='#d97706';
+      note=soDo+tofiNote+'Bạn có một vài yếu tố cần theo dõi. Nên <b>kiểm tra sức khỏe định kỳ trong 6–12 tháng tới</b> (huyết áp, đường huyết, mỡ máu) và bắt đầu ngay: bớt đồ ngọt, vận động đều, ngủ đủ.';
     } else { tang='NGUY CƠ THẤP'; mau='#059669';
-      note='Hiện bạn ở mức tốt. Hãy <b>duy trì</b>: tập kháng lực đều đặn, ăn đủ đạm, đủ canxi và vitamin D (ra nắng). Kiểm tra lại định kỳ.';
+      note=soDo+'Hiện bạn ở mức tốt. Hãy <b>duy trì</b>: vòng eo dưới ngưỡng, vận động 150 phút/tuần + 2 buổi tập sức mạnh, hạn chế đồ uống ngọt. Đo lại vòng eo mỗi 3–6 tháng.';
     }
     return {d:d,tang:tang,mau:mau,note:note};
   }
@@ -457,7 +395,7 @@
       '<div class="lxq-gauge" style="color:'+r.mau+'">'+r.d+'<span style="font-size:18px;color:var(--muted);font-weight:600"> điểm nguy cơ</span></div>'+
       '<div class="lxq-result-note">'+r.note+'</div>'+
       '<p class="lxq-lead" style="margin-bottom:14px">Đây mới là <b>kết quả sàng lọc nhanh</b>. 📩 <b>Bác sĩ Chúc sẽ đọc kỹ bài của bạn và gửi PHÂN TÍCH CHI TIẾT + lời khuyên riêng qua email</b> bạn vừa nhập — nhớ kiểm tra cả mục Spam/Quảng cáo.</p>'+
-      '<a class="lxq-cta" href="'+CTA_URL+'" target="_blank" rel="noopener">Đọc tiếp: 7 dấu hiệu mất cơ âm thầm &amp; cách phòng →</a>'+
+      '<a class="lxq-cta" href="'+CTA_URL+'" target="_blank" rel="noopener">Đọc tiếp: Cách hạ đường huyết — 7 thói quen có bằng chứng →</a>'+
       authorHTML();
   }
 
@@ -467,9 +405,10 @@
       '<span>Thông tin của bạn được bảo mật, chỉ Bác sĩ Chúc đọc để phản hồi riêng. Đây là công cụ sàng lọc, không thay thế thăm khám.</span></div>';
   }
   function authorHTML(){
-    return '<div class="lxq-author"><span>🩺</span><span>Bài kiểm tra do <b>Bác sĩ Nguyễn Xuân Chúc</b> biên soạn dựa trên thang OSTA &amp; SARC-F.</span></div>';
+    return '<div class="lxq-author"><span>🩺</span><span>Bài kiểm tra do <b>Bác sĩ Nguyễn Xuân Chúc</b> biên soạn dựa trên ngưỡng vòng eo IDF châu Á, tỉ lệ eo/cao (WHtR) &amp; BMI châu Á (WHO).</span></div>';
   }
 
+  window.__lxq={A:A, score:score, T:T, O:O}; // hook test nội bộ
   render();
 })();
 </script>
