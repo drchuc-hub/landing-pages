@@ -23,6 +23,7 @@ routes = [
 
   { pattern = "drchuc.com/kiem-tra-lao-hoa*", zone_name = "drchuc.com" },
   { pattern = "drchuc.com/kiem-tra-loang-xuong*", zone_name = "drchuc.com" },
+  { pattern = "drchuc.com/kiem-tra-mo-noi-tang*", zone_name = "drchuc.com" },
 
   # Sale page Tư Vấn 1-1
   { pattern = "drchuc.com/tu-van-1-1*", zone_name = "drchuc.com" }
