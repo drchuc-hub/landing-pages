@@ -2,10 +2,12 @@ name = "landing-pages"
 compatibility_date = "2024-01-01"
 main = "_worker.js"
 
-# LƯU Ý: chỉ đăng ký route HẸP theo đúng trang tĩnh có thật trong repo.
-# KHÔNG dùng wildcard rộng kiểu "cam-on*" — sẽ nuốt trang WordPress trùng prefix
-# (sự cố 1101 với trang WP /cam-on-tai-lieu-mat-co/ ngày 21/07/2026).
-# Thêm trang tĩnh mới = thêm file .html + thêm route tương ứng ở đây rồi deploy.
+# LƯU Ý: route trang tĩnh PHẢI có "*" ở đuôi. Route exact (không "*") bỏ sót
+# request kèm query string (?fbclid/?utm_ của quảng cáo) → đi thẳng origin
+# WordPress → 404 (sự cố /tu-van-1-1?cb= ngày 22/07/2026).
+# Wildcard trùng prefix trang WP giờ AN TOÀN: _worker.js đã fallback về
+# WordPress khi thiếu asset (vá sau sự cố 1101 /cam-on-tai-lieu-mat-co/ 21/07/2026).
+# Thêm trang tĩnh mới = thêm file .html + thêm route "<slug>*" ở đây rồi deploy.
 routes = [
   { pattern = "drchuc.com/api/sepay-webhook", zone_name = "drchuc.com" },
 
@@ -23,9 +25,8 @@ routes = [
   { pattern = "drchuc.com/kiem-tra-lao-hoa*", zone_name = "drchuc.com" },
   { pattern = "drchuc.com/kiem-tra-loang-xuong*", zone_name = "drchuc.com" },
 
-  # Sale page Tư Vấn 1-1 (route exact — tránh nuốt trang WP trùng prefix)
-  { pattern = "drchuc.com/tu-van-1-1", zone_name = "drchuc.com" },
-  { pattern = "drchuc.com/tu-van-1-1/", zone_name = "drchuc.com" }
+  # Sale page Tư Vấn 1-1
+  { pattern = "drchuc.com/tu-van-1-1*", zone_name = "drchuc.com" }
 ]
 
 [assets]
