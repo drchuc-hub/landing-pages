@@ -9,11 +9,9 @@ const APPS_SCRIPT_A =
   'https://script.google.com/macros/s/AKfycbzuHNt_0O-FxTs6krH2fhOjmGhCgiN8StC7_6Axc4mEetHQAVyc6cNLJXupEGazizujLg/exec';
 const APPS_SCRIPT_B =
   'https://script.google.com/macros/s/AKfycbyZ-6sEMg1Kj9OApnKVRbVO_H56JH7LSY6_Z5B12QVs4iHzTiPi1BC_o_8S9O4mjBtx3Q/exec';
-// ⚠️ TODO: thay bằng URL Apps Script funnel "Tư Vấn 1-1" (đơn prefix TVCP).
-// Trùng với APPS_SCRIPT_URL trong tu-van-1-1.html. Để placeholder thì
-// auto-xác nhận tắt, khách dùng nút Zalo fallback (chuyển khoản vẫn chạy).
+// Trùng với APPS_SCRIPT_URL trong tu-van-1-1.html.
 const APPS_SCRIPT_C =
-  'PASTE_APPS_SCRIPT_TUVAN_URL_HERE';
+  'https://script.google.com/macros/s/AKfycbwIL39Vzo2fHcYeGDKq8t6JLeFzJUWs6qu4Z-E9TjjepGgoKh5NxDJKTeftyx2reyT3/exec';
 
 export default {
   async fetch(request, env) {
