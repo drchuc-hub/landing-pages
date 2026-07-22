@@ -3,6 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Google Tag Manager — container chung drchuc.com (GA4 G-2PLTQEEGNL + FB Pixel + Clarity) -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-MWBH4FDW');</script>
+<!-- End Google Tag Manager -->
 <title>Bài kiểm tra nguy cơ Loãng xương & Mất cơ — Bác sĩ Chúc</title>
 <meta name="description" content="Bài tự kiểm tra 2 phút giúp bạn (hoặc bố mẹ) biết mức nguy cơ loãng xương & mất cơ, có nên đo mật độ xương chưa. Bác sĩ Chúc gửi nhận xét riêng qua email.">
 <meta name="robots" content="index,follow">
@@ -32,6 +35,9 @@
   </script>
 </head>
 <body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MWBH4FDW" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
   <div class="lxq-brand">🩺 Bác sĩ Nguyễn Xuân Chúc</div>
 <div id="lxq-root">
 <style>
@@ -355,6 +361,8 @@
 
     var btn=document.getElementById('lxqSubmit');
     btn.disabled=true; btn.innerHTML='<span class="lxq-spin"></span>Đang gửi…';
+    // Đo lường: hoàn thành quiz + để lại liên hệ → generate_lead (GTM-MWBH4FDW đọc, GA4/Pixel gắn trigger trong GTM)
+    try{ window.dataLayer=window.dataLayer||[]; window.dataLayer.push({event:'generate_lead',funnel:'kiem-tra-loang-xuong',lead_source:'quiz_loang_xuong'}); }catch(e){}
 
     var payload={ key:SECRET, action:'submit', data:A };
     var done=false, finish=function(){ if(done)return; done=true; showResult(); };
