@@ -3,6 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Google Tag Manager — container chung drchuc.com (GA4 G-2PLTQEEGNL + FB Pixel + Clarity) -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-MWBH4FDW');</script>
+  <!-- End Google Tag Manager -->
   <title>Tư Vấn 1-1 Cùng Bác Sĩ Chúc — 30 Phút Rõ Lộ Trình Giữ Xương Chắc, Chân Vững</title>
   <meta name="description" content="Buổi tư vấn riêng 30 phút qua Zoom hoặc Zalo video cùng Bác sĩ Nguyễn Xuân Chúc: phân tích kết quả kiểm tra loãng xương – mất cơ của chính bạn và thiết kế lộ trình 90 ngày vừa sức. Ưu đãi 50% còn 499.000đ.">
   <meta property="og:title" content="Tư Vấn 1-1 Cùng Bác Sĩ Chúc — 30 Phút Rõ Lộ Trình Giữ Xương Chắc, Chân Vững">
@@ -271,6 +274,9 @@
   </style>
 </head>
 <body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MWBH4FDW" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
 
 <main>
   <!-- ═══════ BƯỚC 1 + 2 — HEADLINE & SUB ═══════ -->
@@ -647,6 +653,19 @@
   })();
   let ACTIVE_PRICE = isDiscount ? DISCOUNT_PRICE : FULL_PRICE;
 
+  /* ── ĐO LƯỜNG: đẩy sự kiện phễu vào dataLayer (GTM-MWBH4FDW đọc) ──
+     view_item → begin_checkout (mở form) → add_payment_info (hiện QR)
+     → purchase (xác nhận đã nhận tiền). Trigger GA4/Pixel cấu hình trong GTM. */
+  const dlOnce = {};
+  function track(ev, extra){
+    window.dataLayer = window.dataLayer || [];
+    const p = { event: ev, funnel: 'tu-van-1-1', currency: 'VND', value: ACTIVE_PRICE, order_id: ORDER_ID };
+    if(extra) for(const k in extra) p[k] = extra[k];
+    window.dataLayer.push(p);
+  }
+  function trackOnce(ev, extra){ if(dlOnce[ev]) return; dlOnce[ev] = 1; track(ev, extra); }
+  track('view_item', { uu_dai_50: isDiscount });
+
   function fmt(n){ return n.toLocaleString('vi-VN') + 'đ'; }
 
   /* ── Render giá theo trạng thái ưu đãi (đồng bộ mọi nút) ── */
@@ -705,6 +724,7 @@
     document.getElementById('amount-display').textContent = fmt(ACTIVE_PRICE);
     document.getElementById('noidung-ck').textContent = ORDER_ID;
     document.getElementById('payment-modal').classList.add('open');
+    trackOnce('begin_checkout');
   }
   function closePayment(){
     document.getElementById('payment-modal').classList.remove('open');
@@ -770,6 +790,7 @@
     document.getElementById('ck-step1').style.display='none';
     document.getElementById('ck-step2').style.display='block';
     btn.disabled=false; btn.textContent='Lấy mã QR thanh toán →';
+    trackOnce('add_payment_info', { kenh_goi: channel });
 
     // Poll xác nhận tự động + fallback Zalo sau 2 phút
     if(APPS_SCRIPT_URL && APPS_SCRIPT_URL.indexOf('PASTE_') === -1){
@@ -788,6 +809,7 @@
   }
   function showPaymentSuccess(email){
     clearInterval(pollTimer); pollTimer=null; clearTimeout(fallbackTimer); fallbackTimer=null;
+    trackOnce('purchase', { transaction_id: ORDER_ID });
     closePayment();
     document.getElementById('confirm-email').textContent=email;
     document.getElementById('payment-success').style.display='block';
