@@ -11,8 +11,7 @@ main = "_worker.js"
 routes = [
   { pattern = "drchuc.com/api/sepay-webhook", zone_name = "drchuc.com" },
 
-  { pattern = "drchuc.com/cam-on", zone_name = "drchuc.com" },
-  { pattern = "drchuc.com/cam-on/", zone_name = "drchuc.com" },
+  { pattern = "drchuc.com/cam-on*", zone_name = "drchuc.com" },
   { pattern = "drchuc.com/cam-on-momau*", zone_name = "drchuc.com" },
   { pattern = "drchuc.com/cam-on-tieuduong*", zone_name = "drchuc.com" },
 
