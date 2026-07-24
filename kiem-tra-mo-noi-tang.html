@@ -128,11 +128,11 @@
 
   var A = {}; // đáp án
 
-  /* ===== ĐO LEAD THEO BÀI — đọc ?b=<mã> trên URL (vd ...?b=mo02) → lưu cột "Bài nguồn".
-     Chấp nhận cả utm_content / utm_campaign làm dự phòng. Giới hạn 60 ký tự cho sạch. ===== */
+  /* ===== ĐO LEAD THEO BÀI — đọc mã bài trên URL → lưu cột "Bài nguồn".
+     Nhận: ?hook=01  hoặc  ?b=mo02  (fallback utm_content / utm_campaign). 60 ký tự. ===== */
   try{
     var __qs = new URLSearchParams(location.search);
-    var __src = (__qs.get('b') || __qs.get('utm_content') || __qs.get('utm_campaign') || '').trim();
+    var __src = (__qs.get('hook') || __qs.get('b') || __qs.get('utm_content') || __qs.get('utm_campaign') || '').trim();
     if(__src) A['Bài nguồn'] = __src.slice(0,60);
   }catch(e){}
 
