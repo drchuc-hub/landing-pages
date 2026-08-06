@@ -16,6 +16,9 @@ routes = [
   { pattern = "drchuc.com/cam-on-tieuduong*", zone_name = "drchuc.com" },
 
   { pattern = "drchuc.com/ebook-momau*", zone_name = "drchuc.com" },
+  { pattern = "drchuc.com/ebook-mat-co*", zone_name = "drchuc.com" },
+  { pattern = "drchuc.com/cam-on-mat-co*", zone_name = "drchuc.com" },
+  { pattern = "drchuc.com/camnang-mat-co*", zone_name = "drchuc.com" },
   { pattern = "drchuc.com/ebook-5-chi-so-lao-hoa*", zone_name = "drchuc.com" },
   { pattern = "drchuc.com/ebook-camnan-tieuduong*", zone_name = "drchuc.com" },
   { pattern = "drchuc.com/ebook-doc-camnang-momau*", zone_name = "drchuc.com" },
