@@ -24,7 +24,7 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:radial
 h1{text-align:center;font-size:clamp(19px,4.2vw,30px);font-weight:800;padding:6px 16px 2px;line-height:1.25}
 h1 .hl{color:var(--green-light)}
 .sub{text-align:center;font-size:clamp(12px,2.6vw,14px);color:rgba(245,244,239,.65);padding:0 16px 10px}
-.stage{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:6px 8px 4px;min-height:0}
+.stage{display:flex;flex-direction:column;align-items:center;padding:6px 8px 4px}
 #book-wrap{width:100%;max-width:1240px;margin:0 auto;position:relative}
 #book{margin:0 auto;touch-action:pan-y}
 .page{background:#fff;box-shadow:0 0 6px rgba(0,0,0,.25)}
@@ -109,13 +109,20 @@ footer a{color:var(--gold-light);text-decoration:none}
   var wrap = document.getElementById('book-wrap');
   var book = document.getElementById('book');
 
-  // Co dãn theo CẢ chiều cao lẫn chiều rộng màn hình (StPageFlip stretch chỉ nhìn width cha)
+  // Co dãn theo CẢ chiều cao lẫn chiều rộng màn hình (StPageFlip stretch chỉ nhìn width cha).
+  // ĐO chiều cao THẬT của chữ đầu trang + nút điều khiển để sách không bao giờ đè lên chữ.
+  function chromeH(){
+    var h = 46; // đệm an toàn
+    ['.top','h1','.sub','.controls','.hint'].forEach(function(sel){
+      var el = document.querySelector(sel);
+      if (el && el.offsetHeight) h += el.offsetHeight;
+    });
+    return h;
+  }
   function fitSize(apply){
-    var fs = document.body.classList.contains('fullscreen-on');
-    var chrome = fs ? 100 : 300;                         // phần đầu trang + nút điều khiển
     var vh = window.innerHeight, vw = Math.min(window.innerWidth - 12, 1260);
-    var ph = Math.min(860, Math.max(360, vh - chrome));  // chiều cao 1 trang
-    var pw = ph * RATIO;                                 // chiều rộng 1 trang
+    var ph = Math.min(860, Math.max(320, vh - chromeH())); // chiều cao 1 trang
+    var pw = ph * RATIO;                                   // chiều rộng 1 trang
     var w = (vw >= 720) ? Math.min(pw * 2, vw) : Math.min(pw, vw);
     wrap.style.width = w + 'px';
     if (apply) window.dispatchEvent(new Event('resize'));
