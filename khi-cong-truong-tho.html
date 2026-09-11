@@ -664,32 +664,9 @@
       </form>
       <div class="panel ok" id="panelOk">
         <strong>✓ Đã nhận thông tin giữ chỗ của anh chị!</strong>
-        <div id="bankBox" hidden>
-          <p style="margin-top:10px;text-align:center;font-weight:700;color:var(--navy)">Bước cuối cùng — mở ứng dụng ngân hàng và quét mã.<br>Số tiền 499.000đ và nội dung đã điền sẵn:</p>
-          <div class="qr-wrap"><img id="qrImg" alt="Mã QR chuyển khoản VPBank chính chủ NGUYEN XUAN CHUC" width="240" height="240"></div>
-          <p class="qr-hint">Anh chị ở nước ngoài? Nhờ người thân tại Việt Nam quét hộ — hệ thống nhận diện theo
-            nội dung chuyển khoản, không cần đúng tên người chuyển.</p>
-          <p style="margin-top:12px;font-size:14px;color:var(--ink-soft);text-align:center">Hoặc chuyển khoản thủ công:</p>
-          <div class="bank">
-            <p><span>Ngân hàng</span><b id="bkBank"></b></p>
-            <p><span>Số tài khoản</span><span class="cop"><b id="bkStk"></b><button type="button" class="copy-btn" data-copy="bkStk">Chép</button></span></p>
-            <p><span>Chủ tài khoản</span><b id="bkChu"></b></p>
-            <p><span>Nội dung chuyển khoản</span><span class="cop"><b id="bkNoiDung"></b><button type="button" class="copy-btn" data-copy="bkNoiDung">Chép</button></span></p>
-          </div>
-          <p style="margin-top:8px;font-size:14px;color:#54627C">Anh chị nhớ ghi <strong>đúng nội dung
-            chuyển khoản</strong> ở trên — hệ thống dựa vào đó để tự nhận ra anh chị.</p>
-          <p style="margin-top:10px">Ngay khi học phí về, hệ thống <strong>tự động gửi email xác nhận
-            trong vài phút</strong>, kèm quà tặng <strong>Ebook Cẩm nang Mất Cơ</strong> và link
-            vào nhóm lớp. Anh chị kiểm tra cả mục Spam/Quảng cáo giúp bác sĩ nhé.</p>
-        </div>
-        <div id="paidBox" class="paid-box" hidden>
-          <p style="font-size:20px;font-weight:800;color:var(--jade)">🎉 Đã nhận được học phí của anh chị!</p>
-          <p style="margin-top:6px">Email xác nhận kèm <strong>Ebook Cẩm nang Mất Cơ</strong> và link nhóm lớp
-            đang bay vào hộp thư — anh chị kiểm tra cả mục Spam/Quảng cáo nhé.
-            Hẹn gặp anh chị 6:00 sáng thứ Hai! 🌅</p>
-        </div>
-        <p id="callNote" style="margin-top:10px">Phòng khám sẽ gọi lại trong 24 giờ để xác nhận, xếp anh chị vào lớp
-          khai giảng sáng thứ Hai gần nhất và hướng dẫn từng bước. Anh chị để ý điện thoại giúp bác sĩ nhé.</p>
+        <p id="callNote" style="margin-top:10px">Đang chuyển anh chị sang trang thanh toán…
+          Nếu trang không tự chuyển, anh chị bấm vào đây:
+          <a href="https://drchuc.com/khi-cong-truong-tho-thanh-toan">drchuc.com/khi-cong-truong-tho-thanh-toan</a></p>
       </div>
       <div class="panel alt" id="panelAlt">
         <strong>Hệ thống giữ chỗ trực tuyến đang được kết nối.</strong><br>
@@ -763,37 +740,12 @@
       headers:{'Content-Type':'text/plain;charset=utf-8'},
       body: JSON.stringify({key:FORM_KEY, nguon:'khi-cong-truong-tho', ten:ten, sdt:sdt, email:email})
     }).then(function(r){ return r.json(); }).then(function(){
+      var digits = sdt.replace(/\D/g, '');
+      try { sessionStorage.setItem('kctt', JSON.stringify({ ten: ten, sdt: digits })); } catch (e) {}
       form.style.display = 'none';
-      if (BANK.soTK) {
-        var digits = sdt.replace(/\D/g, '');
-        document.getElementById('bkBank').textContent = BANK.nganHang;
-        document.getElementById('bkStk').textContent = BANK.soTK;
-        document.getElementById('bkChu').textContent = BANK.chuTK;
-        document.getElementById('bkNoiDung').textContent = 'KCTT ' + digits;
-        document.getElementById('qrImg').src = 'https://img.vietqr.io/image/' + BANK.maVietQR + '-' + BANK.soTK
-          + '-compact2.png?amount=499000&addInfo=' + encodeURIComponent('KCTT ' + digits)
-          + '&accountName=' + encodeURIComponent(BANK.chuTK);
-        document.getElementById('bankBox').hidden = false;
-        document.getElementById('callNote').textContent = 'Chuyển khoản xong anh chị để màn hình này mở — tiền về là trang tự báo ngay. (Lỡ đóng trang cũng không sao: email xác nhận + quà tặng vẫn tự gửi vào hộp thư.)';
-        // Trang tự báo khi tiền về: hỏi hệ thống 4 giây/lần, tối đa ~6 phút
-        var pollDem = 0;
-        var pollTimer = setInterval(function () {
-          pollDem++;
-          if (pollDem > 90) { clearInterval(pollTimer); return; }
-          fetch(SCRIPT_URL + '?key=' + FORM_KEY + '&action=check_thanh_toan&sdt=' + digits)
-            .then(function (r) { return r.json(); })
-            .then(function (d) {
-              if (d && d.paid) {
-                clearInterval(pollTimer);
-                document.getElementById('bankBox').hidden = true;
-                document.getElementById('callNote').hidden = true;
-                document.getElementById('paidBox').hidden = false;
-              }
-            }).catch(function () {});
-        }, 4000);
-      }
       panelOk.classList.add('show');
-      panelOk.scrollIntoView({behavior:'smooth', block:'center'});
+      window.location.href = 'https://drchuc.com/khi-cong-truong-tho-thanh-toan?sdt=' + digits
+        + '&ten=' + encodeURIComponent(ten);
     }).catch(function(){
       panelAlt.classList.add('show');
     }).finally(function(){
