@@ -259,6 +259,11 @@
   .qr-wrap img{display:inline-block;width:240px;max-width:86%;height:auto;border-radius:14px;border:3px solid var(--gold);background:#fff}
   .qr-hint{text-align:center;font-size:13.5px;color:var(--ink-soft);margin-top:8px}
   .paid-box{margin-top:12px;background:var(--jade-soft);border:1.5px solid var(--jade);border-radius:12px;padding:16px;text-align:center}
+  .cop{display:flex;align-items:center;gap:8px}
+  .copy-btn{font-family:var(--body);font-size:12.5px;font-weight:700;color:var(--navy);
+            background:var(--gold-soft);border:1px solid var(--gold);border-radius:8px;
+            padding:4px 10px;cursor:pointer;white-space:nowrap}
+  .copy-btn.done{background:var(--jade-soft);border-color:var(--jade);color:var(--jade)}
 
   /* ── footer ── */
   footer{background:var(--night);color:#8FA1BE;padding:36px 0 110px;font-size:13.5px;line-height:1.7}
@@ -667,9 +672,9 @@
           <p style="margin-top:12px;font-size:14px;color:var(--ink-soft);text-align:center">Hoặc chuyển khoản thủ công:</p>
           <div class="bank">
             <p><span>Ngân hàng</span><b id="bkBank"></b></p>
-            <p><span>Số tài khoản</span><b id="bkStk"></b></p>
+            <p><span>Số tài khoản</span><span class="cop"><b id="bkStk"></b><button type="button" class="copy-btn" data-copy="bkStk">Chép</button></span></p>
             <p><span>Chủ tài khoản</span><b id="bkChu"></b></p>
-            <p><span>Nội dung chuyển khoản</span><b id="bkNoiDung"></b></p>
+            <p><span>Nội dung chuyển khoản</span><span class="cop"><b id="bkNoiDung"></b><button type="button" class="copy-btn" data-copy="bkNoiDung">Chép</button></span></p>
           </div>
           <p style="margin-top:8px;font-size:14px;color:#54627C">Anh chị nhớ ghi <strong>đúng nội dung
             chuyển khoản</strong> ở trên — hệ thống dựa vào đó để tự nhận ra anh chị.</p>
@@ -769,23 +774,7 @@
           + '-compact2.png?amount=499000&addInfo=' + encodeURIComponent('KCTT ' + digits)
           + '&accountName=' + encodeURIComponent(BANK.chuTK);
         document.getElementById('bankBox').hidden = false;
-        document.getElementById('callNote').textContent = 'Chuyển khoản xong anh chị cứ để màn hình này mở — hệ thống ghi nhận tự động, trang sẽ tự báo ngay khi tiền về.';
-        // Poll xác nhận tự động (học từ phễu tư vấn 1-1): 4 giây/lần, tối đa ~6 phút
-        var pollDem = 0;
-        var pollTimer = setInterval(function () {
-          pollDem++;
-          if (pollDem > 90) { clearInterval(pollTimer); return; }
-          fetch(SCRIPT_URL + '?key=' + FORM_KEY + '&action=check_thanh_toan&sdt=' + digits)
-            .then(function (r) { return r.json(); })
-            .then(function (d) {
-              if (d && d.paid) {
-                clearInterval(pollTimer);
-                document.getElementById('bankBox').hidden = true;
-                document.getElementById('callNote').hidden = true;
-                document.getElementById('paidBox').hidden = false;
-              }
-            }).catch(function () {});
-        }, 4000);
+        document.getElementById('callNote').textContent = 'Chuyển khoản xong, email xác nhận và quà tặng thường đến trong ít phút (hệ thống ghi nhận tự động). Sau 30 phút chưa thấy, anh chị kiểm tra mục Spam hoặc chờ phòng khám gọi hỗ trợ nhé.';
       }
       panelOk.classList.add('show');
       panelOk.scrollIntoView({behavior:'smooth', block:'center'});
@@ -808,6 +797,27 @@
                          : ' — còn ' + d + ' ngày, chốt danh sách tối Chủ nhật';
     el.textContent = 'Khóa gần nhất: sáng thứ Hai ' + dd + '/' + mm + tail + '.';
   })();
+
+  // Nút Chép: số tài khoản + nội dung chuyển khoản
+  function fallbackCopy(text) {
+    var ta = document.createElement('textarea');
+    ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+    document.body.appendChild(ta); ta.select();
+    try { document.execCommand('copy'); } catch (e) {}
+    document.body.removeChild(ta);
+  }
+  document.querySelectorAll('.copy-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var text = document.getElementById(btn.getAttribute('data-copy')).textContent;
+      function done() {
+        btn.classList.add('done'); btn.textContent = '✓ Đã chép';
+        setTimeout(function () { btn.classList.remove('done'); btn.textContent = 'Chép'; }, 2000);
+      }
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(done).catch(function () { fallbackCopy(text); done(); });
+      } else { fallbackCopy(text); done(); }
+    });
+  });
 
   // Thanh dính đáy: hiện sau khi lướt qua hero, ẩn khi form đăng ký đã vào tầm nhìn
   var sticky = document.getElementById('stickyBar');
