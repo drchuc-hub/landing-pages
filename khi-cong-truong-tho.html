@@ -774,7 +774,23 @@
           + '-compact2.png?amount=499000&addInfo=' + encodeURIComponent('KCTT ' + digits)
           + '&accountName=' + encodeURIComponent(BANK.chuTK);
         document.getElementById('bankBox').hidden = false;
-        document.getElementById('callNote').textContent = 'Chuyển khoản xong, email xác nhận và quà tặng thường đến trong ít phút (hệ thống ghi nhận tự động). Sau 30 phút chưa thấy, anh chị kiểm tra mục Spam hoặc chờ phòng khám gọi hỗ trợ nhé.';
+        document.getElementById('callNote').textContent = 'Chuyển khoản xong anh chị để màn hình này mở — tiền về là trang tự báo ngay. (Lỡ đóng trang cũng không sao: email xác nhận + quà tặng vẫn tự gửi vào hộp thư.)';
+        // Trang tự báo khi tiền về: hỏi hệ thống 4 giây/lần, tối đa ~6 phút
+        var pollDem = 0;
+        var pollTimer = setInterval(function () {
+          pollDem++;
+          if (pollDem > 90) { clearInterval(pollTimer); return; }
+          fetch(SCRIPT_URL + '?key=' + FORM_KEY + '&action=check_thanh_toan&sdt=' + digits)
+            .then(function (r) { return r.json(); })
+            .then(function (d) {
+              if (d && d.paid) {
+                clearInterval(pollTimer);
+                document.getElementById('bankBox').hidden = true;
+                document.getElementById('callNote').hidden = true;
+                document.getElementById('paidBox').hidden = false;
+              }
+            }).catch(function () {});
+        }, 4000);
       }
       panelOk.classList.add('show');
       panelOk.scrollIntoView({behavior:'smooth', block:'center'});
