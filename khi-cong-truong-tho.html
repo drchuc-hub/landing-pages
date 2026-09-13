@@ -11,6 +11,13 @@
 <meta property="og:type" content="website">
 <title>Khí Công Trường Thọ</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-2PLTQEEGNL"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-2PLTQEEGNL');
+</script>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Lora:ital,wght@0,500;0,600;0,700;1,500&display=swap">
 <style>
   /* ── Khí Công Trường Thọ · drchuc.com · một thế giới màu duy nhất (sáng, giấy ấm + navy thương hiệu) ── */
@@ -741,6 +748,7 @@
       body: JSON.stringify({key:FORM_KEY, nguon:'khi-cong-truong-tho', ten:ten, sdt:sdt, email:email})
     }).then(function(r){ return r.json(); }).then(function(){
       var digits = sdt.replace(/\D/g, '');
+      try { gtag('event', 'generate_lead', { transport_type: 'beacon' }); } catch (e) {}
       try { sessionStorage.setItem('kctt', JSON.stringify({ ten: ten, sdt: digits })); } catch (e) {}
       form.style.display = 'none';
       panelOk.classList.add('show');

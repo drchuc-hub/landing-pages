@@ -5,6 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
 <title>Chào mừng vào lớp — Khí Công Trường Thọ</title>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-2PLTQEEGNL"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-2PLTQEEGNL');
+</script>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600;700;800&family=Lora:wght@600;700&display=swap">
 <style>
   :root{
@@ -90,6 +97,7 @@
   không thay thế chẩn đoán hay điều trị y khoa.</footer>
 
 <script>
+  try { gtag('event', 'purchase', { value: 499000, currency: 'VND', transaction_id: 'kctt-' + Date.now() }); } catch (e) {}
   (function () {
     var now = new Date();
     var d = (8 - now.getDay()) % 7; if (d === 0) d = 7;
