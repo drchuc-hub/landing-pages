@@ -33,6 +33,13 @@ routes = [
   # Sale page Tư Vấn 1-1
   { pattern = "drchuc.com/tu-van-1-1*", zone_name = "drchuc.com" },
 
+  # Cửa hàng ebook (sinh từ production/ebook-store/dung_trang.py)
+  { pattern = "drchuc.com/thu-vien-ebook*", zone_name = "drchuc.com" },
+  { pattern = "drchuc.com/ebook-50-bai-tap*", zone_name = "drchuc.com" },
+  { pattern = "drchuc.com/ebook-thanh-toan*", zone_name = "drchuc.com" },
+  { pattern = "drchuc.com/ebook-cam-on*", zone_name = "drchuc.com" },
+  { pattern = "drchuc.com/tai-ve/*", zone_name = "drchuc.com" },
+
   # Sale page Khí Công Trường Thọ
   { pattern = "drchuc.com/khi-cong-truong-tho*", zone_name = "drchuc.com" }
 ]
