@@ -166,7 +166,7 @@ footer .nn{font-size:13.5px;opacity:.8;margin-top:16px;line-height:1.75}
 <div id="hoiSdt" style="display:none">
   <div class="hop"><p style="margin-bottom:14px"><b>Nhập số điện thoại đã đăng ký</b>
   để lấy lại nội dung chuyển khoản.</p>
-  <input id="sdtNhap" inputmode="tel" placeholder="09xxxxxxxx">
+  <input id="sdtNhap" inputmode="tel" placeholder="0912345678 hoặc +1 415 555 1234">
   <button class="nut" style="margin-top:16px" onclick="dungSdt()">Tiếp tục</button></div>
 </div>
 <div id="khung">
@@ -186,6 +186,13 @@ footer .nn{font-size:13.5px;opacity:.8;margin-top:16px;line-height:1.75}
 </div>
 <div id="cho" class="hop"><p>⏳ Trang này đang tự kiểm tra. Khi tiền về, sách sẽ hiện ra ngay
 tại đây, cô chú anh chị không phải làm gì thêm. Nếu đóng trang, sách vẫn được gửi vào email.</p></div>
+<div id="vietkieu" class="hop vang" style="display:none">
+  <h3 style="margin-top:0">Cô chú anh chị đang ở nước ngoài?</h3>
+  <p>Mã QR này là của ngân hàng Việt Nam, chỉ quét được bằng app ngân hàng trong nước.
+  Cách đơn giản nhất là nhờ người thân ở Việt Nam chuyển giúp.</p>
+  <p><b>Chỉ cần dặn người nhà ghi đúng nội dung chuyển khoản ở trên</b>, hệ thống vẫn nhận ra
+  đúng đơn của cô chú anh chị và gửi sách vào email đã đăng ký, dù người chuyển là ai.</p>
+</div>
 <div id="xong" class="hop vang" style="display:none">
   <h3 style="margin-top:0">🎉 Đã nhận được thanh toán</h3>
   <p>Cảm ơn cô chú anh chị. Sách đang được gửi vào email.</p>
@@ -195,8 +202,22 @@ tại đây, cô chú anh chị không phải làm gì thêm. Nếu đóng trang
 var SP={"EB50": {"ten": "50 Bài Tập Giúp Bạn Khỏe Mạnh Và Sống Trường Thọ Hơn", "gia": 199000, "slug": "ebook-50-bai-tap"}, "EBMC": {"ten": "Cẩm Nang 30 Dấu Hiệu Mất Cơ Sau Tuổi 40", "gia": 99000, "slug": "ebook-mat-co"}, "EBCB": {"ten": "Combo trọn bộ 2 cuốn", "gia": 249000, "slug": "thu-vien-ebook"}};
 var BANK={"ten": "VPBank", "so": "1919896899", "chu": "NGUYEN XUAN CHUC"};
 var URL='https://script.google.com/macros/s/AKfycbz1Of3_OKh8g3wJLdzLNLLBsFk_NSisZYGin5y82UMOAtPnr7-CXhCS6ylzdDujvJFr/exec',KEY='ebk-2026';
+
+function chuanSDT(raw){
+  var s=String(raw||'').replace(/[^0-9+]/g,'');
+  s=s.replace(/(?!^)\+/g,'');            // chỉ giữ dấu + ở đầu
+  var co=s.charAt(0)==='+'; s=s.replace(/^\+/,'');
+  if(/^00[0-9]{8,}$/.test(s)){ s=s.slice(2); co=true; }   // 0084... = +84...
+  if(/^84[0-9]{9,10}$/.test(s))  return {ok:true, sdt:'0'+s.slice(2), vn:true};
+  if(/^0[0-9]{9,10}$/.test(s))   return {ok:true, sdt:s,             vn:true};
+  if(!co && /^[0-9]{9}$/.test(s))return {ok:true, sdt:'0'+s,         vn:true};
+  if(/^[0-9]{8,15}$/.test(s))    return {ok:true, sdt:s,             vn:false};
+  return {ok:false};
+}
+
 var q=new URLSearchParams(location.search);
-var ma=(q.get('ma')||'').toUpperCase(), sdt=(q.get('sdt')||'').replace(/[^0-9]/g,'');
+var kqURL=chuanSDT(q.get('sdt')||'');
+var ma=(q.get('ma')||'').toUpperCase(), sdt=kqURL.ok?kqURL.sdt:'', laVN=kqURL.ok?kqURL.vn:true;
 if(!SP[ma]){ma='EB50';}
 function dinhDang(n){return n.toLocaleString('vi-VN')+'đ';}
 function chep(id){
@@ -219,12 +240,14 @@ function ve(){
   document.getElementById('qr').src='https://img.vietqr.io/image/VPB-'+BANK.so+
     '-compact2.png?amount='+s.gia+'&addInfo='+encodeURIComponent(nd);
   document.getElementById('nutTai').href='/ebook-cam-on?ma='+ma+'&sdt='+sdt;
+  document.getElementById('vietkieu').style.display = laVN ? 'none' : 'block';
   try{gtag('event','begin_checkout',{currency:'VND',value:s.gia,items:[{item_id:ma}]});}catch(e){}
 }
 function dungSdt(){
-  var v=document.getElementById('sdtNhap').value.replace(/[^0-9]/g,'');
-  if(!/^0[0-9]{9,10}$/.test(v)){alert('Số điện thoại phải có 10 hoặc 11 chữ số');return;}
-  sdt=v; document.getElementById('hoiSdt').style.display='none';
+  var kq=chuanSDT(document.getElementById('sdtNhap').value);
+  if(!kq.ok){alert('Số điện thoại chưa đúng.\nTrong nước: 10 số bắt đầu bằng 0.\n'+
+    'Ở nước ngoài: nhập cả mã quốc gia, ví dụ +1 415 555 1234.');return;}
+  sdt=kq.sdt; laVN=kq.vn; document.getElementById('hoiSdt').style.display='none';
   document.getElementById('khung').style.display='block'; ve(); dem();
 }
 var lan=0;

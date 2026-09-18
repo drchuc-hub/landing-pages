@@ -240,8 +240,12 @@ footer .nn{font-size:13.5px;opacity:.8;margin-top:16px;line-height:1.75}
 <input id="ten" name="ten" placeholder="Nguyễn Văn A" autocomplete="name" required>
 <div class="loi" id="e-ten">Xin điền họ tên</div>
 <label for="sdt">Số điện thoại</label>
-<input id="sdt" name="sdt" inputmode="tel" placeholder="09xxxxxxxx" autocomplete="tel" required>
-<div class="loi" id="e-sdt">Số điện thoại phải có 10 hoặc 11 chữ số</div>
+<input id="sdt" name="sdt" inputmode="tel" placeholder="0912345678 hoặc +1 415 555 1234"
+ autocomplete="tel" required>
+<div class="loi" id="e-sdt">Số điện thoại chưa đúng. Trong nước xin nhập 10 số bắt đầu bằng 0.
+Đang ở nước ngoài xin nhập cả mã quốc gia, ví dụ +1 415 555 1234.</div>
+<p class="mo" style="margin:8px 0 0;font-size:14.5px">Cô chú anh chị ở nước ngoài nhập số nước sở tại
+cũng được, có dấu cộng và mã quốc gia.</p>
 <label for="email">Email nhận sách</label>
 <input id="email" name="email" type="email" placeholder="ten@gmail.com" autocomplete="email" required>
 <div class="loi" id="e-email">Email chưa đúng, xin kiểm tra lại</div>
@@ -258,15 +262,29 @@ thay vì 298.000đ.</p>
 <a class="nut phu" href="https://drchuc.com/thu-vien-ebook">Xem trọn bộ</a>
 </div></div></section><script>
 var MA='EB50',GIA=199000,URL='https://script.google.com/macros/s/AKfycbz1Of3_OKh8g3wJLdzLNLLBsFk_NSisZYGin5y82UMOAtPnr7-CXhCS6ylzdDujvJFr/exec',KEY='ebk-2026';
+
+function chuanSDT(raw){
+  var s=String(raw||'').replace(/[^0-9+]/g,'');
+  s=s.replace(/(?!^)\+/g,'');            // chỉ giữ dấu + ở đầu
+  var co=s.charAt(0)==='+'; s=s.replace(/^\+/,'');
+  if(/^00[0-9]{8,}$/.test(s)){ s=s.slice(2); co=true; }   // 0084... = +84...
+  if(/^84[0-9]{9,10}$/.test(s))  return {ok:true, sdt:'0'+s.slice(2), vn:true};
+  if(/^0[0-9]{9,10}$/.test(s))   return {ok:true, sdt:s,             vn:true};
+  if(!co && /^[0-9]{9}$/.test(s))return {ok:true, sdt:'0'+s,         vn:true};
+  if(/^[0-9]{8,15}$/.test(s))    return {ok:true, sdt:s,             vn:false};
+  return {ok:false};
+}
+
 function xau(id,hien){document.getElementById('e-'+id).style.display=hien?'block':'none';}
 document.getElementById('f').addEventListener('submit',function(ev){
   ev.preventDefault();
   var ten=document.getElementById('ten').value.trim();
-  var sdt=document.getElementById('sdt').value.replace(/[^0-9]/g,'');
+  var kq=chuanSDT(document.getElementById('sdt').value);
+  var sdt=kq.ok?kq.sdt:'';
   var em=document.getElementById('email').value.trim();
   var ok=true;
   xau('ten',!ten); if(!ten)ok=false;
-  var sdtOk=/^0[0-9]{9,10}$/.test(sdt); xau('sdt',!sdtOk); if(!sdtOk)ok=false;
+  xau('sdt',!kq.ok); if(!kq.ok)ok=false;
   var emOk=/^[^@\s]+@[^@\s]+\.[a-z]{2,}$/i.test(em)&&!/gmai\.|gmial|gmail\.co$|yaho\./i.test(em);
   xau('email',!emOk); if(!emOk)ok=false;
   if(!ok)return;
