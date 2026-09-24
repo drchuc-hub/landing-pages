@@ -2,7 +2,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Đào tạo kỹ năng dựng video | Bác sĩ Chúc</title>
-<meta name="description" content="Đào tạo kỹ năng dựng video cùng Bác sĩ Chúc: gói 1:1 và lớp đồng hành.">
+<meta name="description" content="Đào tạo kỹ năng dựng video cùng Bác sĩ Chúc: học qua video, gói 1:1 và lớp đồng hành.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600;700;800&family=Lora:wght@600;700&display=swap" rel="stylesheet">
@@ -33,6 +33,7 @@ p{margin-bottom:14px}p:last-child{margin-bottom:0}
 section{padding:40px 0}
 .goi{display:grid;gap:18px}
 @media(min-width:640px){.goi{grid-template-columns:1fr 1fr}}
+@media(min-width:900px){.goi{grid-template-columns:1fr 1fr 1fr}}
 .the{background:#fff;border:1.5px solid var(--vien);border-radius:16px;padding:26px 22px;text-align:center;
  display:flex;flex-direction:column}
 .the.noi{border-color:var(--vang);box-shadow:0 12px 34px rgba(10,61,52,.12)}
@@ -91,6 +92,13 @@ footer a{color:var(--vang)}
 <section id="chon-goi"><div class="bd">
 <div class="goi">
   <div class="the">
+    <h3>Học qua video</h3>
+    <p class="mo">Bộ video hướng dẫn từng bước, xem lại bất cứ lúc nào, tự học theo tốc độ của mình.</p>
+    <p class="gia">499.000đ</p>
+    <p class="dv">trọn bộ</p>
+    <button class="nut phu" type="button" onclick="chonGoi('DTVD')">Đăng ký học qua video</button>
+  </div>
+  <div class="the">
     <h3>Đào tạo 1:1</h3>
     <p class="mo">Học riêng với bác sĩ, lịch hẹn linh hoạt theo thời gian của anh chị.</p>
     <p class="gia">2.000.000đ</p>
@@ -148,8 +156,8 @@ footer a{color:var(--vang)}
 <section id="xong" hidden><div class="bd">
 <div class="hop xanh" style="text-align:center;padding:30px 22px">
 <h2 style="margin-bottom:10px">🎉 Đã nhận học phí</h2>
-<p>Cảm ơn anh chị. Trong vòng <b>24 giờ</b> Bác sĩ Chúc sẽ gọi hoặc nhắn Zalo qua số đã đăng ký để xếp lịch buổi đầu tiên. Email xác nhận cũng đã được gửi.</p>
-<p class="mo" style="margin-top:12px">Chuẩn bị: máy tính, tài khoản Google và 2–3 ý tưởng video của anh chị.</p>
+<p id="xongMsg">Cảm ơn anh chị. Trong vòng <b>24 giờ</b> Bác sĩ Chúc sẽ gọi hoặc nhắn Zalo qua số đã đăng ký để xếp lịch buổi đầu tiên. Email xác nhận cũng đã được gửi.</p>
+<p class="mo" id="xongPhu" style="margin-top:12px">Chuẩn bị: máy tính, tài khoản Google và 2–3 ý tưởng video của anh chị.</p>
 </div>
 </div></section>
 
@@ -158,7 +166,7 @@ footer a{color:var(--vang)}
 <script>
 var URL_BE='https://script.google.com/macros/s/AKfycbz1Of3_OKh8g3wJLdzLNLLBsFk_NSisZYGin5y82UMOAtPnr7-CXhCS6ylzdDujvJFr/exec';
 var KEY='ebk-2026';
-var GOI={DT11:{ten:'Đào tạo 1:1',gia:2000000},DTDH:{ten:'Lớp đồng hành',gia:5000000}};
+var GOI={DTVD:{ten:'Học qua video',gia:499000},DT11:{ten:'Đào tạo 1:1',gia:2000000},DTDH:{ten:'Lớp đồng hành',gia:5000000}};
 var BANK={ma:'VPB',so:'1919896899',chu:'NGUYEN XUAN CHUC'};
 var MA='',SDT='',lan=0,timer=null;
 function tien(n){return n.toLocaleString('vi-VN')+'đ';}
@@ -220,7 +228,7 @@ function thanhToan(ma,sdt){
 function kiemTra(){
   fetch(URL_BE+'?key='+KEY+'&action=check&ma='+MA+'&sdt='+SDT).then(function(r){return r.json();})
   .then(function(d){
-    if(d&&d.paid){ hien('xong');
+    if(d&&d.paid){ if(MA==='DTVD'){document.getElementById('xongMsg').innerHTML='Cảm ơn anh chị. Trong vòng <b>24 giờ</b> link truy cập bộ video sẽ được gửi vào email đã đăng ký (và nhắn Zalo). Email xác nhận cũng đã được gửi.';document.getElementById('xongPhu').textContent='Kiểm tra cả hộp thư Spam nếu chưa thấy.';} hien('xong');
       try{gtag('event','purchase',{currency:'VND',value:GOI[MA].gia,transaction_id:MA+SDT,items:[{item_id:MA}]});}catch(e){}
       return; }
     if(++lan<150) timer=setTimeout(kiemTra,4000);
