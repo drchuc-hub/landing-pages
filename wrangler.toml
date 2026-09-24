@@ -41,7 +41,10 @@ routes = [
   { pattern = "drchuc.com/tai-ve/*", zone_name = "drchuc.com" },
 
   # Sale page Khí Công Trường Thọ
-  { pattern = "drchuc.com/khi-cong-truong-tho*", zone_name = "drchuc.com" }
+  { pattern = "drchuc.com/khi-cong-truong-tho*", zone_name = "drchuc.com" },
+
+  # Trang Đào tạo kỹ năng dựng video (production/dao-tao/dao-tao.html)
+  { pattern = "drchuc.com/dao-tao*", zone_name = "drchuc.com" }
 ]
 
 [assets]
