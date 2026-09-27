@@ -1,1 +1,5 @@
 .wrangler/
+
+video/out/
+video/node_modules/
+video/fonts/*.ttf
