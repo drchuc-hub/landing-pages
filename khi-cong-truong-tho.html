@@ -248,6 +248,15 @@
                    border:1.5px solid #C8CFDB;border-radius:12px;background:#FDFCF8;color:var(--ink)}
   .form-card input:focus{outline:none;border-color:var(--navy);box-shadow:0 0 0 3px rgba(22,50,92,.14)}
   .ferr{display:none;color:var(--ember);font-size:14px;margin-top:5px;font-weight:600}
+  .ferr a{color:var(--navy);text-decoration:underline;margin-left:4px}
+  .ferr a.keep{color:var(--ink-soft);font-weight:500}
+  .form-card input.bad{border-color:var(--ember);box-shadow:0 0 0 3px rgba(181,69,40,.14)}
+  .form-card input:disabled{background:#EFEDE6;color:var(--ink-soft)}
+  .chk{display:flex;align-items:center;gap:10px;margin-top:10px;font-size:15px;font-weight:600;color:var(--navy);cursor:pointer}
+  .chk input{width:auto;margin:0;transform:scale(1.35);accent-color:var(--navy);cursor:pointer}
+  .zalo-note{margin-top:10px;background:#EAF2FF;border:1.5px solid #B9D2FF;border-radius:12px;padding:14px 16px;font-size:14.5px;color:var(--ink);line-height:1.55}
+  .zalo-note b{color:var(--navy)}
+  .btn-zalo{display:inline-flex;align-items:center;gap:8px;margin-top:10px;background:#0068FF;color:#fff;text-decoration:none;padding:12px 20px;border-radius:10px;font-size:15.5px;font-weight:700}
   .form-card .btn{width:100%;margin-top:24px;font-size:19px;padding:18px}
   .guarantee{display:flex;gap:12px;align-items:flex-start;margin-top:18px;background:var(--jade-soft);
              border:1px solid #CBE2DB;border-radius:12px;padding:14px 16px;font-size:14.5px;color:var(--ink)}
@@ -659,9 +668,15 @@
         <label for="sdt">Số điện thoại (Zalo/WhatsApp càng tốt — anh chị ở nước ngoài thêm mã vùng)</label>
         <input id="sdt" name="sdt" type="tel" inputmode="tel" autocomplete="tel" placeholder="0912 345 678 hoặc +84 912 345 678">
         <p class="ferr" id="errSdt">Anh chị kiểm tra lại số điện thoại giúp bác sĩ — trong nước bắt đầu bằng 0, ở nước ngoài thêm mã vùng (ví dụ +84 912 345 678).</p>
-        <label for="email">Email <span class="opt">(email xác nhận + quà tặng sẽ gửi qua đây)</span></label>
-        <input id="email" name="email" type="email" autocomplete="email" placeholder="vidu@gmail.com">
-        <p class="ferr" id="errEmail">Anh chị nhập email để nhận email xác nhận và quà tặng nhé — ví dụ ten@gmail.com.</p>
+        <label for="email">Email <span class="opt">(nhận thư xác nhận + quà tặng Ebook — gõ không dấu, ví dụ ten@gmail.com)</span></label>
+        <input id="email" name="email" type="email" inputmode="email" autocomplete="email" autocapitalize="off" autocorrect="off" spellcheck="false" placeholder="vidu@gmail.com">
+        <p class="ferr" id="errEmail"></p>
+        <label class="chk" for="noEmail"><input type="checkbox" id="noEmail"> Tôi không dùng email</label>
+        <div class="zalo-note" id="zaloNote" hidden>
+          Không sao. Sau khi chuyển khoản xong, anh chị <b>nhắn Zalo cho Bác sĩ Chúc</b> theo số <b>0947 578 088</b>
+          (ghi họ tên + số điện thoại đã đăng ký) để nhận link nhóm lớp và quà tặng Ebook.
+          <br><a class="btn-zalo" href="https://zalo.me/0947578088" target="_blank" rel="noopener">💬 Mở Zalo Bác sĩ Chúc</a>
+        </div>
         <button class="btn" type="submit" id="submitBtn">Giữ chỗ của tôi — 499.000đ</button>
         <div class="guarantee"><span class="shield">🛡️</span>
           <span><strong>Cam kết của bác sĩ:</strong> tập thử 3 buổi đầu — nếu thấy không phù hợp,
@@ -722,18 +737,71 @@
 
   function showErr(id, on){ document.getElementById(id).style.display = on ? 'block' : 'none'; }
 
+  // ===== Kiểm email: báo rõ lỗi + gợi ý sửa (không dấu, tên miền gõ nhầm) =====
+  var RE_EMAIL = /^[a-z0-9._%+-]+@[a-z0-9-]+(\.[a-z0-9-]+)*\.[a-z]{2,}$/;
+  var GOOD_DOMAINS = ['gmail.com','yahoo.com','yahoo.com.vn','hotmail.com','outlook.com','outlook.com.vn','icloud.com','live.com','ymail.com'];
+  var GOOD_TLDS = {com:1,net:1,org:1,edu:1,gov:1,info:1,biz:1,io:1,co:1,me:1,vn:1,us:1,uk:1,au:1,ca:1,de:1,fr:1,jp:1,kr:1,cn:1,tw:1,sg:1,my:1,th:1,ru:1,cz:1,pl:1,nl:1,se:1,no:1,fi:1,it:1,es:1,ch:1,at:1,be:1,nz:1,hk:1,in:1,id:1,ph:1};
+  function boDau(t){ return t.normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/đ/g,'d').replace(/Đ/g,'D'); }
+  function lev(a,b){ var m=a.length,n=b.length,d=[],i,j; for(i=0;i<=m;i++)d[i]=[i]; for(j=0;j<=n;j++)d[0][j]=j;
+    for(i=1;i<=m;i++)for(j=1;j<=n;j++){ var c=a[i-1]===b[j-1]?0:1; d[i][j]=Math.min(d[i-1][j]+1,d[i][j-1]+1,d[i-1][j-1]+c); } return d[m][n]; }
+  function emailFix(e){ // trả email gợi ý nếu tên miền có vẻ gõ nhầm, null nếu ổn
+    var at = e.lastIndexOf('@'); if(at < 1) return null;
+    var local = e.slice(0, at), dom = e.slice(at + 1);
+    if(GOOD_DOMAINS.indexOf(dom) >= 0) return null;
+    if(/^(g?mail?|gmai[a-z]*|gmail[a-z]+)\.[a-z.]+$/.test(dom)) return local + '@gmail.com';
+    var best = null, bd = 99;
+    for(var i = 0; i < GOOD_DOMAINS.length; i++){ var d = lev(dom, GOOD_DOMAINS[i]); if(d < bd){ bd = d; best = GOOD_DOMAINS[i]; } }
+    if(best && bd > 0 && bd <= 2) return local + '@' + best;
+    var parts = dom.split('.'), tld = parts[parts.length - 1];
+    if(parts.length >= 2 && !GOOD_TLDS[tld]){ parts[parts.length - 1] = 'com'; return local + '@' + parts.join('.'); }
+    return null;
+  }
+  function kiemEmail(raw){ // → {ok, email} hoặc {ok:false, loi(html), goiY}
+    var e = String(raw || '').trim().toLowerCase().replace(/\s+/g, '');
+    if(!e) return { ok:false, loi:'Anh chị nhập email để nhận thư xác nhận và quà tặng — hoặc đánh dấu <b>“Tôi không dùng email”</b> ngay bên dưới.' };
+    if(/[^\x00-\x7F]/.test(e)){
+      var kd = boDau(e);
+      if(RE_EMAIL.test(kd)) return { ok:false, goiY:kd, loi:'Email không có dấu tiếng Việt. Ý anh chị là <b>' + kd + '</b>?<a href="#" id="emailFixBtn">Sửa lại</a>' };
+      return { ok:false, loi:'Email không được có dấu tiếng Việt hay khoảng trắng — ví dụ <b>thuy@gmail.com</b>.' };
+    }
+    if(!RE_EMAIL.test(e)) return { ok:false, loi:'Email chưa đúng: cần có chữ <b>@</b> và đuôi như <b>.com</b> — ví dụ ten@gmail.com.' };
+    var fix = emailFix(e);
+    if(fix && e !== window.__emailKeep) return { ok:false, goiY:fix, loi:'Email có vẻ gõ nhầm tên miền. Ý anh chị là <b>' + fix + '</b>?<a href="#" id="emailFixBtn">Sửa lại</a> · <a href="#" class="keep" id="emailKeepBtn">tôi chắc chắn email đúng</a>' };
+    return { ok:true, email:e };
+  }
+  var emailEl = document.getElementById('email'), errEmailEl = document.getElementById('errEmail');
+  var noEmailEl = document.getElementById('noEmail'), zaloNoteEl = document.getElementById('zaloNote');
+  function hienLoiEmail(kq){
+    if(kq.ok){ errEmailEl.style.display = 'none'; emailEl.classList.remove('bad'); if(kq.email) emailEl.value = kq.email; return; }
+    errEmailEl.innerHTML = kq.loi; errEmailEl.style.display = 'block'; emailEl.classList.add('bad');
+    var fb = document.getElementById('emailFixBtn'), kb = document.getElementById('emailKeepBtn');
+    if(fb) fb.onclick = function(ev){ ev.preventDefault(); emailEl.value = kq.goiY; hienLoiEmail(kiemEmail(kq.goiY)); emailEl.focus(); };
+    if(kb) kb.onclick = function(ev){ ev.preventDefault(); window.__emailKeep = emailEl.value.trim().toLowerCase(); hienLoiEmail({ ok:true }); };
+  }
+  emailEl.addEventListener('blur', function(){ if(!noEmailEl.checked && emailEl.value.trim()) hienLoiEmail(kiemEmail(emailEl.value)); });
+  emailEl.addEventListener('input', function(){ errEmailEl.style.display = 'none'; emailEl.classList.remove('bad'); });
+  noEmailEl.addEventListener('change', function(){
+    var on = noEmailEl.checked;
+    emailEl.disabled = on; zaloNoteEl.hidden = !on;
+    if(on){ errEmailEl.style.display = 'none'; emailEl.classList.remove('bad'); try { gtag('event', 'chon_khong_email'); } catch (e) {} }
+  });
+
   form.addEventListener('submit', function(e){
     e.preventDefault();
     var ten = document.getElementById('ten').value.trim();
     var sdt = document.getElementById('sdt').value.replace(/[\s.\-()]/g, '');
-    var email = document.getElementById('email').value.trim();
+    var khongEmail = noEmailEl.checked;
+    var kq = khongEmail ? { ok:true, email:'' } : kiemEmail(emailEl.value);
+    var email = kq.ok ? (kq.email || '') : '';
     var okTen = ten.length >= 2;
     var okSdt = /^(0\d{9,10}|\+\d{8,14}|00\d{8,13})$/.test(sdt);
-    var okEmail = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email);
     showErr('errTen', !okTen);
     showErr('errSdt', !okSdt);
-    showErr('errEmail', !okEmail);
-    if(!okTen || !okSdt || !okEmail) return;
+    hienLoiEmail(kq);
+    if(!okTen || !okSdt || !kq.ok){
+      document.getElementById(!okTen ? 'ten' : (!okSdt ? 'sdt' : 'email')).focus();
+      return;
+    }
 
     if(!SCRIPT_URL){
       panelAlt.classList.add('show');
@@ -749,11 +817,11 @@
     }).then(function(r){ return r.json(); }).then(function(){
       var digits = sdt.replace(/\D/g, '');
       try { gtag('event', 'generate_lead', { transport_type: 'beacon' }); } catch (e) {}
-      try { sessionStorage.setItem('kctt', JSON.stringify({ ten: ten, sdt: digits })); } catch (e) {}
+      try { sessionStorage.setItem('kctt', JSON.stringify({ ten: ten, sdt: digits, email: email })); } catch (e) {}
       form.style.display = 'none';
       panelOk.classList.add('show');
       window.location.href = 'https://drchuc.com/khi-cong-truong-tho-thanh-toan?sdt=' + digits
-        + '&ten=' + encodeURIComponent(ten);
+        + '&ten=' + encodeURIComponent(ten) + (email ? '' : '&em=0');
     }).catch(function(){
       panelAlt.classList.add('show');
     }).finally(function(){

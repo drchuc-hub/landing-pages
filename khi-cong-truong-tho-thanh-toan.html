@@ -56,6 +56,9 @@
   .copy-btn.done{background:var(--jade-soft);border-color:var(--jade);color:var(--jade)}
   .note{margin-top:14px;font-size:14.5px;color:var(--ink-soft)}
   .note b{color:var(--navy)}
+  .zalo-box{margin-top:14px;background:#EAF2FF;border:1.5px solid #B9D2FF;border-radius:12px;padding:14px 16px;font-size:14.5px;color:var(--ink);line-height:1.55;text-align:center}
+  .zalo-box b{color:var(--navy)}
+  .btn-zalo{display:inline-flex;align-items:center;gap:8px;margin-top:10px;background:#0068FF;color:#fff;text-decoration:none;padding:12px 20px;border-radius:10px;font-size:15.5px;font-weight:700}
   .wait{display:flex;align-items:center;justify-content:center;gap:10px;margin-top:16px;
         color:var(--jade);font-weight:600;font-size:14.5px}
   .dot{width:9px;height:9px;border-radius:50%;background:var(--jade);animation:nhip 1.6s ease-in-out infinite}
@@ -109,13 +112,20 @@
     </div>
     <p class="note">Anh chị nhớ ghi <b>đúng nội dung chuyển khoản</b> — hệ thống dựa vào đó để tự nhận ra anh chị.</p>
     <div class="wait"><span class="dot"></span><span>Đang chờ tiền về — trang sẽ tự chuyển ngay khi nhận được…</span></div>
-    <p class="note" style="text-align:center;margin-top:10px">Lỡ đóng trang cũng không sao: email xác nhận
-      + quà tặng <b>Ebook Cẩm nang Mất Cơ</b> vẫn tự gửi vào hộp thư của anh chị.</p>
+    <p class="note" id="noteEmail" style="text-align:center;margin-top:10px">Lỡ đóng trang cũng không sao: email xác nhận
+      + quà tặng <b>Ebook Cẩm nang Mất Cơ</b> vẫn tự gửi vào hộp thư của anh chị.
+      Sau 10 phút chưa thấy thư (kể cả mục Spam), anh chị nhắn Zalo cho Bác sĩ Chúc: <b>0947 578 088</b>.</p>
+    <div class="zalo-box" id="noteZalo" hidden>
+      <b>Anh chị không dùng email</b> — sau khi chuyển khoản xong, nhắn Zalo cho Bác sĩ Chúc
+      (ghi <b>họ tên + số điện thoại đã đăng ký</b>) để nhận link nhóm lớp và quà tặng Ebook.
+      <br><a class="btn-zalo" href="https://zalo.me/0947578088" target="_blank" rel="noopener">💬 Nhắn Zalo Bác sĩ Chúc — 0947 578 088</a>
+    </div>
   </div>
 </div>
 
 <footer>Bác sĩ Chúc — drchuc.com · Cần hỗ trợ thanh toán, anh chị quay lại
-  <a href="https://drchuc.com/khi-cong-truong-tho">trang lớp học</a> hoặc chờ phòng khám gọi xác nhận.</footer>
+  <a href="https://drchuc.com/khi-cong-truong-tho">trang lớp học</a> hoặc nhắn Zalo Bác sĩ Chúc
+  <a href="https://zalo.me/0947578088" target="_blank" rel="noopener">0947 578 088</a>.</footer>
 
 <script>
   var SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyPDD64zNQAJWpovnxPdupRn1E7E0NBszT8ja176LxvWAl7xUMZSr7cKq-vPuZW7rOujg/exec";
@@ -127,18 +137,19 @@
     var q = new URLSearchParams(location.search);
     var sdt = (q.get('sdt') || '').replace(/\D/g, '');
     var ten = q.get('ten') || '';
-    if (!sdt) {
-      try {
-        var s = JSON.parse(sessionStorage.getItem('kctt') || '{}');
-        sdt = String(s.sdt || '').replace(/\D/g, '');
-        ten = ten || s.ten || '';
-      } catch (e) {}
-    }
-    return { sdt: sdt, ten: ten };
+    var coEmail = q.get('em') !== '0'; // em=0: khách chọn 'Tôi không dùng email'
+    try {
+      var s = JSON.parse(sessionStorage.getItem('kctt') || '{}');
+      if (!sdt) { sdt = String(s.sdt || '').replace(/\D/g, ''); ten = ten || s.ten || ''; }
+      if (s.email === '') coEmail = false;
+    } catch (e) {}
+    return { sdt: sdt, ten: ten, coEmail: coEmail };
   }
 
-  function hienThanhToan(sdt, ten) {
+  function hienThanhToan(sdt, ten, coEmail) {
     document.getElementById('nhapBox').hidden = true;
+    document.getElementById('noteEmail').hidden = (coEmail === false);
+    document.getElementById('noteZalo').hidden = (coEmail !== false);
     if (ten) document.getElementById('chao').textContent = 'Chào anh chị ' + ten + ' — bước cuối cùng!';
     document.getElementById('bkNoiDung').textContent = 'KCTT ' + sdt;
     document.getElementById('qrImg').src = 'https://img.vietqr.io/image/' + BANK.maVietQR + '-' + BANK.soTK
@@ -157,7 +168,7 @@
         .then(function (d) {
           if (d && d.paid) {
             clearInterval(pollTimer);
-            window.location.href = 'https://drchuc.com/khi-cong-truong-tho-cam-on';
+            window.location.href = 'https://drchuc.com/khi-cong-truong-tho-cam-on' + (coEmail === false ? '?em=0' : '');
           }
         }).catch(function () {});
     }, 4000);
@@ -191,7 +202,7 @@
   });
 
   var tt = layThongTin();
-  if (tt.sdt) { hienThanhToan(tt.sdt, tt.ten); }
+  if (tt.sdt) { hienThanhToan(tt.sdt, tt.ten, tt.coEmail); }
   else { document.getElementById('nhapBox').hidden = false; }
 </script>
 </body>
