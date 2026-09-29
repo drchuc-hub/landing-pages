@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<title>Khung dựng video 9:16 — Bác sĩ Chúc</title>
+<style>
+/* Font đóng gói sẵn trong video/fonts (Be Vietnam Pro + Lora, giấy phép OFL) */
+@font-face{font-family:"Be Vietnam Pro";src:url("fonts/BeVietnamPro-Regular.ttf");font-weight:400;font-style:normal}
+@font-face{font-family:"Be Vietnam Pro";src:url("fonts/BeVietnamPro-Italic.ttf");font-weight:400;font-style:italic}
+@font-face{font-family:"Be Vietnam Pro";src:url("fonts/BeVietnamPro-Medium.ttf");font-weight:500}
+@font-face{font-family:"Be Vietnam Pro";src:url("fonts/BeVietnamPro-SemiBold.ttf");font-weight:600}
+@font-face{font-family:"Be Vietnam Pro";src:url("fonts/BeVietnamPro-Bold.ttf");font-weight:700}
+@font-face{font-family:"Be Vietnam Pro";src:url("fonts/BeVietnamPro-ExtraBold.ttf");font-weight:800}
+@font-face{font-family:"Be Vietnam Pro";src:url("fonts/BeVietnamPro-Black.ttf");font-weight:900}
+@font-face{font-family:"Lora";src:url("fonts/Lora[wght].ttf");font-weight:400 700}
+
+/* Bảng màu trùng với landing page drchuc.com */
+:root{
+  --navy:#07111F; --navy-mid:#0B1A2E; --navy-light:#112240;
+  --gold:#C9A84C; --gold-2:#E7C873; --teal:#2DD4BF; --off:#F5F4EF;
+  --muted:rgba(245,244,239,.66);
+}
+html,body{margin:0;padding:0;width:1080px;height:1920px;overflow:hidden;background:var(--navy)}
+#stage{position:relative;width:1080px;height:1920px;overflow:hidden;font-family:"Be Vietnam Pro",system-ui,sans-serif;color:var(--off);-webkit-font-smoothing:antialiased}
+
+/* Nền */
+.bg{position:absolute;inset:0;background:linear-gradient(180deg,#0C1D33 0%,#07111F 52%,#050C18 100%)}
+.glow{position:absolute;top:0;left:0;width:1400px;height:1400px;border-radius:50%;pointer-events:none;will-change:transform}
+.glow.gold{background:radial-gradient(circle at center,rgba(201,168,76,.30) 0%,rgba(201,168,76,.10) 30%,rgba(201,168,76,0) 62%)}
+.glow.teal{width:1000px;height:1000px;background:radial-gradient(circle at center,rgba(45,212,191,.16) 0%,rgba(45,212,191,0) 60%)}
+.dots{position:absolute;inset:0;background-image:radial-gradient(rgba(245,244,239,.09) 1.2px,transparent 1.5px);background-size:34px 34px;
+  -webkit-mask-image:radial-gradient(ellipse at 50% 45%,#000 15%,transparent 72%);mask-image:radial-gradient(ellipse at 50% 45%,#000 15%,transparent 72%)}
+.vignette{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 50%,transparent 52%,rgba(3,8,16,.7) 100%)}
+.frame{position:absolute;inset:44px;border:1.5px solid rgba(201,168,76,.22);border-radius:40px}
+.frame:before,.frame:after{content:"";position:absolute;left:50%;transform:translateX(-50%);width:200px;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+.frame:before{top:-1.5px}.frame:after{bottom:-1.5px}
+.bgphoto{position:absolute;inset:0;background-size:cover;background-position:center;opacity:0;will-change:transform,opacity}
+.bgphoto:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(7,17,31,.55),rgba(7,17,31,.82))}
+
+/* Nhãn thương hiệu trên cùng */
+.brand{position:absolute;top:118px;left:0;right:0;display:flex;flex-direction:column;align-items:center;gap:12px}
+.brand .name{display:flex;align-items:center;gap:18px;font-weight:800;font-size:30px;letter-spacing:.24em;color:var(--gold)}
+.brand .name:before,.brand .name:after{content:"";width:48px;height:1.5px;background:linear-gradient(90deg,transparent,var(--gold))}
+.brand .name:after{background:linear-gradient(90deg,var(--gold),transparent)}
+.brand .tag{font-size:24px;font-weight:500;letter-spacing:.14em;color:var(--muted);text-transform:uppercase}
+
+/* Vùng cảnh: nằm trong safe-zone của Reels/Shorts/TikTok */
+.scenes{position:absolute;left:0;right:0;top:300px;bottom:380px}
+.scene{position:absolute;inset:0;padding:0 112px 0 96px;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;will-change:transform,opacity}
+.scene.center{align-items:center;text-align:center;padding:0 96px}
+.kicker{display:inline-flex;align-items:center;gap:14px;margin-bottom:36px;font-size:26px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);will-change:transform,opacity}
+.kicker:before{content:"";width:12px;height:12px;border-radius:50%;background:var(--gold);box-shadow:0 0 18px rgba(201,168,76,.8)}
+.line{margin:0 0 28px;font-size:72px;line-height:1.16;font-weight:800;letter-spacing:-.012em;text-wrap:balance;will-change:transform,opacity;text-shadow:0 4px 30px rgba(0,0,0,.35)}
+.line:last-child{margin-bottom:0}
+#stage em{font-style:normal;color:var(--gold-2)}
+#stage em.nb{white-space:nowrap}
+.hook .line{font-size:96px;font-weight:900;line-height:1.08;letter-spacing:-.02em}
+.quote .line{font-family:"Lora",serif;font-style:italic;font-weight:600;font-size:76px;line-height:1.24;letter-spacing:0}
+.quote .qmark{font-family:"Lora",serif;font-size:240px;line-height:.55;color:var(--gold);opacity:.6;margin-bottom:30px;font-weight:700;will-change:transform,opacity}
+.quote .who{margin-top:44px;font-size:28px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);will-change:transform,opacity}
+.quote .who:before{content:"— "}
+
+/* Cảnh "point": số thứ tự + tiêu đề + mô tả */
+.point .num{display:flex;align-items:center;justify-content:center;width:136px;height:136px;border-radius:50%;border:2.5px solid var(--gold);color:var(--gold);font-size:56px;font-weight:800;margin-bottom:40px;
+  box-shadow:0 0 44px rgba(201,168,76,.28),inset 0 0 30px rgba(201,168,76,.08);will-change:transform,opacity}
+.point .title{font-size:86px;font-weight:900;color:var(--gold-2);line-height:1.1;margin-bottom:32px;letter-spacing:-.015em}
+.point .desc{font-size:52px;font-weight:600;line-height:1.32;color:rgba(245,244,239,.88);letter-spacing:0}
+
+/* Cảnh "stat": con số lớn chạy đếm */
+.stat .big{font-size:320px;font-weight:900;line-height:.95;letter-spacing:-.045em;background:linear-gradient(180deg,#F5E0A0 0%,#C9A84C 58%,#9A7A2E 100%);-webkit-background-clip:text;background-clip:text;color:transparent;margin-bottom:28px;will-change:transform,opacity;filter:drop-shadow(0 10px 40px rgba(201,168,76,.25))}
+.stat .lbl{font-size:52px;font-weight:600;line-height:1.32;color:rgba(245,244,239,.88);max-width:860px}
+
+/* Cảnh kết (CTA) */
+.cta .avatar{width:264px;height:264px;border-radius:50%;border:3px solid var(--gold);display:flex;align-items:center;justify-content:center;font-size:88px;font-weight:900;letter-spacing:.02em;color:var(--gold);
+  background:radial-gradient(circle at 50% 35%,#17325C,#0B1A2E);box-shadow:0 0 70px rgba(201,168,76,.35);margin-bottom:46px;overflow:hidden;will-change:transform,opacity}
+.cta .avatar img{width:100%;height:100%;object-fit:cover;display:block}
+.cta .title{font-size:82px;font-weight:900;line-height:1.1;margin-bottom:24px;letter-spacing:-.015em}
+.cta .sub{font-size:42px;font-weight:600;color:var(--muted);margin-bottom:48px;line-height:1.35;letter-spacing:.02em}
+.cta .pill{display:inline-flex;align-items:center;gap:18px;padding:24px 50px;border-radius:999px;background:linear-gradient(180deg,var(--gold-2),var(--gold));color:#07111F;font-size:42px;font-weight:800;box-shadow:0 14px 44px rgba(201,168,76,.35);will-change:transform,opacity}
+.cta .socials{display:flex;gap:26px;margin-top:44px;font-size:27px;font-weight:600;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;will-change:transform,opacity}
+.cta .socials span+span:before{content:"·";margin-right:26px;color:var(--gold)}
+
+/* Thanh tiến trình + watermark */
+.progress{position:absolute;left:96px;right:96px;bottom:302px;height:6px;border-radius:3px;background:rgba(245,244,239,.14);overflow:hidden}
+.progress i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--gold),var(--gold-2));border-radius:3px}
+.footer{position:absolute;left:0;right:0;bottom:238px;text-align:center;font-size:28px;font-weight:600;letter-spacing:.22em;color:var(--muted)}
+</style>
+</head>
+<body>
+<div id="stage">
+  <div class="bg"></div>
+  <div class="glow gold" id="glowGold"></div>
+  <div class="glow teal" id="glowTeal"></div>
+  <div class="dots"></div>
+  <div id="bgphotos"></div>
+  <div class="vignette"></div>
+  <div class="frame"></div>
+  <div class="brand"><div class="name" id="brandName"></div><div class="tag" id="brandTag"></div></div>
+  <div class="scenes" id="scenes"></div>
+  <div class="progress"><i id="bar"></i></div>
+  <div class="footer" id="site"></div>
+</div>
+<script>
+(function(){
+  const $=s=>document.querySelector(s);
+  const clamp=(v,a=0,b=1)=>Math.max(a,Math.min(b,v));
+  const easeOut=p=>1-Math.pow(1-p,3);
+  const easeIn=p=>p*p*p;
+  const easeOutBack=p=>{const c1=1.70158,c3=c1+1;return 1+c3*Math.pow(p-1,3)+c1*Math.pow(p-1,2)};
+  const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  // *từ khóa* => tô vàng
+  const mark=s=>esc(s).replace(/\*([^*]+)\*/g,(m,g)=>'<em'+(g.length<=24?' class="nb"':'')+'>'+g+'</em>');
+  const el=(tag,cls,html)=>{const n=document.createElement(tag);if(cls)n.className=cls;if(html!=null)n.innerHTML=html;return n};
+  let S=null,TL=null;
+
+  // Nạp kịch bản + timeline (do render.cjs tính) và dựng DOM cho từng cảnh.
+  window.__load=function(script,timeline){
+    S=script;TL=timeline;
+    const b=script.brand||{};
+    $('#brandName').textContent=b.name||'BÁC SĨ CHÚC';
+    $('#brandTag').textContent=b.tagline||'';
+    $('#site').textContent=b.site||'';
+    const wrap=$('#scenes');wrap.innerHTML='';
+    const photos=$('#bgphotos');photos.innerHTML='';
+    TL.scenes.forEach((ts,i)=>{
+      const sc=script.scenes[i];const style=sc.style||'text';
+      const centered=sc.align==='center'||['hook','quote','stat','cta'].includes(style);
+      const root=el('section','scene '+style+(centered?' center':''));
+      const anim=[];let u=0;
+      const unitStart=()=>(ts.units[u++]||{start:ts.start}).start;
+      const add=(node,start,dur,kind)=>{anim.push({el:node,start,dur:dur||.45,kind:kind||'up'});root.appendChild(node);return node};
+      if(sc.kicker)add(el('div','kicker',esc(sc.kicker)),ts.start,.4);
+      if(style==='point'){
+        add(el('div','num',esc(sc.number||String(i+1).padStart(2,'0'))),ts.start,.55,'pop');
+        if(sc.title)add(el('div','line title',mark(sc.title)),unitStart());
+        if(sc.desc)add(el('div','line desc',mark(sc.desc)),unitStart());
+      }else if(style==='stat'){
+        const st=sc.stat||{};const big=add(el('div','big',''),unitStart(),.6,'pop');
+        const dec=Number.isInteger(st.value)?0:1;
+        ts.stat={el:big,value:+st.value||0,start:anim[anim.length-1].start,fmt:v=>(st.prefix||'')+(dec?v.toFixed(dec):Math.round(v))+(st.suffix||'')};
+        if(st.label)add(el('div','lbl',mark(st.label)),unitStart());
+      }else if(style==='cta'){
+        const c=sc.cta||{};
+        const av=el('div','avatar',c.avatar?'<img src="'+esc(c.avatar)+'" alt="">':esc(c.monogram||'BSC'));
+        add(av,ts.start,.6,'pop');ts.pulse=av;
+        if(c.title)add(el('div','line title',mark(c.title)),unitStart());
+        if(c.sub)add(el('div','sub',mark(c.sub)),unitStart());
+        if(c.pill)add(el('div','pill',esc(c.pill)),unitStart(),.5,'pop');
+        if(c.socials&&c.socials.length)add(el('div','socials',c.socials.map(s=>'<span>'+esc(s)+'</span>').join('')),(ts.units[ts.units.length-1]||ts).start+.35);
+      }else{
+        if(style==='quote')add(el('div','qmark','“'),ts.start,.5,'pop');
+        (sc.lines||[]).forEach(txt=>add(el('p','line',mark(txt)),unitStart()));
+        if(style==='quote'&&sc.who)add(el('div','who',esc(sc.who)),(ts.units[ts.units.length-1]||ts).start+.5);
+      }
+      if(sc.bg){const p=el('div','bgphoto');p.style.backgroundImage='url("'+esc(sc.bg)+'")';photos.appendChild(p);ts.bg=p;}
+      wrap.appendChild(root);ts.el=root;ts.anim=anim;
+    });
+  };
+
+  // Đặt toàn bộ trạng thái hình ảnh theo mốc thời gian t (giây). Hoàn toàn xác định,
+  // không phụ thuộc đồng hồ thật => render từng khung hình không bị rung/trượt.
+  window.__seek=function(t){
+    const total=TL.total||1;
+    $('#glowGold').style.transform='translate('+(540-700+250*Math.sin(t*.29))+'px,'+(820-700+200*Math.cos(t*.21))+'px)';
+    $('#glowTeal').style.transform='translate('+(540-500-300*Math.sin(t*.17+1))+'px,'+(1200-500+160*Math.cos(t*.13))+'px)';
+    $('#bar').style.width=(clamp(t/total)*100).toFixed(3)+'%';
+    const last=TL.scenes[TL.scenes.length-1];
+    for(const s of TL.scenes){
+      const root=s.el;if(!root)continue;
+      const isLast=s===last;
+      const visible=t>=s.start&&(t<s.end||isLast);
+      if(s.bg){const q=visible?1-easeIn(isLast?0:clamp((t-(s.end-.35))/.35)):0;s.bg.style.opacity=(q*easeOut(clamp((t-s.start)/.6))).toFixed(3);
+        const k=1.06+0.06*clamp((t-s.start)/Math.max(.1,s.end-s.start));s.bg.style.transform='scale('+k.toFixed(4)+')';}
+      if(!visible){root.style.display='none';continue;}
+      root.style.display='';
+      const exitP=isLast?0:clamp((t-(s.end-.3))/.3);
+      root.style.opacity=(1-easeIn(exitP)).toFixed(4);
+      root.style.transform='translateY('+(-24*easeIn(exitP)).toFixed(2)+'px)';
+      for(const a of s.anim){
+        const p=clamp((t-a.start)/a.dur);
+        if(a.kind==='pop'){const q=easeOutBack(p);a.el.style.opacity=clamp(p*2.5).toFixed(3);a.el.style.transform='scale('+(0.55+0.45*q).toFixed(4)+')';}
+        else{const q=easeOut(p);a.el.style.opacity=q.toFixed(4);a.el.style.transform='translateY('+((1-q)*44).toFixed(2)+'px)';}
+      }
+      if(s.stat){const p=easeOut(clamp((t-s.stat.start)/1.25));s.stat.el.textContent=s.stat.fmt(s.stat.value*p);}
+      if(s.pulse){const p=clamp((t-s.start)/.6);if(p>=1)s.pulse.style.transform='scale('+(1+0.025*Math.sin((t-s.start)*4)).toFixed(4)+')';}
+    }
+    return new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r)));
+  };
+})();
+</script>
+</body>
+</html>
