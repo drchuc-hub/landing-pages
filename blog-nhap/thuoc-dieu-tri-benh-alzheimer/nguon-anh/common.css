@@ -1,0 +1,7 @@
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--navy:#1a2e4a;--navy2:#12263f;--teal:#0d9488;--teal2:#2a9d8f;--tealbg:#f0f8f8;--cream:#fff8e6;--gold:#e0a800;--amber:#c2700c;--ink:#1f2d3d;--muted:#5b6b7b}
+html,body{overflow:hidden}
+body{font-family:'Be Vietnam Pro',sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased}
+.serif{font-family:'Lora',serif}
+.brand{display:flex;align-items:center;gap:12px;font-weight:700}
+.brand i{display:inline-block;width:12px;height:12px;border-radius:50%;background:var(--gold)}
