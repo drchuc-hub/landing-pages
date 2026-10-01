@@ -2,3 +2,6 @@ _worker.js
 wrangler.toml
 .assetsignore
 .wrangler/
+
+# Bản nháp bài blog WordPress (không phải trang tĩnh)
+blog-nhap/

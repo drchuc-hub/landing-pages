@@ -44,10 +44,7 @@ routes = [
   { pattern = "drchuc.com/khi-cong-truong-tho*", zone_name = "drchuc.com" },
 
   # Trang Đào tạo kỹ năng dựng video (production/dao-tao/dao-tao.html)
-  { pattern = "drchuc.com/dao-tao*", zone_name = "drchuc.com" },
-
-  # Blog: Thuốc điều trị Alzheimer mới (bài chuẩn E-E-A-T) — route này phủ luôn ảnh OG cùng prefix
-  { pattern = "drchuc.com/thuoc-dieu-tri-alzheimer*", zone_name = "drchuc.com" }
+  { pattern = "drchuc.com/dao-tao*", zone_name = "drchuc.com" }
 ]
 
 [assets]
