@@ -1,124 +1,371 @@
 <!DOCTYPE html><html lang="vi"><head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Đào tạo kỹ năng dựng video | Bác sĩ Chúc</title>
-<meta name="description" content="Đào tạo kỹ năng dựng video cùng Bác sĩ Chúc: học qua video, gói 1:1 và lớp đồng hành.">
+<title>Dựng video không cần quay phim — khóa học của Bác sĩ Chúc</title>
+<meta name="description" content="Học quy trình dựng video 'tay gạch bút đỏ' đã tạo hơn 100 video trong 4 tuần cho kênh Bác sĩ Chúc: không quay phim, không lộ mặt, 30 phút mỗi video. Học qua video 499.000đ, gói 1:1 và lớp đồng hành.">
+<meta property="og:title" content="Dựng video không cần quay phim — khóa học của Bác sĩ Chúc">
+<meta property="og:description" content="Quy trình đã tạo hơn 100 video trong 4 tuần, hơn 4 triệu lượt xem TikTok. Không quay phim, không lộ mặt, 30 phút mỗi video.">
+<meta property="og:image" content="https://drchuc.com/wp-content/uploads/2026/09/bia-huong-dan-1280x720-1.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600;700;800&family=Lora:wght@600;700&display=swap" rel="stylesheet">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-2PLTQEEGNL"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
-gtag('js',new Date());gtag('config','G-2PLTQEEGNL');</script>
+gtag('js',new Date());gtag('config','G-2PLTQEEGNL',{page_location:location.origin+location.pathname});</script>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-:root{--xanh:#0a3d34;--xanh2:#15705c;--xanh3:#e8f3ef;--vang:#e8a33d;--vang2:#fff8ea;
+:root{--xanh:#0a3d34;--xanh2:#15705c;--xanh3:#e8f3ef;--vang:#e8a33d;--vang2:#fff8ea;--do:#c0392b;
  --nen:#fbfcfb;--chu:#23302c;--xam:#64756f;--vien:#dfe8e5}
-html{-webkit-text-size-adjust:100%}
-body{font-family:'Be Vietnam Pro',system-ui,sans-serif;color:var(--chu);background:var(--nen);
- font-size:17px;line-height:1.8}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{font-family:'Be Vietnam Pro',system-ui,sans-serif;color:var(--chu);background:var(--nen);font-size:17px;line-height:1.8}
 img{max-width:100%;display:block}
-.bd{max-width:720px;margin:0 auto;padding:0 20px}
+.bd{max-width:760px;margin:0 auto;padding:0 20px}
 h1,h2,h3{font-family:'Lora',Georgia,serif;font-weight:700}
-h1{font-size:34px;line-height:1.3}
-h2{font-size:24px;color:var(--xanh);margin-bottom:16px}
-h3{font-size:21px;color:var(--xanh);margin-bottom:6px}
+h1{font-size:36px;line-height:1.25}
+h2{font-size:26px;color:var(--xanh);margin-bottom:16px;line-height:1.35}
+h3{font-size:20px;color:var(--xanh);margin-bottom:6px}
 p{margin-bottom:14px}p:last-child{margin-bottom:0}
+strong{font-weight:700}
 .top{background:#072a24;color:#cbe0d9;padding:12px 0;font-size:14px}
 .top .bd{display:flex;align-items:center;gap:10px}
 .top img{width:36px;height:36px;border-radius:8px;background:#fff;padding:2px}
-.hero{background:linear-gradient(165deg,#0a3d34,#15705c);color:#fff;padding:52px 0 56px;text-align:center}
-.hero .nhan{display:inline-block;background:var(--vang);color:#2a1e08;font-weight:700;font-size:12.5px;
- letter-spacing:1.2px;padding:7px 16px;border-radius:99px;margin-bottom:20px;text-transform:uppercase}
-.hero .sub{font-size:18px;opacity:.92;margin-top:14px}
-section{padding:40px 0}
+.hero{background:linear-gradient(165deg,#0a3d34,#15705c);color:#fff;padding:44px 0 40px;text-align:center}
+.hero .nhan{display:inline-block;background:var(--vang);color:#2a1e08;font-weight:700;font-size:12.5px;letter-spacing:1.2px;padding:7px 16px;border-radius:99px;margin-bottom:18px;text-transform:uppercase}
+.hero .sub{font-size:18.5px;opacity:.94;margin:16px auto 0;max-width:640px}
+.hero .ghi{font-size:14.5px;opacity:.8;margin-top:10px}
+.vsl{margin:26px auto 0;max-width:720px;background:#000;border-radius:16px;overflow:hidden;box-shadow:0 18px 50px rgba(0,0,0,.35);position:relative;aspect-ratio:16/9}
+.vsl iframe,.vsl video{position:absolute;inset:0;width:100%;height:100%;border:0}
+.vsl .bia{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;cursor:pointer}
+.vsl .play{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:84px;height:84px;border-radius:50%;background:var(--vang);display:flex;align-items:center;justify-content:center;box-shadow:0 10px 30px rgba(0,0,0,.4);cursor:pointer;pointer-events:none}
+.vsl .play:after{content:"";border-left:28px solid #2a1e08;border-top:17px solid transparent;border-bottom:17px solid transparent;margin-left:7px}
+.vsl .ghi{position:absolute;left:0;right:0;bottom:0;background:rgba(0,0,0,.55);color:#fff;font-size:14px;padding:8px 12px;text-align:center;pointer-events:none}
+section{padding:44px 0}
+section.xen{background:#fff;border-top:1px solid var(--vien);border-bottom:1px solid var(--vien)}
+section.toi{background:var(--xanh);color:#e6f0ec}
+section.toi h2{color:var(--vang)}
+.buoc{display:inline-block;font-size:12.5px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--xanh2);margin-bottom:8px}
+section.toi .buoc{color:#9fd3c3}
 .goi{display:grid;gap:18px}
 @media(min-width:640px){.goi{grid-template-columns:1fr 1fr}}
 @media(min-width:900px){.goi{grid-template-columns:1fr 1fr 1fr}}
-.the{background:#fff;border:1.5px solid var(--vien);border-radius:16px;padding:26px 22px;text-align:center;
- display:flex;flex-direction:column}
+.the{background:#fff;border:1.5px solid var(--vien);border-radius:16px;padding:26px 22px;text-align:center;display:flex;flex-direction:column;color:var(--chu)}
 .the.noi{border-color:var(--vang);box-shadow:0 12px 34px rgba(10,61,52,.12)}
 .the .mo{color:var(--xam);font-size:15.5px;flex:1}
 .the .gia{font-family:'Lora',serif;font-size:36px;color:var(--xanh);font-weight:700;margin:14px 0 4px}
 .the .dv{color:var(--xam);font-size:14.5px;margin-bottom:16px}
-.nut{display:block;width:100%;background:var(--vang);color:#2a1e08;font-weight:700;font-size:17.5px;
- padding:16px 20px;border:0;border-radius:12px;text-align:center;text-decoration:none;cursor:pointer;
- box-shadow:0 8px 22px rgba(0,0,0,.15);font-family:inherit;line-height:1.4}
+.the .qua{background:var(--vang2);color:#7a4e0e;font-size:14.5px;font-weight:600;border-radius:9px;padding:8px 10px;margin:-4px 0 16px;line-height:1.5}
+.the ul{text-align:left;list-style:none;margin:10px 0 16px;font-size:15px}
+.the ul li{padding:5px 0 5px 26px;position:relative;line-height:1.5}
+.the ul li:before{content:"✓";position:absolute;left:0;color:var(--xanh2);font-weight:800}
+.nut{display:block;width:100%;background:var(--vang);color:#2a1e08;font-weight:700;font-size:17.5px;padding:16px 20px;border:0;border-radius:12px;text-align:center;text-decoration:none;cursor:pointer;box-shadow:0 8px 22px rgba(0,0,0,.15);font-family:inherit;line-height:1.4}
 .nut:active{transform:translateY(2px)}.nut:disabled{opacity:.7;cursor:wait}
 .nut.phu{background:#fff;color:var(--xanh);border:2px solid var(--xanh2);box-shadow:none}
-.hop{background:#fff;border:1px solid var(--vien);border-left:5px solid var(--xanh2);border-radius:11px;
- padding:20px 22px;margin:18px 0}
+.nut.goc{max-width:420px;margin:22px auto 0}
+.duoi-nut{text-align:center;font-size:14.5px;color:var(--xam);margin-top:10px}
+section.toi .duoi-nut,.hero .duoi-nut{color:#cbe0d9}
+.hop{background:#fff;border:1px solid var(--vien);border-left:5px solid var(--xanh2);border-radius:11px;padding:20px 22px;margin:18px 0;color:var(--chu)}
 .hop.vang{border-left-color:var(--vang);background:var(--vang2)}
 .hop.xanh{background:var(--xanh3)}
+.hop.do{border-left-color:var(--do)}
+.luoi{display:grid;gap:14px}
+@media(min-width:600px){.luoi.c2{grid-template-columns:1fr 1fr}.luoi.c3{grid-template-columns:1fr 1fr 1fr}.luoi.c4{grid-template-columns:repeat(4,1fr)}}
+.o{background:#fff;border:1px solid var(--vien);border-radius:14px;padding:18px 18px;color:var(--chu)}
+.o .ic{font-size:28px;line-height:1;margin-bottom:8px}
+.o h3{font-size:17px}
+.o p{font-size:15px;color:var(--xam)}
+.so{background:#fff;border:1px solid var(--vien);border-radius:14px;padding:18px 14px;text-align:center;color:var(--chu)}
+.so b{display:block;font-family:'Lora',serif;font-size:30px;color:var(--xanh);line-height:1.1}
+.so span{font-size:13.5px;color:var(--xam);display:block;margin-top:6px;line-height:1.4}
+section.toi .so{background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.15);color:#fff}
+section.toi .so b{color:var(--vang)}section.toi .so span{color:#cbe0d9}
+.bang{background:#fff;border:1px solid var(--vien);border-radius:12px;overflow:hidden;color:var(--chu)}
+.bang table{width:100%;border-collapse:collapse;font-size:15.5px}
+.bang th{background:var(--xanh);color:#fff;text-align:left;padding:12px 14px;font-weight:700;font-size:14px}
+.bang td{padding:12px 14px;border-top:1px solid #eef3f1;vertical-align:top;line-height:1.5}
+.bang tr:nth-child(even) td{background:#f6faf8}
+.bang td.gia{text-align:right;white-space:nowrap;font-weight:700;color:var(--xanh)}
+.bang td.gach{text-align:right;white-space:nowrap;color:var(--xam);text-decoration:line-through}
+.bang tfoot td{background:var(--vang2);font-weight:700;border-top:2px solid var(--vang)}
+.cuon{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.thoi{position:relative;padding-left:28px;margin:18px 0}
+.thoi:before{content:"";position:absolute;left:8px;top:6px;bottom:6px;width:3px;background:var(--vien);border-radius:2px}
+.thoi .moc{position:relative;margin-bottom:18px}
+.thoi .moc:before{content:"";position:absolute;left:-26px;top:7px;width:14px;height:14px;border-radius:50%;background:var(--xanh2);border:3px solid #fff;box-shadow:0 0 0 2px var(--xanh2)}
+.thoi .moc.vang:before{background:var(--vang);box-shadow:0 0 0 2px var(--vang)}
+.thoi .moc b{color:var(--xanh);display:block}
+.thoi .moc p{font-size:15.5px;margin:0}
+details{background:#fff;border:1px solid var(--vien);border-radius:12px;margin-bottom:10px;color:var(--chu)}
+summary{cursor:pointer;padding:15px 18px;font-weight:700;color:var(--xanh);list-style:none;display:flex;justify-content:space-between;gap:12px;align-items:center}
+summary::-webkit-details-marker{display:none}
+summary:after{content:"+";font-size:22px;color:var(--vang);flex:0 0 auto}
+details[open] summary:after{content:"–"}
+details .nd{padding:0 18px 16px;font-size:15.5px;color:var(--chu)}
+.tt{text-align:center}.mo{color:var(--xam);font-size:15.5px}
+.chip{display:inline-block;background:var(--xanh3);color:var(--xanh);font-weight:600;font-size:13.5px;padding:4px 12px;border-radius:99px;margin:2px 4px 2px 0}
 form{background:#fff;border:1px solid var(--vien);border-radius:15px;padding:24px 22px}
 label{display:block;font-weight:600;font-size:15.5px;margin:16px 0 6px;color:var(--xanh)}
 label:first-of-type{margin-top:0}
-input{width:100%;padding:14px 15px;border:1.5px solid #ccdad5;border-radius:11px;font-size:17px;
- font-family:inherit;color:var(--chu)}
+input{width:100%;padding:14px 15px;border:1.5px solid #ccdad5;border-radius:11px;font-size:17px;font-family:inherit;color:var(--chu)}
 input:focus{outline:0;border-color:var(--xanh2);box-shadow:0 0 0 3px rgba(21,112,92,.1)}
 .loi{color:#c0392b;font-size:14.5px;margin-top:5px;display:none}
-.mo{color:var(--xam);font-size:15.5px}.tt{text-align:center}
-.chon{background:var(--xanh3);border-radius:11px;padding:12px 16px;margin-bottom:18px;display:flex;
- justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
-.chon b{color:var(--xanh)}
-.chon a{color:var(--xanh2);font-size:14.5px}
+.chon{background:var(--xanh3);border-radius:11px;padding:12px 16px;margin-bottom:18px;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.chon b{color:var(--xanh)}.chon a{color:var(--xanh2);font-size:14.5px}
 .qr{max-width:268px;margin:18px auto;border:1px solid var(--vien);border-radius:13px}
-.bang{background:#fff;border:1px solid var(--vien);border-radius:12px;padding:6px 20px}
+.bang2{background:#fff;border:1px solid var(--vien);border-radius:12px;padding:6px 20px}
 .hang{display:flex;justify-content:space-between;gap:12px;align-items:center;border-bottom:1px solid #eef3f1;padding:13px 0}
 .hang:last-child{border-bottom:0}
 .hang .n{color:var(--xam);font-size:15px;flex:0 0 auto}
 .hang .g{font-weight:600;text-align:right;word-break:break-all}
-.chep{background:var(--xanh2);color:#fff;border:0;border-radius:9px;padding:8px 14px;font-size:14px;
- font-weight:600;cursor:pointer;white-space:nowrap;font-family:inherit}
+.chep{background:var(--xanh2);color:#fff;border:0;border-radius:9px;padding:8px 14px;font-size:14px;font-weight:600;cursor:pointer;white-space:nowrap;font-family:inherit}
 .cho{display:flex;align-items:center;gap:10px;color:var(--xanh2);font-weight:600;justify-content:center;margin-top:18px}
 .dot{width:9px;height:9px;border-radius:50%;background:var(--xanh2);animation:nhip 1.6s infinite}
 @keyframes nhip{0%,100%{opacity:.25;transform:scale(.85)}50%{opacity:1;transform:scale(1.15)}}
-footer{background:var(--xanh);color:#cbe0d9;padding:30px 0;font-size:14.5px;text-align:center}
+.dinh{position:fixed;left:0;right:0;bottom:0;background:#fff;border-top:1px solid var(--vien);padding:10px 16px;box-shadow:0 -8px 24px rgba(0,0,0,.08);z-index:9;display:none}
+.dinh .bd{display:flex;align-items:center;gap:12px;justify-content:space-between}
+.dinh .g{font-size:14px;color:var(--xam);line-height:1.3}
+.dinh .g b{color:var(--xanh);font-size:16px;display:block}
+.dinh .nut{width:auto;padding:12px 22px;font-size:15.5px;box-shadow:none;flex:0 0 auto}
+body.co-dinh .dinh{display:block}body.co-dinh{padding-bottom:76px}
+footer{background:#072a24;color:#cbe0d9;padding:30px 0;font-size:14px;text-align:center;line-height:1.7}
 footer a{color:var(--vang)}
 [hidden]{display:none!important}
-@media(max-width:560px){h1{font-size:27px}.hero{padding:40px 0 44px}.the .gia{font-size:32px}}
+@media(max-width:560px){h1{font-size:28px}h2{font-size:23px}.hero{padding:36px 0 34px}.the .gia{font-size:32px}section{padding:36px 0}}
 </style></head><body>
 
 <div class="top"><div class="bd">
 <img src="https://drchuc.com/wp-content/uploads/2026/05/logo-bs-chuc.png" alt="Logo Bác sĩ Chúc">
 <span><b style="color:#fff">Bác sĩ Chúc</b> · drchuc.com</span></div></div>
 
+<!-- ═══════════ TRANG BÁN (ẩn khi sang bước điền form) ═══════════ -->
+<div id="chon-goi">
+
+<!-- BƯỚC 1–2: Headline + Sub headline + VSL -->
 <div class="hero"><div class="bd">
-<span class="nhan">Đào tạo</span>
-<h1>Đào tạo kỹ năng dựng video</h1>
-<p class="sub">Học trực tiếp cùng Bác sĩ Chúc — chọn gói phù hợp bên dưới.</p>
+<span class="nhan">Khóa học dựng video</span>
+<h1>Hơn 100 video trong 4 tuần<br>mà không quay một cảnh nào</h1>
+<p class="sub">Quy trình "tay gạch bút đỏ" của kênh Bác sĩ Chúc: trợ lý AI dựng video, bạn chỉ duyệt 8 câu kịch bản. 30 phút mỗi video, không lộ mặt, không cần biết phần mềm dựng.</p>
+<div class="vsl" id="vsl">
+  <img class="bia" src="https://drchuc.com/wp-content/uploads/2026/09/bia-huong-dan-1280x720-1.jpg" alt="Xem video giới thiệu khóa học" onclick="moVSL()">
+  <div class="play"></div>
+  <div class="ghi">▶ Xem 4 phút này trước khi quyết định</div>
+</div>
+<a class="nut goc" href="#goi" onclick="try{gtag('event','cta_click',{vi_tri:'hero'})}catch(e){}">Chọn gói học phù hợp</a>
+<p class="duoi-nut">Học qua video 499.000đ · Gói 1:1 · Lớp đồng hành · Xác nhận học phí tự động</p>
 </div></div>
 
-<!-- ─── BƯỚC 1: CHỌN GÓI ─── -->
-<section id="chon-goi"><div class="bd">
+<!-- BƯỚC 3: Vấn đề -->
+<section><div class="bd">
+<span class="buoc">Bạn có thấy mình ở đây không?</span>
+<h2>Có chuyên môn, có điều muốn nói, nhưng video thì mãi không ra</h2>
+<div class="luoi c3">
+  <div class="o"><div class="ic">🎥</div><h3>Sợ ống kính</h3><p>Đứng trước máy quay là cứng người. Quay đi quay lại, xem lại thấy không ưng, rồi xóa.</p></div>
+  <div class="o"><div class="ic">💸</div><h3>Thuê dựng thì chờ</h3><p>Mỗi video vài trăm nghìn, chờ ba ngày, sửa ba lần. Được dăm video rồi dừng vì tốn công hơn tự làm.</p></div>
+  <div class="o"><div class="ic">🌙</div><h3>Tự học thì kiệt sức</h3><p>Mỗi tối hai tiếng CapCut cho một clip. Đăng lên được vài trăm lượt xem. Tuần thứ ba thì lặng lẽ bỏ.</p></div>
+</div>
+<div class="hop do" style="margin-top:22px"><p><strong>Hệ quả chung:</strong> kênh không ra đều, khách không nhớ mình, còn đối thủ thì mỗi ngày một video. Càng để lâu, càng khó bắt đầu.</p></div>
+<p class="tt" style="font-size:19px;font-weight:700;color:var(--xanh);margin-top:22px">Tin tốt là: có một cách khác, và nó không cần bạn xuất hiện.</p>
+</div></section>
+
+<!-- BƯỚC 4: Uy tín -->
+<section class="toi"><div class="bd">
+<span class="buoc">Ai hướng dẫn bạn</span>
+<h2>Bác sĩ Chúc — người đang dùng chính quy trình này mỗi ngày</h2>
+<p>Tôi là bác sĩ Nguyễn Xuân Chúc, chủ kênh <strong>Bác sĩ Chúc</strong> trên Facebook, TikTok và YouTube. Tháng 9/2026 tôi phân tích một kênh sức khỏe nước ngoài có 1,4 triệu người theo dõi, trong đó một video đạt 100 triệu lượt xem chỉ bằng nền trắng, sticker và một bàn tay cầm bút đỏ. Tôi dựng lại dạng đó bằng tiếng Việt với quy trình máy làm gần hết, và đây là số liệu thật sau 4 tuần:</p>
+<div class="luoi c4" style="margin-top:18px">
+  <div class="so"><b>100+</b><span>video dựng xong từ 13/09 đến 09/10/2026</span></div>
+  <div class="so"><b>4,3 triệu</b><span>lượt xem TikTok của 39 video đầu tiên</span></div>
+  <div class="so"><b>735.000</b><span>lượt xem video cao nhất của loạt (thực phẩm tốt cho gan)</span></div>
+  <div class="so"><b>30 phút</b><span>mỗi video, phần người làm chỉ là duyệt 8 câu</span></div>
+</div>
+<p class="mo" style="color:#9fd3c3;font-size:14px;margin-top:14px">Số liệu đo từ Buffer, Facebook Graph API và YouTube ngày 29/09/2026 và cập nhật 09/10/2026. Kênh Bác sĩ Chúc ở các dạng video khác cũng có video đạt hơn 900.000 lượt xem Facebook.</p>
+</div></section>
+
+<!-- BƯỚC 5: Câu chuyện trước – sau -->
+<section><div class="bd">
+<span class="buoc">Câu chuyện 4 tuần</span>
+<h2>Từ "mỗi video một buổi tối" đến "mỗi ngày 5 video"</h2>
+<div class="thoi">
+  <div class="moc"><b>Trước tháng 9</b><p>Tôi quay bài tập ngoài trời, cắt vấp, chèn phụ đề, làm bìa. Một video dài ngốn trọn một buổi tối. Có tuần kênh trắng vì bận phòng khám.</p></div>
+  <div class="moc"><b>13/09 — khoảnh khắc đổi hướng</b><p>Xem video 100 triệu lượt xem của kênh nước ngoài: không có mặt người, không có cảnh quay. Chỉ có 8 cặp "nguyên nhân → hậu quả" và một bàn tay gạch bút đỏ. Tôi hỏi: máy có làm được cái này không?</p></div>
+  <div class="moc vang"><b>Cùng ngày</b><p>Dựng video mẫu đầu tiên bằng trợ lý AI: kịch bản 8 câu, giọng đọc máy, 16 sticker do ChatGPT vẽ, bàn tay gạch chân khớp từng chữ. Tôi chỉ sửa 2 câu cho đúng y khoa.</p></div>
+  <div class="moc"><b>Tuần 1–2</b><p>30 video đầu, mỗi video 30 phút. Video "thực phẩm tốt cho gan" lên 735.000 lượt xem TikTok, "dấu hiệu tiền tiểu đường" 675.000.</p></div>
+  <div class="moc"><b>Tuần 3–4</b><p>Quy trình tự quét kênh mẫu mỗi sáng, chọn chủ đề đang lên, dựng và hẹn lịch đăng 3 kênh. Facebook chạy 5–6 video mỗi ngày, video "vị trí đau bụng" gần 100.000 lượt xem và 127 lượt chia sẻ.</p></div>
+  <div class="moc vang"><b>Hôm nay</b><p>Hơn 100 video. Tôi không xuất hiện trong video nào. Và tôi đóng gói toàn bộ quy trình đó thành khóa học này.</p></div>
+</div>
+</div></section>
+
+<!-- BƯỚC 6: Lợi ích -->
+<section class="xen"><div class="bd">
+<span class="buoc">Khóa học giải quyết đúng ba nỗi lo trên</span>
+<h2>Bạn nhận được gì khi làm theo quy trình</h2>
+<div class="bang cuon"><table>
+<tr><th style="width:38%">Nỗi lo của bạn</th><th>Quy trình xử lý thế nào</th></tr>
+<tr><td><strong>Sợ ống kính</strong></td><td>Không quay phim, không lộ mặt. Video chỉ gồm sticker, chữ, giọng đọc và bàn tay gạch bút. Bạn <strong>không cần xuất hiện</strong>.</td></tr>
+<tr><td><strong>Thuê dựng tốn tiền, chờ lâu</strong></td><td>Trợ lý AI dựng ngay trên máy bạn. <strong>Không chờ ai, không trả tiền dựng từng video.</strong> Muốn sửa một chữ, chạy lại 2 phút.</td></tr>
+<tr><td><strong>Tự học phần mềm kiệt sức</strong></td><td>Không mở CapCut hay Premiere. Bạn <strong>nói chuyện với trợ lý AI bằng tiếng Việt</strong>, máy tự viết lệnh, tự dựng, tự báo kết quả.</td></tr>
+<tr><td><strong>Kênh không ra đều</strong></td><td>30 phút một video, phần lớn là máy chạy. <strong>Ra đều mỗi ngày</strong>, kênh có nhịp, khách nhớ tên bạn.</td></tr>
+<tr><td><strong>Không biết làm chủ đề gì</strong></td><td>Bài 1 dạy cách quét kênh đang viral, xếp theo lượt xem và chọn chủ đề đã được hàng triệu người chứng minh. <strong>Không phải đoán.</strong></td></tr>
+</table></div>
+<a class="nut goc" href="#goi" onclick="try{gtag('event','cta_click',{vi_tri:'loi-ich'})}catch(e){}">Xem các gói học</a>
+</div></section>
+
+<!-- BƯỚC 7: Cảm xúc -->
+<section><div class="bd">
+<span class="buoc">Hình dung sáng mai</span>
+<h2>Bạn uống cà phê, duyệt 8 câu, bấm chạy</h2>
+<div class="hop xanh">
+<p>Bảy giờ sáng, bạn mở máy, trợ lý AI đã quét kênh mẫu và đề xuất một chủ đề đang lên: "8 dấu hiệu gan đang kêu cứu". Bạn đọc 8 câu kịch bản, sửa một câu cho đúng chuyên môn, bấm chạy, rồi đi khám bệnh.</p>
+<p>Trưa, video đã nằm trên Facebook, TikTok và YouTube. Chiều, bạn thấy số lượt xem nhảy từng nghìn. Tối, có một người lạ nhắn: "Bác ơi, phòng khám của bác ở đâu?"</p>
+<p style="margin-top:10px"><strong>Ngày mai bạn làm lại y như vậy. Và ngày kia. Kênh có nhịp, mà bạn vẫn không phải đứng trước ống kính.</strong></p>
+</div>
+</div></section>
+
+<!-- BƯỚC 8: Rõ ràng -->
+<section class="xen"><div class="bd">
+<span class="buoc">Cụ thể bạn học gì</span>
+<h2>Khóa "Dựng video bằng AI cùng Bác sĩ Chúc" — Phần 1</h2>
+<div class="bang cuon"><table>
+<tr><th style="width:34%">Bài học</th><th>Nội dung</th><th style="width:16%">Dài</th></tr>
+<tr><td><strong>Bài 1</strong><br>Tổng quan 7 bước</td><td>Toàn bộ quy trình từ ý tưởng đến video tự lên kênh: tìm ý từ kênh viral → kịch bản 8 cặp → giọng đọc → sticker → dựng → bìa → hẹn đăng.</td><td>4:25</td></tr>
+<tr><td><strong>Bài 2</strong><br>Chuẩn bị công cụ</td><td>Cài và kết nối 5 công cụ: Claude (trợ lý chạy dây chuyền), Claude in Chrome, ChatGPT (vẽ sticker), giọng đọc, Python + ffmpeg. Làm một lần, dùng mãi.</td><td>3:57</td></tr>
+<tr><td><strong>Bài 3</strong><br>Tải skill, dựng ngay</td><td>Tải gói kỹ năng về máy, dựng video đầu tiên bằng một câu lệnh tiếng Việt. Cách duyệt kịch bản và sửa khi chưa ưng.</td><td>1:52</td></tr>
+<tr><td><strong>Gói kỹ năng</strong><br>(file tải về)</td><td>Toàn bộ mã nguồn đã chạy hơn 100 video của kênh: dựng, đồng bộ giọng, cắt sticker, hẹn đăng Facebook và YouTube. Kèm bàn tay cầm bút, phông chữ tiếng Việt, mẫu kịch bản.</td><td>—</td></tr>
+<tr><td><strong>Tài liệu câu lệnh</strong></td><td>Google Doc gồm mọi câu lệnh và link cần dùng, sao chép là chạy.</td><td>—</td></tr>
+</table></div>
+<div class="luoi c2" style="margin-top:18px">
+  <div class="o"><h3>Học ở đâu, học thế nào</h3><p>Tài khoản riêng trên <strong>drchuc.com</strong>, xem lại không giới hạn số lần. Học trên máy tính Windows hoặc Mac. Tổng thời lượng video 10 phút; làm theo khoảng 1–2 giờ là ra video đầu tiên.</p></div>
+  <div class="o"><h3>Bạn cần chuẩn bị</h3><p>Máy tính, tài khoản Google, tài khoản <strong>Claude</strong> (gói Pro) và <strong>ChatGPT Plus</strong>. Hai dịch vụ này tính phí riêng, khoảng 1 triệu đồng/tháng; bài 2 ghi rõ cách đăng ký. Giọng đọc có lựa chọn miễn phí.</p></div>
+</div>
+</div></section>
+
+<!-- BƯỚC 9: Giá trị lớn -->
+<section class="toi"><div class="bd">
+<span class="buoc">Đặt lên bàn cân</span>
+<h2>Một tháng video của bạn đang tốn bao nhiêu?</h2>
+<div class="luoi c3">
+  <div class="so"><b>9 triệu</b><span>thuê dựng 30 video × ~300.000đ mỗi tháng, chưa kể chờ và sửa</span></div>
+  <div class="so"><b>60 giờ</b><span>tự dựng 30 video × 2 giờ, tức 2,5 ngày đêm mỗi tháng</span></div>
+  <div class="so"><b>499.000đ</b><span>học một lần, dùng cho mọi video về sau, 30 phút mỗi video</span></div>
+</div>
+<p style="margin-top:18px">Quy trình này tôi mất gần một tháng thử sai để hoàn thiện: chọn giọng đọc, viết mã đồng bộ bàn tay với từng chữ, chống lỗi sticker, tự động hẹn đăng. Bạn nhận bản đã chạy ổn hơn 100 video, không phải thử lại từ đầu.</p>
+</div></section>
+
+<!-- BƯỚC 10: Xử lý từ chối -->
+<section><div class="bd">
+<span class="buoc">Bạn có thể đang nghĩ</span>
+<h2>"Nghe hay, nhưng mà…"</h2>
+<details open><summary>Tôi không rành máy tính, có làm được không?</summary><div class="nd">Bạn không cần rành. Trợ lý AI tự viết lệnh, tự chạy, tự báo lỗi và tự sửa; việc của bạn là duyệt nội dung bằng tiếng Việt. Nếu bạn gõ được tin nhắn Zalo và biết cài một ứng dụng, bạn làm được. Bài 2 dẫn từng bước cài đặt kèm hình.</div></details>
+<details><summary>Tôi không có thời gian.</summary><div class="nd">Một video mất khoảng 30 phút, trong đó bạn chỉ bận 5–10 phút để duyệt kịch bản. Phần còn lại máy chạy trong lúc bạn làm việc khác. Đây là cách tôi duy trì 5–6 video mỗi ngày trong khi vẫn khám bệnh.</div></details>
+<details><summary>Tôi không phải ngành y, có áp dụng được không?</summary><div class="nd">Được. Quy trình phù hợp với mọi chủ đề dạng liệt kê "A → B": dinh dưỡng, làm đẹp, tài chính cá nhân, nuôi dạy con, phong thủy, bất động sản. Bạn chỉ đổi kịch bản và mô tả sticker; phần máy dựng giữ nguyên.</div></details>
+<details><summary>Có tốn thêm chi phí gì không?</summary><div class="nd">Có, và tôi nói rõ: bạn cần tài khoản Claude Pro và ChatGPT Plus, khoảng 1 triệu đồng/tháng cho cả hai. Giọng đọc có lựa chọn miễn phí. Không có phí nào khác phải trả cho tôi sau khóa học.</div></details>
+<details><summary>Tôi đã thử làm video rồi, không lên.</summary><div class="nd">Phần lớn video không lên vì chọn sai chủ đề và sai dạng, không phải vì dựng xấu. Bài 1 dạy bạn quét kênh đang viral, xếp theo lượt xem, chỉ làm chủ đề đã được hàng triệu người xem chứng minh. Bạn đứng trên vai cái đã chạy, không đoán mò.</div></details>
+<details><summary>Dạng video này có bị trùng với người khác không?</summary><div class="nd">Có nhiều người làm dạng này ở nước ngoài; ở Việt Nam còn ít. Lợi thế của bạn là chuyên môn và cách chọn chủ đề. Trong gói kỹ năng có sẵn cách gắn hình nhận diện riêng để video không bị lấy đi dùng lại.</div></details>
+</div></section>
+
+<!-- BƯỚC 11–12: Lý do mua + Giới hạn -->
+<section class="xen"><div class="bd">
+<span class="buoc">Vì sao nên bắt đầu bây giờ</span>
+<h2>Người đi sớm giữ lợi thế</h2>
+<div class="luoi c2">
+  <div class="hop vang" style="margin:0"><p><strong>Dạng video này đang ở đỉnh lượt xem</strong> trên cả ba nền tảng, và ở Việt Nam mới có rất ít kênh làm. Càng nhiều người vào, lợi thế của người đi sớm càng nhỏ. Mỗi tuần bạn chờ là một tuần đối thủ có thêm 30 video.</p></div>
+  <div class="hop vang" style="margin:0"><p><strong>499.000đ là giá ra mắt khi khóa mới có Phần 1.</strong> Tôi đang chuẩn bị Phần 2 (dựng video dài, tự động hẹn đăng, quét kênh mẫu hằng ngày). Học viên đã đăng ký được học tiếp Phần 2 trong tài khoản của mình; học phí cho người đăng ký sau khi có Phần 2 sẽ điều chỉnh.</p></div>
+</div>
+</div></section>
+
+<!-- BƯỚC 13: Giá trị thật -->
+<section><div class="bd">
+<span class="buoc">Tổng giá trị bạn nhận</span>
+<h2>Gói "Học qua video" gồm những gì</h2>
+<div class="bang cuon"><table>
+<tr><th>Hạng mục</th><th style="text-align:right">Nếu mua riêng</th></tr>
+<tr><td>3 bài video hướng dẫn quy trình 7 bước (xem lại không giới hạn)</td><td class="gia">1.500.000đ</td></tr>
+<tr><td>Gói kỹ năng: mã nguồn đã chạy hơn 100 video (dựng, đồng bộ giọng, cắt sticker, hẹn đăng)</td><td class="gia">5.000.000đ</td></tr>
+<tr><td>Bộ tài sản dùng lại: bàn tay cầm bút đỏ, phông chữ tiếng Việt, mẫu kịch bản 8 cặp</td><td class="gia">500.000đ</td></tr>
+<tr><td>Tài liệu câu lệnh Google Doc, sao chép là chạy</td><td class="gia">300.000đ</td></tr>
+<tr><td>Cập nhật Phần 2 khi phát hành, không thu thêm với học viên đã đăng ký</td><td class="gia">1.000.000đ</td></tr>
+<tfoot><tr><td>Tổng giá trị</td><td class="gach">8.300.000đ</td></tr>
+<tr><td>Học phí hôm nay</td><td class="gia" style="font-size:22px">499.000đ</td></tr></tfoot>
+</table></div>
+<p class="mo tt" style="margin-top:12px">Giá quy đổi là mức tôi từng trả hoặc được báo giá khi thuê ngoài từng phần; bạn có thể tự so với thị trường.</p>
+</div></section>
+
+<!-- BƯỚC 14: Quà tặng -->
+<section class="toi"><div class="bd">
+<span class="buoc">Tặng kèm khi đăng ký</span>
+<h2>Bốn món đi cùng khóa học</h2>
+<div class="luoi c2">
+  <div class="o"><div class="ic">🧰</div><h3>Gói kỹ năng "tay gạch bút đỏ"</h3><p>Toàn bộ script đã chạy thật trên kênh Bác sĩ Chúc, tải về là dùng. Có sẵn cách hẹn đăng Facebook Reels và YouTube bằng API.</p></div>
+  <div class="o"><div class="ic">✋</div><h3>Bàn tay + phông chữ + mẫu kịch bản</h3><p>Ảnh bàn tay cầm bút đỏ đã tách nền, phông chữ đủ dấu tiếng Việt, mẫu kịch bản 8 cặp để điền là chạy.</p></div>
+  <div class="o"><div class="ic">📄</div><h3>Tài liệu câu lệnh</h3><p>Google Doc gồm mọi câu lệnh, prompt vẽ sticker và link công cụ. Không phải gõ lại gì.</p></div>
+  <div class="o"><div class="ic">🔄</div><h3>Phần 2 khi phát hành</h3><p>Dựng video dài, tự quét kênh mẫu hằng ngày, tự hẹn đăng. Học viên đã đăng ký được học tiếp trong tài khoản của mình.</p></div>
+</div>
+<p style="margin-top:16px">Gói <strong>Đào tạo 1:1</strong> và <strong>Lớp đồng hành</strong> được tặng kèm toàn bộ khóa Học qua video ở trên.</p>
+</div></section>
+
+<!-- BƯỚC 15: Bằng chứng -->
+<section><div class="bd">
+<span class="buoc">Bằng chứng</span>
+<h2>Những video ra từ chính quy trình này</h2>
+<p>Tất cả đều dựng bằng gói kỹ năng bạn sẽ nhận, không quay một cảnh nào. Bạn có thể vào kênh TikTok, Facebook hoặc YouTube "Bác sĩ Chúc" để xem ngay hôm nay.</p>
+<div class="bang cuon"><table>
+<tr><th>Video (loạt tay gạch bút đỏ)</th><th>Ngày đăng</th><th style="text-align:right">Lượt xem TikTok</th></tr>
+<tr><td>Thực phẩm tốt cho gan</td><td>24/09/2026</td><td class="gia">735.968</td></tr>
+<tr><td>Dấu hiệu tiền tiểu đường</td><td>24/09/2026</td><td class="gia">675.015</td></tr>
+<tr><td>Thói quen gây loãng xương</td><td>26/09/2026</td><td class="gia">394.347</td></tr>
+<tr><td>Thận đang kêu cứu</td><td>23/09/2026</td><td class="gia">390.086</td></tr>
+<tr><td>Dấu hiệu đột quỵ</td><td>27/09/2026</td><td class="gia">132.740</td></tr>
+<tr><td>Vị trí đau bụng, coi chừng bệnh gì <span class="chip">Facebook</span></td><td>29/09/2026</td><td class="gia">98.800<br><span style="font-weight:400;color:var(--xam);font-size:13px">127 chia sẻ</span></td></tr>
+</table></div>
+<p class="mo" style="font-size:14px;margin-top:10px">Số liệu đo ngày 29/09 và 01/10/2026. Lượt xem mỗi video tùy chủ đề và nhịp đăng; đây là kết quả của kênh Bác sĩ Chúc, không phải cam kết cho mọi kênh.</p>
+<div class="hop" style="margin-top:20px"><p><strong>Học viên đầu tiên</strong> đăng ký gói Học qua video ngày 25/09/2026, nhận tài khoản ngay trong ngày và đã vào học. Khi có nhận xét của học viên, tôi sẽ đăng nguyên văn ở đây, không chỉnh sửa.</p></div>
+<!-- Mẫu nhận xét học viên (bật khi có nhận xét thật):
+<div class="luoi c2">
+  <div class="o"><p>"…nguyên văn nhận xét…"</p><p><strong>Tên · nghề · tỉnh</strong></p></div>
+</div> -->
+<a class="nut goc" href="#goi" onclick="try{gtag('event','cta_click',{vi_tri:'bang-chung'})}catch(e){}">Đăng ký học ngay</a>
+</div></section>
+
+<!-- BƯỚC 16: CTA — chọn gói -->
+<section class="xen" id="goi"><div class="bd">
+<span class="buoc">Chọn cách học phù hợp với bạn</span>
+<h2>Ba gói, một quy trình</h2>
 <div class="goi">
   <div class="the">
     <h3>Học qua video</h3>
-    <p class="mo">Bộ video hướng dẫn từng bước, xem lại bất cứ lúc nào, tự học theo tốc độ của mình.</p>
+    <p class="mo">Tự học theo tốc độ của mình. Phù hợp người quen dùng máy tính, muốn bắt đầu ngay tối nay.</p>
+    <ul><li>3 bài video, xem lại không giới hạn</li><li>Gói kỹ năng + tài liệu câu lệnh</li><li>Nhận Phần 2 khi phát hành</li></ul>
     <p class="gia">499.000đ</p>
-    <p class="dv">trọn bộ</p>
+    <p class="dv">trọn bộ · giá ra mắt Phần 1</p>
     <button class="nut phu" type="button" onclick="chonGoi('DTVD')">Đăng ký học qua video</button>
   </div>
   <div class="the">
     <h3>Đào tạo 1:1</h3>
-    <p class="mo">Học riêng với bác sĩ, lịch hẹn linh hoạt theo thời gian của anh chị.</p>
+    <p class="mo">Bác sĩ ngồi cùng bạn qua Zoom, cài đặt trên chính máy của bạn và dựng video đầu tiên ngay trong buổi.</p>
+    <ul><li>Buổi 1:1 qua Zoom, lịch linh hoạt</li><li>Cài đặt công cụ trên máy của bạn</li><li>Ra video đầu tiên trong buổi học</li></ul>
     <p class="gia">2.000.000đ</p>
     <p class="dv">trọn gói</p>
+    <p class="qua">🎁 Tặng kèm khóa Học qua video (trị giá 499.000đ)</p>
     <button class="nut" type="button" onclick="chonGoi('DT11')">Đăng ký gói 1:1</button>
   </div>
   <div class="the noi">
     <h3>Lớp đồng hành</h3>
-    <p class="mo">Học theo nhóm nhỏ và được đồng hành sửa bài trong suốt quá trình thực hành.</p>
+    <p class="mo">Học theo nhóm nhỏ, được sửa bài trong suốt quá trình thực hành cho tới khi kênh ra video đều.</p>
+    <ul><li>Nhóm nhỏ, học cùng nhịp</li><li>Sửa kịch bản và video từng người</li><li>Đồng hành tới khi kênh chạy đều</li></ul>
     <p class="gia">5.000.000đ</p>
     <p class="dv">trọn khóa</p>
+    <p class="qua">🎁 Tặng kèm khóa Học qua video (trị giá 499.000đ)</p>
     <button class="nut" type="button" onclick="chonGoi('DTDH')">Đăng ký lớp đồng hành</button>
   </div>
 </div>
+<p class="duoi-nut" style="margin-top:18px">Chuyển khoản qua mã QR, hệ thống xác nhận tự động ngay khi tiền về. Tài khoản học gửi vào email trong 24 giờ. Chưa nhận được, nhắn trang Facebook "Bác sĩ Chúc" kèm số điện thoại đã đăng ký là có người xử lý.</p>
 </div></section>
+
+</div><!-- /chon-goi -->
 
 <!-- ─── BƯỚC 2: FORM ─── -->
 <section id="dang-ky" hidden><div class="bd">
 <h2>Thông tin đăng ký</h2>
-<div class="chon"><span>Gói đã chọn: <b id="tenGoi"></b> · <b id="giaGoi"></b></span><a href="#chon-goi" onclick="doiGoi()">Đổi gói</a></div>
+<div class="chon"><span>Gói đã chọn: <b id="tenGoi"></b> · <b id="giaGoi"></b></span><a href="#goi" onclick="doiGoi()">Đổi gói</a></div>
 <form id="f">
 <label for="ten">Họ và tên</label>
 <input id="ten" placeholder="Nguyễn Văn A" autocomplete="name" required>
@@ -126,7 +373,7 @@ footer a{color:var(--vang)}
 <label for="sdt">Số điện thoại (có Zalo càng tốt)</label>
 <input id="sdt" inputmode="tel" placeholder="0912345678 hoặc +1 415 555 1234" autocomplete="tel" required>
 <div class="loi" id="e-sdt">Số điện thoại chưa đúng. Trong nước nhập 10 số bắt đầu bằng 0; ở nước ngoài nhập cả mã quốc gia.</div>
-<label for="email">Email</label>
+<label for="email">Email (nhận tài khoản học)</label>
 <input id="email" type="email" placeholder="ten@gmail.com" autocomplete="email" required>
 <div class="loi" id="e-email">Email chưa đúng, xin kiểm tra lại</div>
 <button class="nut" type="submit" id="gui" style="margin-top:22px">Tiếp tục thanh toán</button>
@@ -140,7 +387,7 @@ footer a{color:var(--vang)}
 <div class="chon"><span>Gói: <b id="tenGoi2"></b></span><span>Số tiền: <b id="giaGoi2"></b></span></div>
 <div class="hop vang"><p>Quét mã QR bằng ứng dụng ngân hàng, hoặc chuyển khoản thủ công <b>đúng nội dung</b> bên dưới. Nội dung sai thì hệ thống không nhận ra đăng ký của anh chị.</p></div>
 <img id="qr" class="qr" alt="Mã QR chuyển khoản VPBank chính chủ NGUYEN XUAN CHUC">
-<div class="bang">
+<div class="bang2">
   <div class="hang"><span class="n">Ngân hàng</span><span class="g">VPBank</span></div>
   <div class="hang"><span class="n">Số tài khoản</span><span class="g" id="stk">1919896899</span><button class="chep" type="button" onclick="chep('stk')">Chép</button></div>
   <div class="hang"><span class="n">Chủ tài khoản</span><span class="g">NGUYEN XUAN CHUC</span></div>
@@ -161,17 +408,27 @@ footer a{color:var(--vang)}
 </div>
 </div></section>
 
-<footer><div class="bd"><p><b>Bác sĩ Nguyễn Xuân Chúc</b> · <a href="https://drchuc.com">drchuc.com</a></p></div></footer>
+<div class="dinh" id="dinh"><div class="bd"><div class="g">Học qua video<b>499.000đ · giá ra mắt</b></div><a class="nut" href="#goi" onclick="try{gtag('event','cta_click',{vi_tri:'thanh-dinh'})}catch(e){}">Chọn gói</a></div></div>
+
+<footer><div class="bd"><p><b>Bác sĩ Nguyễn Xuân Chúc</b> · <a href="https://drchuc.com">drchuc.com</a></p>
+<p style="font-size:13px;opacity:.8;margin-top:6px">Số liệu trên trang là kết quả thực tế của kênh Bác sĩ Chúc. Lượt xem của mỗi kênh tùy chủ đề, chuyên môn và nhịp đăng của người làm.</p></div></footer>
 
 <script>
 var URL_BE='https://script.google.com/macros/s/AKfycbz1Of3_OKh8g3wJLdzLNLLBsFk_NSisZYGin5y82UMOAtPnr7-CXhCS6ylzdDujvJFr/exec';
 var KEY='ebk-2026';
+var VSL_ID='DHXgu0RMg9o';
 var GOI={DTVD:{ten:'Học qua video',gia:499000},DT11:{ten:'Đào tạo 1:1',gia:2000000},DTDH:{ten:'Lớp đồng hành',gia:5000000}};
 var BANK={ma:'VPB',so:'1919896899',chu:'NGUYEN XUAN CHUC'};
 var MA='',SDT='',lan=0,timer=null;
 function tien(n){return n.toLocaleString('vi-VN')+'đ';}
 function hien(id){['chon-goi','dang-ky','thanh-toan','xong'].forEach(function(x){document.getElementById(x).hidden=(x!==id);});
+  document.body.classList.toggle('co-dinh',id==='chon-goi');
   window.scrollTo({top:0,behavior:'smooth'});}
+function moVSL(){
+  var v=document.getElementById('vsl');
+  v.innerHTML='<iframe src="https://www.youtube-nocookie.com/embed/'+VSL_ID+'?autoplay=1&rel=0&modestbranding=1&playsinline=1" title="Video giới thiệu khóa học dựng video" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>';
+  try{gtag('event','vsl_play');}catch(e){}
+}
 function chuanSDT(raw){
   var s=String(raw||'').replace(/[^0-9+]/g,'');
   s=s.replace(/(?!^)\+/g,'');
@@ -190,7 +447,7 @@ function chonGoi(ma){
   hien('dang-ky');
   try{gtag('event','select_item',{items:[{item_id:ma,item_name:GOI[ma].ten}]});}catch(e){}
 }
-function doiGoi(){hien('chon-goi');}
+function doiGoi(){hien('chon-goi');setTimeout(function(){var g=document.getElementById('goi');if(g)g.scrollIntoView({behavior:'smooth'});},50);}
 function xau(id,h){document.getElementById('e-'+id).style.display=h?'block':'none';}
 document.getElementById('f').addEventListener('submit',function(ev){
   ev.preventDefault();
@@ -228,7 +485,7 @@ function thanhToan(ma,sdt){
 function kiemTra(){
   fetch(URL_BE+'?key='+KEY+'&action=check&ma='+MA+'&sdt='+SDT).then(function(r){return r.json();})
   .then(function(d){
-    if(d&&d.paid){ if(MA==='DTVD'){document.getElementById('xongMsg').innerHTML='Cảm ơn anh chị. Trong vòng <b>24 giờ</b> link truy cập bộ video sẽ được gửi vào email đã đăng ký (và nhắn Zalo). Email xác nhận cũng đã được gửi.';document.getElementById('xongPhu').textContent='Kiểm tra cả hộp thư Spam nếu chưa thấy.';} hien('xong');
+    if(d&&d.paid){ if(MA==='DTVD'){document.getElementById('xongMsg').innerHTML='Cảm ơn anh chị. Trong vòng <b>24 giờ</b> tài khoản vào khóa học trên drchuc.com sẽ được gửi vào email đã đăng ký (và nhắn Zalo). Email xác nhận cũng đã được gửi.';document.getElementById('xongPhu').textContent='Kiểm tra cả hộp thư Spam nếu chưa thấy.';} hien('xong');
       try{gtag('event','purchase',{currency:'VND',value:GOI[MA].gia,transaction_id:MA+SDT,items:[{item_id:MA}]});}catch(e){}
       return; }
     if(++lan<150) timer=setTimeout(kiemTra,4000);
@@ -242,6 +499,14 @@ function chep(id){
     document.body.appendChild(ta);ta.select();try{document.execCommand('copy');}catch(e){}document.body.removeChild(ta);ok(); }
   if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(t).then(ok).catch(du);else du();
 }
+// Thanh CTA dính đáy: chỉ hiện khi đã cuộn qua hero và chưa tới phần chọn gói
+(function(){
+  var goi=document.getElementById('goi'), dinh=document.getElementById('dinh');
+  function cap(){ if(document.getElementById('chon-goi').hidden){document.body.classList.remove('co-dinh');return;}
+    var r=goi.getBoundingClientRect(); var qua=window.scrollY>600 && r.top>window.innerHeight*0.6;
+    document.body.classList.toggle('co-dinh',qua); }
+  window.addEventListener('scroll',cap,{passive:true}); cap();
+})();
 // Mở lại trang bằng ?goi=DT11&sdt=... → vào thẳng bước thanh toán
 (function(){ var q=new URLSearchParams(location.search); var g=(q.get('goi')||'').toUpperCase(); var kq=chuanSDT(q.get('sdt')||'');
   if(GOI[g]&&kq.ok) thanhToan(g,kq.sdt); })();
