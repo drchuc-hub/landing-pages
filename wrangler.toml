@@ -40,6 +40,9 @@ routes = [
   { pattern = "drchuc.com/ebook-cam-on*", zone_name = "drchuc.com" },
   { pattern = "drchuc.com/tai-ve/*", zone_name = "drchuc.com" },
 
+  # Quà 20/10/2026: form nhận suất tư vấn miễn phí (production/qua-20-10-201026)
+  { pattern = "drchuc.com/qua-20-10*", zone_name = "drchuc.com" },
+
   # Sale page Khí Công Trường Thọ
   { pattern = "drchuc.com/khi-cong-truong-tho*", zone_name = "drchuc.com" },
 
