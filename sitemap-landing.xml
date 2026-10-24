@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Sitemap các landing page tĩnh do Worker phục vụ (ngoài sitemap WordPress).
+     Chỉ liệt kê trang được phép index; trang cảm ơn, thanh toán, đọc ebook đã noindex.
+     Thêm trang tĩnh mới cần index = thêm <url> ở đây. -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://drchuc.com/kiem-tra-lao-hoa</loc><lastmod>2026-07-22</lastmod></url>
+  <url><loc>https://drchuc.com/kiem-tra-loang-xuong</loc><lastmod>2026-07-22</lastmod></url>
+  <url><loc>https://drchuc.com/kiem-tra-mo-noi-tang</loc><lastmod>2026-07-24</lastmod></url>
+  <url><loc>https://drchuc.com/ebook-mat-co</loc><lastmod>2026-09-18</lastmod></url>
+  <url><loc>https://drchuc.com/ebook-momau</loc><lastmod>2026-07-22</lastmod></url>
+  <url><loc>https://drchuc.com/ebook-camnan-tieuduong</loc><lastmod>2026-07-22</lastmod></url>
+  <url><loc>https://drchuc.com/ebook-50-bai-tap</loc><lastmod>2026-09-18</lastmod></url>
+  <url><loc>https://drchuc.com/thu-vien-ebook</loc><lastmod>2026-09-18</lastmod></url>
+  <url><loc>https://drchuc.com/tu-van-1-1</loc><lastmod>2026-07-24</lastmod></url>
+  <url><loc>https://drchuc.com/khi-cong-truong-tho</loc><lastmod>2026-09-28</lastmod></url>
+</urlset>
