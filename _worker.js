@@ -3,6 +3,7 @@
 //   chứa "TVCP" → Apps Script C (funnel Tư Vấn 1-1 có phí)
 //   chứa "MMBS" → Apps Script B (funnel Mỡ Máu)
 //   còn lại (TVBS...) → Apps Script A (funnel Tiểu Đường)
+//   Có secret SEPAY_API_KEY → bắt buộc header "Authorization: Apikey <key>"
 // Tất cả request khác → static HTML assets
 
 const APPS_SCRIPT_A =
@@ -12,6 +13,18 @@ const APPS_SCRIPT_B =
 // Trùng với APPS_SCRIPT_URL trong tu-van-1-1.html.
 const APPS_SCRIPT_C =
   'https://script.google.com/macros/s/AKfycbwIL39Vzo2fHcYeGDKq8t6JLeFzJUWs6qu4Z-E9TjjepGgoKh5NxDJKTeftyx2reyT3/exec';
+
+// SePay (chứng thực "API Key") gửi header: Authorization: Apikey <API_KEY>.
+// So sánh từng byte với thời gian không đổi để không lộ key qua độ trễ.
+function isSepayAuthorized(request, apiKey) {
+  const enc = new TextEncoder();
+  const got = enc.encode(request.headers.get('Authorization') || '');
+  const want = enc.encode('Apikey ' + apiKey);
+  if (got.length !== want.length) return false;
+  let diff = 0;
+  for (let i = 0; i < want.length; i++) diff |= got[i] ^ want[i];
+  return diff === 0;
+}
 
 export default {
   async fetch(request, env) {
@@ -24,6 +37,14 @@ export default {
        convert POST → GET làm doPost không chạy.
     ─────────────────────────────────────────────────────────────────── */
     if (request.method === 'POST' && url.pathname === '/api/sepay-webhook') {
+      // Chặn webhook giả mạo xác nhận thanh toán. Chưa đặt secret
+      // SEPAY_API_KEY → giữ hành vi cũ để không gián đoạn đơn đang chạy.
+      if (env.SEPAY_API_KEY && !isSepayAuthorized(request, env.SEPAY_API_KEY)) {
+        return new Response('UNAUTHORIZED', {
+          status: 401,
+          headers: { 'Content-Type': 'text/plain' },
+        });
+      }
       try {
         const body = await request.text();
         // Chọn Apps Script đích theo prefix mã đơn trong nội dung CK

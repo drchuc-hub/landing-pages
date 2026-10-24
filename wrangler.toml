@@ -11,6 +11,9 @@ main = "_worker.js"
 routes = [
   { pattern = "drchuc.com/api/sepay-webhook", zone_name = "drchuc.com" },
 
+  # Sitemap riêng cho các landing page tĩnh (sitemap-landing.xml)
+  { pattern = "drchuc.com/sitemap-landing.xml*", zone_name = "drchuc.com" },
+
   { pattern = "drchuc.com/cam-on*", zone_name = "drchuc.com" },
   { pattern = "drchuc.com/cam-on-momau*", zone_name = "drchuc.com" },
   { pattern = "drchuc.com/cam-on-tieuduong*", zone_name = "drchuc.com" },

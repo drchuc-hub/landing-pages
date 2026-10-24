@@ -1,0 +1,10 @@
+# Header cho static assets (Cloudflare Workers Static Assets đọc file này).
+# PDF tài liệu tặng/bán chỉ dành cho người đã đăng ký hoặc thanh toán → không cho index.
+/tai-ve/*
+  X-Robots-Tag: noindex
+
+/qua-phoi-40.pdf
+  X-Robots-Tag: noindex
+
+/camnang-mat-co-tai-ve.pdf
+  X-Robots-Tag: noindex
