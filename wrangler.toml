@@ -47,7 +47,10 @@ routes = [
   { pattern = "drchuc.com/khi-cong-truong-tho*", zone_name = "drchuc.com" },
 
   # Trang Đào tạo kỹ năng dựng video (production/dao-tao/dao-tao.html)
-  { pattern = "drchuc.com/dao-tao*", zone_name = "drchuc.com" }
+  { pattern = "drchuc.com/dao-tao*", zone_name = "drchuc.com" },
+
+  # Khóa 21 ngày Thở Sâu Sống Khỏe: trang bán + thanh toán + cảm ơn + ảnh (production/tho-sau-song-khoe-231026/ban-hang)
+  { pattern = "drchuc.com/tho-sau-song-khoe*", zone_name = "drchuc.com" }
 ]
 
 [assets]
