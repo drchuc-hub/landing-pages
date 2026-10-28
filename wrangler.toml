@@ -50,7 +50,10 @@ routes = [
   { pattern = "drchuc.com/dao-tao*", zone_name = "drchuc.com" },
 
   # Khóa 21 ngày Thở Sâu Sống Khỏe: trang bán + thanh toán + cảm ơn + ảnh (production/tho-sau-song-khoe-231026/ban-hang)
-  { pattern = "drchuc.com/tho-sau-song-khoe*", zone_name = "drchuc.com" }
+  { pattern = "drchuc.com/tho-sau-song-khoe*", zone_name = "drchuc.com" },
+
+  # Form tư vấn thẩm mỹ trang Khỏe Đẹp Cùng Dr.Chúc (production/khoe-dep-cung-drchuc-271026/form-tu-van-tham-my)
+  { pattern = "drchuc.com/tu-van-tham-my*", zone_name = "drchuc.com" }
 ]
 
 [assets]
