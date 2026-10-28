@@ -60,10 +60,11 @@ strong,b{font-weight:700}
   box-shadow:0 18px 50px rgba(0,0,0,.4);position:relative;aspect-ratio:16/9}
 .vsl iframe,.vsl video,.vsl .bia{position:absolute;inset:0;width:100%;height:100%;border:0;object-fit:cover}
 .vsl .bia{cursor:pointer}
-.vsl .play{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:82px;height:82px;border-radius:50%;
+.vsl .play{position:absolute;left:80%;top:43%;transform:translate(-50%,-50%);width:82px;height:82px;border-radius:50%;
   background:var(--vang);display:flex;align-items:center;justify-content:center;box-shadow:0 10px 30px rgba(0,0,0,.45);pointer-events:none}
 .vsl .play:after{content:"";border-left:27px solid #2a1e08;border-top:16px solid transparent;border-bottom:16px solid transparent;margin-left:7px}
 .vsl .ghi.tren{top:0;bottom:auto}
+@media (max-width:480px){.vsl .play{width:56px;height:56px}.vsl .play:after{border-left-width:20px;border-top-width:12px;border-bottom-width:12px;margin-left:5px}}
 .vsl .ghi{position:absolute;left:0;right:0;bottom:0;background:rgba(0,0,0,.55);color:#fff;font-size:14px;padding:8px 12px;pointer-events:none}
 .hero .cta{max-width:440px;margin:26px auto 0}
 .hero .gia-nho{font-size:16px;margin-top:10px}
@@ -512,7 +513,7 @@ var CH = {
   MO_BAN_TU: '2026-10-27', // ngày mở bán (giờ VN) — KHỚP THO.MO_BAN_TU trong backend và trang thanh toán
   NGAY_SOM: 7, SUAT_SOM: 100,
   GIA_SOM: 299000, GIA: 399000, GIA_KEM: 790000, GIA_HV: 199000, USD: 29,
-  VSL_ID: ''             // mã YouTube VSL. Trống = hiện đoạn xem thử 1 phút
+  VSL_ID: 'SeZxiSY8aCI'  // mã YouTube VSL (không công khai, 28/10). Trống = hiện đoạn xem thử 1 phút
 };
 var GOI = {
   TSSK: { ten: 'Tự học 21 ngày' },
