@@ -78,7 +78,7 @@ footer{max-width:560px;margin:0 auto;padding:0 18px 40px;font-size:12.5px;color:
     <label for="sdtIn">Số điện thoại bạn đã đăng ký:</label>
     <input id="sdtIn" type="tel" inputmode="tel" placeholder="0912 345 678 hoặc +1 415 555 1234">
     <label for="goiIn">Gói đã chọn:</label>
-    <select id="goiIn"><option value="TSSK">Tự học</option><option value="TSZM">Có hỏi đáp cùng bác sĩ (790.000đ)</option><option value="TSVK">Việt kiều (29 USD)</option><option value="TSHV">Hội viên Khí Công (199.000đ)</option></select>
+    <select id="goiIn"><option value="TSSK">Tự học</option><option value="TSZM">Có hỏi đáp cùng bác sĩ (790.000đ)</option><option value="TSVK">Việt kiều (29 USD · kèm tư vấn 1-1)</option><option value="TSHV">Hội viên Khí Công (199.000đ)</option></select>
     <p class="err" id="sdtErr">Số điện thoại cần 8–15 chữ số, bạn kiểm tra lại giúp bác sĩ.</p>
     <button class="nut" type="button" onclick="tuNhap()">Hiện mã thanh toán</button>
     <p class="note">Chưa đăng ký? <a href="/tho-sau-song-khoe#goi">Quay lại trang khóa học</a>.</p>
@@ -87,11 +87,11 @@ footer{max-width:560px;margin:0 auto;padding:0 18px 40px;font-size:12.5px;color:
   <!-- Việt kiều: chọn cách trả -->
   <div class="tabs" id="tabs" hidden>
     <button type="button" id="tabThe" onclick="chonCach('the')">💳 Trả bằng thẻ<br><small>Visa / Mastercard · 29 USD</small></button>
-    <button type="button" id="tabCk" onclick="chonCach('ck')">🏦 Người thân ở VN<br><small>chuyển khoản hộ</small></button>
+    <button type="button" id="tabCk" onclick="chonCach('ck')">🏦 Người thân ở VN<br><small>chuyển khoản hộ 750.000đ</small></button>
   </div>
 
   <div class="card" id="theBox" hidden>
-    <div class="money"><b>29 USD</b><small>trọn khóa 21 ngày · như gói Tự học</small></div>
+    <div class="money"><b>29 USD</b><small>trọn khóa 21 ngày + 1 buổi tư vấn 1-1 với Bác sĩ Chúc</small></div>
     <div id="theCo" hidden>
       <a class="nut the" id="theLink" href="#" target="_blank" rel="noopener" onclick="try{gtag('event','the_click')}catch(e){}">Trả 29 USD bằng thẻ Visa / Mastercard</a>
       <p class="the-logo">Thanh toán qua cổng quốc tế an toàn · không cần tài khoản</p>
@@ -101,7 +101,7 @@ footer{max-width:560px;margin:0 auto;padding:0 18px 40px;font-size:12.5px;color:
       <p class="note" style="text-align:center;margin-top:10px">Cổng thanh toán thẻ đang được lắp đặt. Trong lúc chờ, bạn nhắn Zalo hoặc email cho Bác sĩ Chúc, bác sĩ gửi link thanh toán thẻ cho bạn trong ngày.</p>
       <div class="zalo-box">Ghi <b>họ tên + số điện thoại đã đăng ký + "Việt kiều 29 USD"</b>.
         <br><a class="btn-zalo" href="https://zalo.me/0947578088" target="_blank" rel="noopener">💬 Zalo Bác sĩ Chúc — 0947 578 088</a></div>
-      <p class="note" style="text-align:center">Nhanh hơn: chọn <b>"Người thân ở VN"</b> phía trên, nhờ người thân quét mã QR (giá trong nước).</p>
+      <p class="note" style="text-align:center">Nhanh hơn: chọn <b>"Người thân ở VN"</b> phía trên, nhờ người thân quét mã QR (750.000đ, cùng quyền lợi như trả 29 USD).</p>
     </div>
   </div>
 
@@ -140,12 +140,12 @@ footer{max-width:560px;margin:0 auto;padding:0 18px 40px;font-size:12.5px;color:
 var CH = {
   URL_BE: 'https://script.google.com/macros/s/AKfycbz1Of3_OKh8g3wJLdzLNLLBsFk_NSisZYGin5y82UMOAtPnr7-CXhCS6ylzdDujvJFr/exec',
   KEY: 'ebk-2026',
-  MO_BAN_TU: '2026-10-27', NGAY_SOM: 7, SUAT_SOM: 100,
-  GIA_SOM: 299000, GIA: 399000, GIA_KEM: 790000, GIA_HV: 199000, USD: 29,
+  MO_BAN_TU: '2026-10-27', NGAY_SOM: 13, SUAT_SOM: 100, // giá sớm tới hết CN 08/11 — KHỚP THO.NGAY_SOM backend
+  GIA_SOM: 299000, GIA: 399000, GIA_KEM: 790000, GIA_HV: 199000, USD: 29, GIA_VK: 750000, // GIA_VK = người thân ở VN chuyển khoản hộ gói Việt kiều (≈29 USD, kèm tư vấn 1-1)
   THE_URL: ''   // link thanh toán thẻ (cổng anh chọn). Trống = hiện hướng dẫn nhắn Zalo
 };
 var BANK = { ma: 'VPB', so: '1919896899', chu: 'NGUYEN XUAN CHUC' };
-var TEN_GOI = { TSSK: 'trọn khóa 21 ngày · gói Tự học', TSZM: 'gói Có hỏi đáp cùng bác sĩ · nhóm Zalo + 2 buổi Zoom', TSVK: 'giá trong nước · như gói Tự học', TSHV: 'hội viên Khí Công Trường Thọ · giảm 50%' };
+var TEN_GOI = { TSSK: 'trọn khóa 21 ngày · gói Tự học', TSZM: 'gói Có hỏi đáp cùng bác sĩ · nhóm Zalo + 2 buổi Zoom', TSVK: 'gói Việt kiều · trọn khóa + tư vấn 1-1', TSHV: 'hội viên Khí Công Trường Thọ · giảm 50%' };
 var DUOI = /\.html$/.test(location.pathname) ? '.html' : ''; // xem thử ở máy cần đuôi .html
 var TT = { ma: 'TSSK', sdt: '', ten: '', coEmail: true }, pollTimer = null, daBatPoll = false;
 
@@ -165,7 +165,7 @@ function layThongTin(){
   if (!/^TS(SK|ZM|VK|HV)$/.test(TT.ma)) TT.ma = 'TSSK';
 }
 
-/* Mã QR + nội dung. Gói Việt kiều chuyển khoản hộ = giá trong nước, nội dung vẫn ghi mã TSVK */
+/* Mã QR + nội dung. Gói Việt kiều chuyển khoản hộ = CH.GIA_VK (≈29 USD, kèm tư vấn 1-1), nội dung ghi mã TSVK */
 function hienQR(gia){
   var nd = TT.ma + ' ' + TT.sdt;
   document.getElementById('soTien').textContent = tien(gia);
@@ -205,7 +205,7 @@ function chonCach(c){
   document.getElementById('tabThe').classList.toggle('on', c === 'the');
   document.getElementById('tabCk').classList.toggle('on', c === 'ck');
   document.getElementById('theBox').hidden = c !== 'the';
-  if (c === 'ck') hienQR(giaTuTinh()); else document.getElementById('payBox').hidden = true;
+  if (c === 'ck') hienQR(CH.GIA_VK); else document.getElementById('payBox').hidden = true;
 }
 
 function kiemTra(lanDau){
