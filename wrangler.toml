@@ -27,6 +27,8 @@ routes = [
   { pattern = "drchuc.com/kiem-tra-lao-hoa*", zone_name = "drchuc.com" },
   { pattern = "drchuc.com/kiem-tra-loang-xuong*", zone_name = "drchuc.com" },
   { pattern = "drchuc.com/kiem-tra-mo-noi-tang*", zone_name = "drchuc.com" },
+  # Quiz "Bạn có đang thiếu Magie?" → phễu sản phẩm Solvitale Magnefol (lead → Google Sheet)
+  { pattern = "drchuc.com/kiem-tra-magie*", zone_name = "drchuc.com" },
   { pattern = "drchuc.com/kiem-tra-phoi*", zone_name = "drchuc.com" },
   { pattern = "drchuc.com/qua-phoi*", zone_name = "drchuc.com" },
 
